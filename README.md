@@ -1,0 +1,1 @@
+This tutorial is designed to teach skills and frameworks that are used by the real WFS application. As a trainee, your development should start from the head of the `master` branch in this repository.
