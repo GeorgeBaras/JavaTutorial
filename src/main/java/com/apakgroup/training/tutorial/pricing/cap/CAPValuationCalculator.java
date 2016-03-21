@@ -8,7 +8,7 @@ import com.apakgroup.training.tutorial.pricing.ValuationCalculator;
 
 public class CAPValuationCalculator implements ValuationCalculator {
 
-    private BigDecimal ADJUSTMENT_PERCENTAGE; // MISSING GETTER-SETTER
+    private BigDecimal ADJUSTMENT_PERCENTAGE; // MISSING GETTER-SETTER, probably 0.3
 
     @Override
     public BigDecimal calculatePrice(PriceRecord priceRecord, int currentMileage) {
@@ -17,6 +17,7 @@ public class CAPValuationCalculator implements ValuationCalculator {
     }
 
     protected BigDecimal calculatePriceFromBand(PriceBand closestBand, int currentMileage) {
+
         return null;
     }
 
@@ -33,14 +34,29 @@ public class CAPValuationCalculator implements ValuationCalculator {
     }
 
     protected PriceBand findClosestBandBelowMileage(PriceRecord priceRecord, int currentMileage) {
-        return null;
+        PriceBand closestBelow = null;
+        for (int i = priceRecord.getPriceBands().size() - 1; i >= 0; i--) {
+            if (currentMileage > priceRecord.getPriceBands().get(i).getMileage()) { // if the currentMileage > than the mileage of the last band
+                closestBelow = priceRecord.getPriceBands().get(i); // this is the band that we need so keep it and break
+                break;
+            }
+        }
+        return closestBelow;
     }
 
     protected PriceBand findClosestBandAboveMileage(PriceRecord priceRecord, int currentMileage) {
-        return null;
+        PriceBand closestAbove = null;
+        for (int i = 0; i <= priceRecord.getPriceBands().size() - 1; i++) {
+            if (currentMileage < priceRecord.getPriceBands().get(i).getMileage()) { // if the currentMileage > than the mileage of the last band
+                closestAbove = priceRecord.getPriceBands().get(i); // this is the band that we need so keep it and break
+                break;
+            }
+        }
+        return closestAbove;
     }
 
     protected PriceBand findExactPriceBand(PriceRecord priceRecord, int currentMileage) {
+
         return null;
     }
 
