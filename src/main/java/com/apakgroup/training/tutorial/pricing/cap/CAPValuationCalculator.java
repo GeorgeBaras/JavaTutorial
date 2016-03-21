@@ -30,7 +30,13 @@ public class CAPValuationCalculator implements ValuationCalculator {
     }
 
     protected BigDecimal calculatePriceBetweenTwoBands(PriceBand bandBelow, PriceBand bandAbove, int currentMileage) {
-        return null;
+        // Formula #1
+        int differenceInMileage = bandAbove.getMileage() - bandBelow.getMileage();
+        BigDecimal differenceInPrice = bandBelow.getValuation().subtract(bandAbove.getValuation());
+        BigDecimal priceAdjustment = differenceInPrice.divide(new BigDecimal(differenceInMileage)); // money/1000miles
+        priceAdjustment = priceAdjustment.multiply(new BigDecimal(currentMileage - bandBelow.getMileage()));
+
+        return bandBelow.getValuation().subtract(priceAdjustment);
     }
 
     protected PriceBand findClosestBandBelowMileage(PriceRecord priceRecord, int currentMileage) {
@@ -47,7 +53,7 @@ public class CAPValuationCalculator implements ValuationCalculator {
     protected PriceBand findClosestBandAboveMileage(PriceRecord priceRecord, int currentMileage) {
         PriceBand closestAbove = null;
         for (int i = 0; i <= priceRecord.getPriceBands().size() - 1; i++) {
-            if (currentMileage < priceRecord.getPriceBands().get(i).getMileage()) { // if the currentMileage > than the mileage of the last band
+            if (currentMileage < priceRecord.getPriceBands().get(i).getMileage()) { // if the currentMileage < than the mileage of the first band
                 closestAbove = priceRecord.getPriceBands().get(i); // this is the band that we need so keep it and break
                 break;
             }
