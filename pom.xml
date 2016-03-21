@@ -4,7 +4,7 @@
   <artifactId>tutorial-your-name</artifactId>
   <version>1-SNAPSHOT</version>
   <packaging>jar</packaging>
-  <name>Tutorial Your Name</name>
+  <name>Tutorial George Baras</name>
   <description>Training tutorial project covering standard skills and libraries used by WFS</description>
   <build>
     <plugins>
