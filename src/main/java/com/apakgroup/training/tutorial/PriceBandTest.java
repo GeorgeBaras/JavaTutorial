@@ -11,18 +11,22 @@ import com.apakgroup.training.tutorial.pricing.PriceBand;
 
 public class PriceBandTest {
 
+    PriceBand lowBand = new PriceBandImpl(10, new BigDecimal(20000.0));
+
+    PriceBand midBand = new PriceBandImpl(15, new BigDecimal(15000.0));
+
+    PriceBand highBand = new PriceBandImpl(20, new BigDecimal(10000.0));
+
     @Test
     public void testGetMileage() {
-        PriceBand pb = new PriceBandImpl(15, new BigDecimal(15000.0));
-        int receivedMileage = pb.getMileage();
-        int expectedMileage = 15;
+        int receivedMileage = lowBand.getMileage();
+        int expectedMileage = 10;
         assertEquals("failure - Mileage not correct", expectedMileage, receivedMileage);
     }
 
     @Test
     public void testGetValuation() {
-        PriceBand pb = new PriceBandImpl(15, new BigDecimal(15000.0));
-        BigDecimal receivedValuation = pb.getValuation();
+        BigDecimal receivedValuation = midBand.getValuation();
         BigDecimal expectedValuation = new BigDecimal(15000.0);
         assertEquals("failure - Valuation not correct", expectedValuation, receivedValuation);
     }
