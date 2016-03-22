@@ -21,7 +21,15 @@ public class PriceRecordTest {
 
     PriceBand highBand = new PriceBandImpl(20, new BigDecimal(10000.0));
 
-    List<PriceBand> priceBands = new ArrayList<PriceBand>() {
+    List<PriceBand> priceBands2 = new ArrayList<PriceBand>() {
+
+        {
+            add(lowBand);
+            add(midBand);
+        }
+    };
+
+    List<PriceBand> priceBands3 = new ArrayList<PriceBand>() {
 
         {
             add(lowBand);
@@ -31,17 +39,49 @@ public class PriceRecordTest {
         }
     };
 
+    PriceRecord lowOnly = new PriceRecordImpl("1111", lowBand);
+
+    PriceRecord lowAndMid = new PriceRecordImpl("2222", priceBands2);
+
+    PriceRecord allBands = new PriceRecordImpl("3333", priceBands3);
+
     @Test
     public void testGetLookupCode() {
-        PriceRecord pr = new PriceRecordImpl("1111", lowBand);
         String expectedLookupCode = "1111";
-        String receivedLookupCode = pr.getLookupCode();
+        String receivedLookupCode = lowOnly.getLookupCode();
         assertEquals("failure - LookupCode does not match", expectedLookupCode, receivedLookupCode);
     }
 
     @Test
-    public void testGetPriceBands() {
-        PriceRecord pr = new PriceRecordImpl("1111", priceBands);
+    public void testGetLowPriceBand() {
+        PriceRecord pr = new PriceRecordImpl("1111", lowBand);
+        List<PriceBand> expectedPriceBands = new ArrayList<PriceBand>() {
+
+            {
+                add(lowBand);
+            }
+        };
+        List<PriceBand> receivedPriceBands = pr.getPriceBands();
+        assertEquals("failure - PriceBands do not match", expectedPriceBands, receivedPriceBands);
+    }
+
+    @Test
+    public void testGetLowAndMidPriceBands() {
+        PriceRecord pr = new PriceRecordImpl("1111", priceBands2);
+        List<PriceBand> expectedPriceBands = new ArrayList<PriceBand>() {
+
+            {
+                add(lowBand);
+                add(midBand);
+            }
+        };
+        List<PriceBand> receivedPriceBands = pr.getPriceBands();
+        assertEquals("failure - PriceBands do not match", expectedPriceBands, receivedPriceBands);
+    }
+
+    @Test
+    public void testGetAllBands() {
+        PriceRecord pr = new PriceRecordImpl("1111", priceBands3);
         List<PriceBand> expectedPriceBands = new ArrayList<PriceBand>() {
 
             {
