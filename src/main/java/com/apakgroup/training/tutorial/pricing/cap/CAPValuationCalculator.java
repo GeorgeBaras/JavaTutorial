@@ -12,6 +12,33 @@ public class CAPValuationCalculator implements ValuationCalculator {
 
     @Override
     public BigDecimal calculatePrice(PriceRecord priceRecord, int currentMileage) {
+        // check if exact match
+        if (findExactPriceBand(priceRecord, currentMileage) != null) {
+            return findExactPriceBand(priceRecord, currentMileage).getValuation();
+        }
+        //check between bands
+        if (calculatePriceBetweenTwoBands(findClosestBandBelowMileage(priceRecord, currentMileage),
+                findClosestBandAboveMileage(priceRecord, currentMileage), currentMileage) != null) {
+            return calculatePriceBetweenTwoBands(findClosestBandBelowMileage(priceRecord, currentMileage),
+                    findClosestBandAboveMileage(priceRecord, currentMileage), currentMileage);
+        }
+        //check beyond bands
+        if (calculatePriceFromBand(findBandBeyond(priceRecord, currentMileage), currentMileage) != null) {
+            return calculatePriceFromBand(findBandBeyond(priceRecord, currentMileage), currentMileage);
+        }
+        return null;
+    }
+
+    // extra method to find the band beyond which the mileage lies
+    protected PriceBand findBandBeyond(PriceRecord priceRecord, int currentMileage) {
+        if (!priceRecord.getPriceBands().isEmpty() && currentMileage > priceRecord.getPriceBands()
+                .get(priceRecord.getPriceBands().size() - 1).getMileage()) {
+            return priceRecord.getPriceBands().get(priceRecord.getPriceBands().size() - 1);
+        }
+        if (!priceRecord.getPriceBands().isEmpty()
+                && currentMileage < priceRecord.getPriceBands().get(0).getMileage()) {
+            return priceRecord.getPriceBands().get(0);
+        }
 
         return null;
     }
@@ -44,12 +71,14 @@ public class CAPValuationCalculator implements ValuationCalculator {
 
     protected BigDecimal calculatePriceBetweenTwoBands(PriceBand bandBelow, PriceBand bandAbove, int currentMileage) {
         // Formula #1
-        int differenceInMileage = bandAbove.getMileage() - bandBelow.getMileage();
-        BigDecimal differenceInPrice = bandBelow.getValuation().subtract(bandAbove.getValuation());
-        BigDecimal priceAdjustment = differenceInPrice.divide(new BigDecimal(differenceInMileage)); // money/1000miles
-        priceAdjustment = priceAdjustment.multiply(new BigDecimal(currentMileage - bandBelow.getMileage()));
-
-        return bandBelow.getValuation().subtract(priceAdjustment);
+        if (bandBelow != null && bandAbove != null) {
+            int differenceInMileage = bandAbove.getMileage() - bandBelow.getMileage();
+            BigDecimal differenceInPrice = bandBelow.getValuation().subtract(bandAbove.getValuation());
+            BigDecimal priceAdjustment = differenceInPrice.divide(new BigDecimal(differenceInMileage)); // money/1000miles
+            priceAdjustment = priceAdjustment.multiply(new BigDecimal(currentMileage - bandBelow.getMileage()));
+            return bandBelow.getValuation().subtract(priceAdjustment);
+        }
+        return null;
     }
 
     protected PriceBand findClosestBandBelowMileage(PriceRecord priceRecord, int currentMileage) {
