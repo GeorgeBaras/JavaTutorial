@@ -25,4 +25,12 @@ public class PriceBandImpl implements PriceBand {
         return this.valuation;
     }
 
+    public void setValuation(BigDecimal valuation) {
+        this.valuation = valuation;
+    }
+
+    public void setMileage(int mileage) {
+        this.mileage = mileage;
+    }
+
 }
