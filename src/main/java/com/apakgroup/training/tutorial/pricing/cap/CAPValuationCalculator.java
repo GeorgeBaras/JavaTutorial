@@ -12,12 +12,17 @@ public class CAPValuationCalculator implements ValuationCalculator {
 
     @Override
     public BigDecimal calculatePrice(PriceRecord priceRecord, int currentMileage) {
-        // TODO Auto-generated method stub
+
         return null;
     }
 
     protected BigDecimal calculatePriceFromBand(PriceBand closestBand, int currentMileage) {
-
+        if (currentMileage > closestBand.getMileage()) {
+            return adjustPriceDown(closestBand.getValuation(), currentMileage);
+        }
+        if (currentMileage < closestBand.getMileage()) {
+            return adjustPriceUp(closestBand.getValuation(), currentMileage);
+        }
         return null;
     }
 
@@ -70,8 +75,13 @@ public class CAPValuationCalculator implements ValuationCalculator {
     }
 
     protected PriceBand findExactPriceBand(PriceRecord priceRecord, int currentMileage) {
-
+        for (PriceBand band : priceRecord.getPriceBands()) {
+            if (band.getMileage() == currentMileage) {
+                return band;
+            }
+        }
         return null;
+
     }
 
 }
