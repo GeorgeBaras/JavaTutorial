@@ -8,7 +8,7 @@ import com.apakgroup.training.tutorial.pricing.ValuationCalculator;
 
 public class CAPValuationCalculator implements ValuationCalculator {
 
-    private BigDecimal ADJUSTMENT_PERCENTAGE; // MISSING GETTER-SETTER, probably 0.3
+    private BigDecimal ADJUSTMENT_PERCENTAGE = new BigDecimal(0.003);
 
     @Override
     public BigDecimal calculatePrice(PriceRecord priceRecord, int currentMileage) {
@@ -22,11 +22,19 @@ public class CAPValuationCalculator implements ValuationCalculator {
     }
 
     protected BigDecimal adjustPriceUp(BigDecimal valuation, int mileageAdjustment) {
-        return null;
+        BigDecimal price = valuation;
+        for (int i = 0; i < mileageAdjustment; i++) {
+            price = price.add(price.multiply(ADJUSTMENT_PERCENTAGE));
+        }
+        return price;
     }
 
     protected BigDecimal adjustPriceDown(BigDecimal valuation, int mileageAdjustment) {
-        return null;
+        BigDecimal price = valuation;
+        for (int i = 0; i < mileageAdjustment; i++) {
+            price = price.subtract(price.multiply(ADJUSTMENT_PERCENTAGE));
+        }
+        return price;
     }
 
     protected BigDecimal calculatePriceBetweenTwoBands(PriceBand bandBelow, PriceBand bandAbove, int currentMileage) {
