@@ -1,6 +1,8 @@
 package com.apakgroup.training.tutorial.pricing.cap;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 
 import com.apakgroup.training.tutorial.pricing.PriceBand;
 import com.apakgroup.training.tutorial.pricing.PriceRecord;
@@ -9,6 +11,8 @@ import com.apakgroup.training.tutorial.pricing.ValuationCalculator;
 public class CAPValuationCalculator implements ValuationCalculator {
 
     private BigDecimal ADJUSTMENT_PERCENTAGE = new BigDecimal("0.003");
+
+    private MathContext mc = new MathContext(4, RoundingMode.HALF_UP);
 
     @Override
     public BigDecimal calculatePrice(PriceRecord priceRecord, int currentMileage) {
@@ -56,7 +60,7 @@ public class CAPValuationCalculator implements ValuationCalculator {
     protected BigDecimal adjustPriceUp(BigDecimal valuation, int mileageAdjustment) {
         BigDecimal price = valuation;
         for (int i = 0; i < mileageAdjustment; i++) {
-            price = price.add(price.multiply(ADJUSTMENT_PERCENTAGE));
+            price = price.add(price.multiply(ADJUSTMENT_PERCENTAGE, mc));
         }
         return price;
     }
@@ -64,7 +68,7 @@ public class CAPValuationCalculator implements ValuationCalculator {
     protected BigDecimal adjustPriceDown(BigDecimal valuation, int mileageAdjustment) {
         BigDecimal price = valuation;
         for (int i = 0; i < mileageAdjustment; i++) {
-            price = price.subtract(price.multiply(ADJUSTMENT_PERCENTAGE));
+            price = price.subtract(price.multiply(ADJUSTMENT_PERCENTAGE, mc));
         }
         return price;
     }
