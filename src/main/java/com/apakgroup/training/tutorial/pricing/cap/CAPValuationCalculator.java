@@ -8,7 +8,7 @@ import com.apakgroup.training.tutorial.pricing.ValuationCalculator;
 
 public class CAPValuationCalculator implements ValuationCalculator {
 
-    private BigDecimal ADJUSTMENT_PERCENTAGE = new BigDecimal(0.003);
+    private BigDecimal ADJUSTMENT_PERCENTAGE = new BigDecimal("0.003");
 
     @Override
     public BigDecimal calculatePrice(PriceRecord priceRecord, int currentMileage) {
