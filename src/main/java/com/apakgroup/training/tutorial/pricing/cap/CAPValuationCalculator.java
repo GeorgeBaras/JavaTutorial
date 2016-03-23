@@ -29,7 +29,7 @@ public class CAPValuationCalculator implements ValuationCalculator {
         return null;
     }
 
-    // extra method to find the band beyond which the mileage lies
+    // EXTRA method to find the band beyond which the mileage lies
     protected PriceBand findBandBeyond(PriceRecord priceRecord, int currentMileage) {
         if (!priceRecord.getPriceBands().isEmpty() && currentMileage > priceRecord.getPriceBands()
                 .get(priceRecord.getPriceBands().size() - 1).getMileage()) {

@@ -12,7 +12,6 @@ import com.apakgroup.training.tutorial.model.PriceBandImpl;
 import com.apakgroup.training.tutorial.model.PriceRecordImpl;
 import com.apakgroup.training.tutorial.pricing.PriceBand;
 import com.apakgroup.training.tutorial.pricing.PriceRecord;
-import com.apakgroup.training.tutorial.pricing.ValuationCalculator;
 import com.apakgroup.training.tutorial.pricing.cap.CAPValuationCalculator;
 
 public class CAPTest {
@@ -47,7 +46,7 @@ public class CAPTest {
 
     PriceRecord allBands = new PriceRecordImpl("3333", priceBands3);
 
-    ValuationCalculator capValuationCalculator = new CAPValuationCalculator();
+    CAPValuationCalculator capValuationCalculator = new CAPValuationCalculator();
 
     // Mileage exact band mileage
     @Test
