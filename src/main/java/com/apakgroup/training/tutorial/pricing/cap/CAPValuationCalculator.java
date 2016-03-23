@@ -45,10 +45,10 @@ public class CAPValuationCalculator implements ValuationCalculator {
 
     protected BigDecimal calculatePriceFromBand(PriceBand closestBand, int currentMileage) {
         if (currentMileage > closestBand.getMileage()) {
-            return adjustPriceDown(closestBand.getValuation(), currentMileage);
+            return adjustPriceDown(closestBand.getValuation(), currentMileage - closestBand.getMileage());
         }
         if (currentMileage < closestBand.getMileage()) {
-            return adjustPriceUp(closestBand.getValuation(), currentMileage);
+            return adjustPriceUp(closestBand.getValuation(), closestBand.getMileage() - currentMileage);
         }
         return null;
     }
