@@ -3,6 +3,7 @@ package com.apakgroup.training.tutorial.pricing.cap;
 import static org.junit.Assert.assertEquals;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +60,7 @@ public class CAPprotectedMethodsTest {
     @Test
     public void testCalculatePriceFromBand() {
         BigDecimal expectedPrice = new BigDecimal("20120.18");
-        BigDecimal receivedPrice = cap.calculatePriceFromBand(lowBand, 8);
+        BigDecimal receivedPrice = cap.calculatePriceFromBand(lowBand, 8).round(new MathContext(7));
         assertEquals("failure - Price not correct", expectedPrice, receivedPrice);
     }
 
@@ -67,7 +68,7 @@ public class CAPprotectedMethodsTest {
     @Test
     public void testAdjustPriceUp() {
         BigDecimal expectedPrice = new BigDecimal("20120.18");
-        BigDecimal receivedPrice = cap.adjustPriceUp(lowBand.getValuation(), 2); //the number is the mile difference
+        BigDecimal receivedPrice = cap.adjustPriceUp(lowBand.getValuation(), 2).round(new MathContext(7)); //the number is the mile difference
         assertEquals("failure - Price not correct", expectedPrice, receivedPrice);
     }
 
@@ -75,7 +76,7 @@ public class CAPprotectedMethodsTest {
     @Test
     public void testAdjustPriceDown() {
         BigDecimal expectedPrice = new BigDecimal("19408.04");
-        BigDecimal receivedPrice = cap.adjustPriceDown(lowBand.getValuation(), 10);
+        BigDecimal receivedPrice = cap.adjustPriceDown(lowBand.getValuation(), 10).round(new MathContext(7));
         assertEquals("failure - Price not correct", expectedPrice, receivedPrice);
     }
 

@@ -12,9 +12,7 @@ public class CAPValuationCalculator implements ValuationCalculator {
 
     private BigDecimal ADJUSTMENT_PERCENTAGE = new BigDecimal("0.003");
 
-    private MathContext mc = new MathContext(4, RoundingMode.HALF_EVEN);
-
-    private MathContext mc1 = new MathContext(4, RoundingMode.FLOOR);
+    //  private MathContext mc = new MathContext(4, RoundingMode.HALF_EVEN);
 
     @Override
     public BigDecimal calculatePrice(PriceRecord priceRecord, int currentMileage) {
@@ -62,7 +60,7 @@ public class CAPValuationCalculator implements ValuationCalculator {
     protected BigDecimal adjustPriceUp(BigDecimal valuation, int mileageAdjustment) {
         BigDecimal price = valuation;
         for (int i = 0; i < mileageAdjustment; i++) {
-            price = price.add(price.multiply(ADJUSTMENT_PERCENTAGE, mc));
+            price = price.add(price.multiply(ADJUSTMENT_PERCENTAGE));
         }
         return price;
     }
@@ -70,7 +68,7 @@ public class CAPValuationCalculator implements ValuationCalculator {
     protected BigDecimal adjustPriceDown(BigDecimal valuation, int mileageAdjustment) {
         BigDecimal price = valuation;
         for (int i = 0; i < mileageAdjustment; i++) {
-            price = price.subtract(price.multiply(ADJUSTMENT_PERCENTAGE, mc));
+            price = price.subtract(price.multiply(ADJUSTMENT_PERCENTAGE));
         }
         return price;
     }
@@ -80,7 +78,8 @@ public class CAPValuationCalculator implements ValuationCalculator {
         if (bandBelow != null && bandAbove != null) {
             int differenceInMileage = bandAbove.getMileage() - bandBelow.getMileage();
             BigDecimal differenceInPrice = bandBelow.getValuation().subtract(bandAbove.getValuation());
-            BigDecimal priceAdjustment = differenceInPrice.divide(new BigDecimal(differenceInMileage), mc1); // money/1000miles
+            BigDecimal priceAdjustment = differenceInPrice.divide(new BigDecimal(differenceInMileage),
+                    new MathContext(10, RoundingMode.HALF_EVEN)); // precision of at least 6 is needed
             priceAdjustment = priceAdjustment.multiply(new BigDecimal(currentMileage - bandBelow.getMileage()));
             return bandBelow.getValuation().subtract(priceAdjustment);
         }
