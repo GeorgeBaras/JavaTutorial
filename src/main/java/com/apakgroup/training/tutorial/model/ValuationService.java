@@ -10,23 +10,24 @@ public class ValuationService {
     private ValuationCalculator valuationCalculator;
 
     public void valueVehicle(Vehicle vehicle) {
-
+        vehicle.setValue(this.getCalculator().calculatePrice(this.getDAO().getPriceRecord(vehicle.getLookupCode()),
+                vehicle.getMileage()));
     }
 
     public void setDAO(ValuationDAO valuationDAO) {
-
+        this.valuationDAO = valuationDAO;
     }
 
     public void setCalculator(ValuationCalculator valuationCalculator) {
-
+        this.valuationCalculator = valuationCalculator;
     }
 
     public ValuationDAO getDAO() {
-        return null;
+        return this.valuationDAO;
     }
 
     public ValuationCalculator getCalculator() {
-        return null;
+        return this.valuationCalculator;
     }
 
 }
