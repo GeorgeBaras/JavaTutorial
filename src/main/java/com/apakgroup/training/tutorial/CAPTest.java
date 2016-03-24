@@ -113,7 +113,7 @@ public class CAPTest {
 
     @Test
     public void testCalculatePriceBelowMinimumBand1() {
-        BigDecimal expectedPrice = new BigDecimal("20060.0");
+        BigDecimal expectedPrice = new BigDecimal("20060.00");
         BigDecimal receivedPrice = capValuationCalculator.calculatePrice(lowOnly, 9);
         assertEquals("failure - Price not correct", expectedPrice, receivedPrice);
     }
@@ -127,9 +127,9 @@ public class CAPTest {
 
     // Edge Case1: new bands and current mileage==2
 
-    PriceBand edgeCaseBand1 = new PriceBandImpl(1, new BigDecimal("50000.0"));
+    PriceBand edgeCaseBand1 = new PriceBandImpl(1, new BigDecimal("50000.00"));
 
-    PriceBand edgeCaseBand2 = new PriceBandImpl(10, new BigDecimal("25000.0"));
+    PriceBand edgeCaseBand2 = new PriceBandImpl(10, new BigDecimal("25000.00"));
 
     List<PriceBand> edgeCasePriceBands = new ArrayList<PriceBand>() {
 
@@ -144,14 +144,14 @@ public class CAPTest {
     @Test
     public void testCalculatePriceForNewBands() {
         BigDecimal expectedPrice = new BigDecimal("47222.22");
-        BigDecimal receivedPrice = capValuationCalculator.calculatePrice(edgeCasePriceRecord, 2);
+        BigDecimal receivedPrice = capValuationCalculator.calculatePrice(edgeCasePriceRecord, 2); // problem with precision in division of "calculatePriceBetweenTwoBands"
         assertEquals("failure - Price not correct", expectedPrice, receivedPrice);
     }
 
     // Edge Case2: allbands and 1million miles
     @Test
     public void testCalculatePriceForMMmiles() {
-        BigDecimal expectedPrice = new BigDecimal("526.3"); // 526.3...
+        BigDecimal expectedPrice = new BigDecimal("526.332"); // 526.332...
         BigDecimal receivedPrice = capValuationCalculator.calculatePrice(allBands, 1000);
         assertEquals("failure - Price not correct", expectedPrice, receivedPrice);
     }

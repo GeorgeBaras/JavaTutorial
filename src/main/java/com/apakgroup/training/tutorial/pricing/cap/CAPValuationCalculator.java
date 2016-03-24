@@ -12,7 +12,9 @@ public class CAPValuationCalculator implements ValuationCalculator {
 
     private BigDecimal ADJUSTMENT_PERCENTAGE = new BigDecimal("0.003");
 
-    private MathContext mc = new MathContext(4, RoundingMode.HALF_UP);
+    private MathContext mc = new MathContext(4, RoundingMode.HALF_EVEN);
+
+    private MathContext mc1 = new MathContext(4, RoundingMode.FLOOR);
 
     @Override
     public BigDecimal calculatePrice(PriceRecord priceRecord, int currentMileage) {
@@ -78,7 +80,7 @@ public class CAPValuationCalculator implements ValuationCalculator {
         if (bandBelow != null && bandAbove != null) {
             int differenceInMileage = bandAbove.getMileage() - bandBelow.getMileage();
             BigDecimal differenceInPrice = bandBelow.getValuation().subtract(bandAbove.getValuation());
-            BigDecimal priceAdjustment = differenceInPrice.divide(new BigDecimal(differenceInMileage)); // money/1000miles
+            BigDecimal priceAdjustment = differenceInPrice.divide(new BigDecimal(differenceInMileage), mc1); // money/1000miles
             priceAdjustment = priceAdjustment.multiply(new BigDecimal(currentMileage - bandBelow.getMileage()));
             return bandBelow.getValuation().subtract(priceAdjustment);
         }
