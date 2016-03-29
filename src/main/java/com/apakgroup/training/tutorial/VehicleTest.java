@@ -2,6 +2,7 @@ package com.apakgroup.training.tutorial;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
@@ -20,18 +21,18 @@ public class VehicleTest {
     @Before
     public void create() {
         vehicle = mock(Vehicle.class);
-        //when(vehicle.setValue(new BigDecimal("10000.00"));
         when(vehicle.getValue()).thenReturn(new BigDecimal("10000.00"));
         when(vehicle.getLookupCode()).thenReturn("LookupCode");
         when(vehicle.getMileage()).thenReturn(10);
+    }
+
+    @Test
+    public void testSetValue() {
+        vehicle.setValue(new BigDecimal("1"));
+        verify(vehicle).setValue(new BigDecimal("1"));
 
     }
 
-    /*
-     * @Test public void testSetValue() {
-     * 
-     * fail("Not yet implemented"); }
-     */
     @Test
     public void testGetValue() {
         BigDecimal expectedValue = new BigDecimal("10000.00");

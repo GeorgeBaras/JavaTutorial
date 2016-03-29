@@ -1,8 +1,8 @@
 package com.apakgroup.training.tutorial;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import org.junit.Before;
@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 
 import com.apakgroup.training.tutorial.model.ValuationService;
+import com.apakgroup.training.tutorial.model.Vehicle;
 import com.apakgroup.training.tutorial.pricing.ValuationCalculator;
 import com.apakgroup.training.tutorial.pricing.ValuationDAO;
 
@@ -22,11 +23,14 @@ public class ValuationServiceTest {
 
     ValuationDAO valuationDAO;
 
+    Vehicle vehicle;
+
     @Before
     public void create() {
         valuationService = mock(ValuationService.class);
         valuationCalculator = mock(ValuationCalculator.class);
         valuationDAO = mock(ValuationDAO.class);
+        vehicle = mock(Vehicle.class);
 
         when(valuationService.getCalculator()).thenReturn(this.valuationCalculator);
         when(valuationService.getDAO()).thenReturn(this.valuationDAO);
@@ -34,17 +38,20 @@ public class ValuationServiceTest {
 
     @Test
     public void testValueVehicle() {
-        fail("Not yet implemented"); // TODO
-    }
-
-    @Test
-    public void testSetDAO() {
-        fail("Not yet implemented"); // TODO
+        valuationService.valueVehicle(vehicle);
+        verify(valuationService).valueVehicle(vehicle);
     }
 
     @Test
     public void testSetCalculator() {
-        fail("Not yet implemented"); // TODO
+        valuationService.setCalculator(valuationCalculator);
+        verify(valuationService).setCalculator(valuationCalculator);
+    }
+
+    @Test
+    public void testSetDAO() {
+        valuationService.setDAO(valuationDAO);
+        verify(valuationService).setDAO(valuationDAO);
     }
 
     @Test
