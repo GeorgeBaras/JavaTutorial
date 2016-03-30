@@ -2,11 +2,11 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.apakgroup.training</groupId>
   <artifactId>tutorial-George-Baras</artifactId>
-  <version>1-SNAPSHOT</version>
+  <version>4-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>Tutorial George Baras</name>
   <description>Training tutorial project covering standard skills and libraries used by WFS</description>
-  <build>
+  <build> 
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -27,21 +27,63 @@
     </plugins>
   </build>
   <properties>
-		<junit.version>4.12</junit.version>
-		
-	</properties>
+		<junit.version>4.12</junit.version>	
+		<log4j.version>2.5</log4j.version>
+		<slf4j.version>1.7.19</slf4j.version>
+  </properties>
+  
   <dependencies>
+  	
   	<dependency>
-  		<groupId>junit</groupId>
-  		<artifactId>junit</artifactId>
-  		<version>${junit.version}</version>
-  		<scope>test</scope>
+  	<groupId>junit</groupId>
+  	<artifactId>junit</artifactId>
+  	<version>${junit.version}</version>
+  	<scope>test</scope>
   	</dependency>
+  	
   	<dependency>
-  		<groupId>org.mockito</groupId>
-  		<artifactId>mockito-core</artifactId>
-  		<version>1.10.19</version>
-  		<scope>test</scope>
-	</dependency>	
-  </dependencies>
+  	<groupId>org.mockito</groupId>
+  	<artifactId>mockito-core</artifactId>
+  	<version>1.10.19</version>
+  	<scope>test</scope>
+	</dependency>
+	
+	<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-api</artifactId>
+    <version>${slf4j.version}</version>
+ 	</dependency>
+	
+	<dependency>
+    <groupId>org.apache.logging.log4j</groupId>
+    <artifactId>log4j-api</artifactId>
+    <version>${log4j.version}</version>
+ 	</dependency>
+
+	<dependency>
+    <groupId>org.apache.logging.log4j</groupId>
+    <artifactId>log4j-core</artifactId>
+    <version>${log4j.version}</version>
+	</dependency>
+	
+	<dependency>
+    <groupId>org.apache.logging.log4j</groupId>
+    <artifactId>log4j-slf4j-impl</artifactId>
+    <version>${log4j.version}</version>
+	</dependency>
+
+	<dependency>
+	<groupId>javax.mail</groupId>
+	<artifactId>mail</artifactId>
+	<version>1.4</version>
+	</dependency>
+
+	<dependency>
+	<groupId>com.lmax</groupId>
+	<artifactId>disruptor</artifactId>
+	<version>3.3.4</version>
+	</dependency>
+	
+</dependencies>
+
 </project>

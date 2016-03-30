@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.apakgroup.training.tutorial.model.PriceBandImpl;
 import com.apakgroup.training.tutorial.model.PriceRecordImpl;
@@ -16,6 +18,8 @@ import com.apakgroup.training.tutorial.pricing.PriceRecord;
 import com.apakgroup.training.tutorial.pricing.cap.CAPValuationCalculator;
 
 public class CAPTest {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(CAPTest.class);
 
     PriceBand lowBand = new PriceBandImpl(10, new BigDecimal("20000.0"));
 
@@ -54,6 +58,7 @@ public class CAPTest {
     public void testCalculatePriceExactBand1() {
         BigDecimal expectedPrice = new BigDecimal("15000.0");
         BigDecimal receivedPrice = capValuationCalculator.calculatePrice(lowAndMid, 15);
+        LOGGER.debug("Testing Calculating price from exact priceBand");
         assertEquals("failure - Price not correct", expectedPrice, receivedPrice);
     }
 
@@ -61,6 +66,7 @@ public class CAPTest {
     public void testCalculatePriceExactBand2() {
         BigDecimal expectedPrice = new BigDecimal("15000.0");
         BigDecimal receivedPrice = capValuationCalculator.calculatePrice(allBands, 15);
+        LOGGER.info("Testing Band 2 for expectedPrice: {}", expectedPrice);
         assertEquals("failure - Price not correct", expectedPrice, receivedPrice);
     }
 

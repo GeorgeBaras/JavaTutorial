@@ -4,11 +4,16 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.apakgroup.training.tutorial.pricing.PriceBand;
 import com.apakgroup.training.tutorial.pricing.PriceRecord;
 import com.apakgroup.training.tutorial.pricing.ValuationCalculator;
 
 public class CAPValuationCalculator implements ValuationCalculator {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(CAPValuationCalculator.class);
 
     private BigDecimal ADJUSTMENT_PERCENTAGE = new BigDecimal("0.003");
 
@@ -18,16 +23,19 @@ public class CAPValuationCalculator implements ValuationCalculator {
     public BigDecimal calculatePrice(PriceRecord priceRecord, int currentMileage) {
         // check if exact match
         if (findExactPriceBand(priceRecord, currentMileage) != null) {
+            LOGGER.debug("Calculating price from exact priceBand");
             return findExactPriceBand(priceRecord, currentMileage).getValuation();
         }
         //check between bands
         if (calculatePriceBetweenTwoBands(findClosestBandBelowMileage(priceRecord, currentMileage),
                 findClosestBandAboveMileage(priceRecord, currentMileage), currentMileage) != null) {
+            LOGGER.debug("Calculating price between two priceBands");
             return calculatePriceBetweenTwoBands(findClosestBandBelowMileage(priceRecord, currentMileage),
                     findClosestBandAboveMileage(priceRecord, currentMileage), currentMileage);
         }
         //check beyond bands
         if (calculatePriceFromBand(findBandBeyond(priceRecord, currentMileage), currentMileage) != null) {
+            LOGGER.debug("Calculating price beyond priceBands");
             return calculatePriceFromBand(findBandBeyond(priceRecord, currentMileage), currentMileage);
         }
         return null;
@@ -35,6 +43,7 @@ public class CAPValuationCalculator implements ValuationCalculator {
 
     // EXTRA method to find the band beyond which the mileage lies
     protected PriceBand findBandBeyond(PriceRecord priceRecord, int currentMileage) {
+
         if (!priceRecord.getPriceBands().isEmpty() && currentMileage > priceRecord.getPriceBands()
                 .get(priceRecord.getPriceBands().size() - 1).getMileage()) {
             return priceRecord.getPriceBands().get(priceRecord.getPriceBands().size() - 1);
@@ -61,6 +70,7 @@ public class CAPValuationCalculator implements ValuationCalculator {
         BigDecimal price = valuation;
         for (int i = 0; i < mileageAdjustment; i++) {
             price = price.add(price.multiply(ADJUSTMENT_PERCENTAGE));
+            LOGGER.trace("Price in AdjustPriceUp has become: {}", price);
         }
         return price;
     }
@@ -69,6 +79,7 @@ public class CAPValuationCalculator implements ValuationCalculator {
         BigDecimal price = valuation;
         for (int i = 0; i < mileageAdjustment; i++) {
             price = price.subtract(price.multiply(ADJUSTMENT_PERCENTAGE));
+            LOGGER.trace("Price in AdjustPriceDown has become: {}", price);
         }
         return price;
     }
