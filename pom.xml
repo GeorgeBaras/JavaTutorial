@@ -26,6 +26,19 @@
 		</plugin>
     </plugins>
   </build>
+  
+  	<dependencyManagement>
+  	<dependencies>
+    <dependency>   
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-framework-bom</artifactId>
+      <version>4.1.7.RELEASE</version>
+      <type>pom</type>
+      <scope>import</scope>
+   	 </dependency>
+  	</dependencies>
+	</dependencyManagement>
+  
   <properties>
 		<junit.version>4.12</junit.version>	
 		<log4j.version>2.5</log4j.version>
@@ -83,6 +96,36 @@
 	<artifactId>disruptor</artifactId>
 	<version>3.3.4</version>
 	</dependency>
+	
+	<dependency>
+  	<groupId>org.springframework</groupId>
+  	<artifactId>spring-context</artifactId>
+	</dependency>
+	
+	<dependency>
+  	<groupId>org.springframework</groupId>
+  	<artifactId>spring-test</artifactId>
+  	<scope>test</scope>
+	</dependency>
+	
+	<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-core</artifactId>       
+    <exclusions> 
+        <exclusion>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+        </exclusion>
+    </exclusions>
+	</dependency>
+	
+	<!-- This module is a "reverse-bridge" - it will map all Jakerta Commons Logging (JCL) calls to SLF4J APIs -->
+	<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>jcl-over-slf4j</artifactId>
+    <version>${slf4j.version}</version>
+	</dependency>
+	
 	
 </dependencies>
 
