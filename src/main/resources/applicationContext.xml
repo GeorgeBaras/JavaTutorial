@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context">
+
+<!-- configuration details go here -->
+
+<!-- Using innerBean -->
+
+<bean id="ValuationDAO" class="com.apakgroup.training.tutorial.pricing"/>
+<bean id="ValuationCalculator" class="com.apakgroup.training.tutorial.pricing"/>
+
+<bean id="ValuationService" class="com.apakgroup.training.tutorial.model">
+	<property id="valuationDAO" ref="ValuationDAO" />
+	<property id="valuationCalculator" ref="ValuationCalculator" />
+</bean>
+
+
+
+
+</beans>
