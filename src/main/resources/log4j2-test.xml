@@ -6,62 +6,47 @@
    <PatternLayout>
     <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
    </PatternLayout>
+   <ThresholdFilter level="TRACE" onMatch="ACCEPT" onMismatch="DENY"/>
   </File>
   
-  <!-- File for Async Logger  -->
-  <RandomAccessFile name="RandomAccessFile" fileName="logs/asyncFile.log"
-              immediateFlush="false" append="false">
-      <PatternLayout>
-        <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
-      </PatternLayout>
-    </RandomAccessFile>
-    
+      
   <Console name="Console" target="SYSTEM_OUT">
-    <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    <PatternLayout>
+    <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+   </PatternLayout>
+   <ThresholdFilter level="TRACE" onMatch="ACCEPT" onMismatch="DENY"/>
   </Console>
   
-   <!-- Email Appender  -->
-   <appender name="SmtpAppender" class="org.apache.logging.log4j.core.appender.SmtpAppender">
-        <param name="BufferSize" value="100" />
-        <param name="SMTPHost" value="mail1" />
-        <param name="SMTPPort" value="587" />
-        <param name="SMTPUsername" value="george.baras@sword-apak.com" />
-        <param name="SMTPPassword" value="password" />
-        <param name="From" value="george.baras@sword-apak.com" />
-        <param name="To" value="george.baras@sword-apak.com" />
-        <param name="Subject" value="Testing Log4j mail notification" />
-        <PatternLayout>
-    		<Pattern>%d{DATE} %p %c{1.} [%t] %m%n</Pattern>
-   		</PatternLayout>
-    </appender>
-
-   <!-- ThresholdFilter  -->
-  <ThresholdFilter level="TRACE" onMatch="ACCEPT" onMismatch="DENY"/>
+  <Console name="ConsoleError" target="SYSTEM_Err">
+	<PatternLayout>
+    <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+    </PatternLayout>
+	<ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+  </Console>
+  
+  <Async name="AsyncAppender">
+	<AppenderRef ref="MyFile"/>
+  </Async>
+  
+  <SMTP name="Email" subject="Error log" to="george.baras@sword-apak.com" smtpHost="mail1">
+		<PatternLayout>
+    		<Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+    	</PatternLayout>
+   </SMTP>
 
   </Appenders>
-  <Loggers>
-    <Root level="error">
-      <AppenderRef ref="Console"/>
-    </Root>
-
-    <logger level="DEBUG" name="com.apakgroup.training.tutorial">
-    	<AppenderRef ref="MyFile"/>
-    </logger>
-    
-    <logger level="INFO" name="com.apakgroup.training.tutorial.pricing">
-        <AppenderRef ref="MyFile"/>
-    </logger>
-      
-    <!-- Email logger  -->
-    <logger level="TRACE" name="com.apakgroup.training.tutorial.pricing.cap">
-        <AppenderRef ref="SmtpAppender"/>
-    </logger>
-    
-    <!-- ASync logger  -->
-    <AsyncLogger name="com.apakgroup.training.tutorial" level="trace" >
-      <AppenderRef ref="RandomAccessFile"/>
-    </AsyncLogger>
   
-
+  <Loggers>
+  
+    <Root level="TRACE">
+      <AppenderRef ref="AsyncAppender"/>
+      <AppenderRef ref="Email"/>
+    </Root>
+	
+    <logger name="com.apakgroup.training.tutorial.pricing.cap" level="DEBUG">
+		<AppenderRef ref="Console"/>
+	</logger>
+   
+    
   </Loggers>
 </Configuration>

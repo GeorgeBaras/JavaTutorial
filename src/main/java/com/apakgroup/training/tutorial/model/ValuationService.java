@@ -15,7 +15,7 @@ public class ValuationService {
     private ValuationCalculator valuationCalculator;
 
     public void valueVehicle(Vehicle vehicle) {
-
+        LOGGER.trace("Vehicle {} is being valued", vehicle.getLookupCode());
         vehicle.setValue(this.getCalculator().calculatePrice(this.getDAO().getPriceRecord(vehicle.getLookupCode()),
                 vehicle.getMileage()));
     }

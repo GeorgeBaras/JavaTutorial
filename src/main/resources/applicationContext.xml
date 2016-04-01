@@ -7,17 +7,86 @@ http://www.springframework.org/schema/context">
 
 <!-- configuration details go here -->
 
-<!-- Using innerBean -->
+<!-- PriceBands -->
 
-<bean id="ValuationDAO" class="com.apakgroup.training.tutorial.pricing"/>
-<bean id="ValuationCalculator" class="com.apakgroup.training.tutorial.pricing"/>
+<bean id="lowBand" class="com.apakgroup.training.tutorial.model.PriceBandImpl">
+	<constructor-arg name="mileage" value="10"/>
+	<constructor-arg name="valuation" value="20000.0"/>
+</bean>
 
-<bean id="ValuationService" class="com.apakgroup.training.tutorial.model">
-	<property id="valuationDAO" ref="ValuationDAO" />
-	<property id="valuationCalculator" ref="ValuationCalculator" />
+<bean id="midBand" class="com.apakgroup.training.tutorial.model.PriceBandImpl">
+	<constructor-arg name="mileage" value="15"/>
+	<constructor-arg name="valuation" value="15000.0"/>
+</bean>
+
+<bean id="highBand" class="com.apakgroup.training.tutorial.model.PriceBandImpl">
+	<constructor-arg name="mileage" value="20"/>
+	<constructor-arg name="valuation" value="10000.0"/>
+</bean>
+
+<!-- PriceRecords -->
+
+<bean id="lowOnly" class="com.apakgroup.training.tutorial.model.PriceRecordImpl">
+	<constructor-arg name="lookupCode" value="lowOnly"/>
+	<constructor-arg ref="lowBand"/>
 </bean>
 
 
+<bean id="lowAndMid" class="com.apakgroup.training.tutorial.model.PriceRecordImpl">
+	<constructor-arg name="lookupCode" value="lowAndMid"/>
+	<constructor-arg>
+	<list>
+		<ref bean="lowBand">
+		<ref bean="midBand">
+	</list>
+	</constructor-arg>
+</bean>
 
+<bean id="allBands" class="com.apakgroup.training.tutorial.model.PriceRecordImpl">
+	<constructor-arg name="lookupCode" value="allBands"/>
+	<constructor-arg>
+	<list>
+		<ref bean="lowBand">
+		<ref bean="midBand">
+		<ref bean="highBand">
+	</list>
+	</constructor-arg>
+</bean>
+
+<!-- ValuationDAO implementations -->
+
+<bean id="ValuationDAOListImpl" class="com.apakgroup.training.tutorial.model">
+	<property name="priceRecords">
+         <list>
+            <ref bean="lowOnly"/>
+            <ref bean="lowAndMid"/>
+            <ref bean="allBands"/>
+         </list>
+      </property>
+</bean>
+
+<bean id="ValuationDAOMapImpl" class="com.apakgroup.training.tutorial.model">
+	<property name="priceRecords">
+          <map>
+            <entry key="lowOnly" value-ref="lowOnly"/>
+            <entry key="lowAndMid" value-ref="lowAndMid"/>
+            <entry key="allBands" value-ref="allBands"/>
+         </map>
+      </property>
+</bean>
+
+<!-- ValuationService -->
+
+<bean id="CAPValuationCalculator" class="com.apakgroup.training.tutorial.pricing.cap.CAPValuationCalculator"/>
+
+<bean id="ValuationServiceWithList" class="com.apakgroup.training.tutorial.model.ValuationService">
+	<constructor-arg ref="ValuationDAOListImpl">
+	<constructor-arg ref="CAPValuationCalculator">
+</bean>
+
+<bean id="ValuationServiceWithMap" class="com.apakgroup.training.tutorial.model.ValuationService">
+	<constructor-arg ref="ValuationDAOMapImpl">
+	<constructor-arg ref="CAPValuationCalculator">
+</bean>
 
 </beans>

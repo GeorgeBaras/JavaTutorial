@@ -39,22 +39,22 @@ public class PriceRecordTest {
         }
     };
 
-    PriceRecord lowOnly = new PriceRecordImpl("1111", lowBand);
+    PriceRecord lowOnly = new PriceRecordImpl("lowOnly", lowBand);
 
-    PriceRecord lowAndMid = new PriceRecordImpl("2222", priceBands2);
+    PriceRecord lowAndMid = new PriceRecordImpl("lowAndMid", priceBands2);
 
-    PriceRecord allBands = new PriceRecordImpl("3333", priceBands3);
+    PriceRecord allBands = new PriceRecordImpl("allBands", priceBands3);
 
     @Test
     public void testGetLookupCode() {
-        String expectedLookupCode = "1111";
+        String expectedLookupCode = "lowOnly";
         String receivedLookupCode = lowOnly.getLookupCode();
         assertEquals("failure - LookupCode does not match", expectedLookupCode, receivedLookupCode);
     }
 
     @Test
     public void testGetLowPriceBand() {
-        PriceRecord pr = new PriceRecordImpl("1111", lowBand);
+        PriceRecord pr = new PriceRecordImpl("lowOnly", lowBand);
         List<PriceBand> expectedPriceBands = new ArrayList<PriceBand>() {
 
             {
@@ -67,7 +67,7 @@ public class PriceRecordTest {
 
     @Test
     public void testGetLowAndMidPriceBands() {
-        PriceRecord pr = new PriceRecordImpl("1111", priceBands2);
+        PriceRecord pr = new PriceRecordImpl("lowOnly", priceBands2);
         List<PriceBand> expectedPriceBands = new ArrayList<PriceBand>() {
 
             {
@@ -81,7 +81,7 @@ public class PriceRecordTest {
 
     @Test
     public void testGetAllBands() {
-        PriceRecord pr = new PriceRecordImpl("1111", priceBands3);
+        PriceRecord pr = new PriceRecordImpl("lowOnly", priceBands3);
         List<PriceBand> expectedPriceBands = new ArrayList<PriceBand>() {
 
             {

@@ -45,11 +45,11 @@ public class CAPTest {
         }
     };
 
-    PriceRecord lowOnly = new PriceRecordImpl("1111", lowBand);
+    PriceRecord lowOnly = new PriceRecordImpl("lowOnly", lowBand);
 
-    PriceRecord lowAndMid = new PriceRecordImpl("2222", priceBands2);
+    PriceRecord lowAndMid = new PriceRecordImpl("lowAndMid", priceBands2);
 
-    PriceRecord allBands = new PriceRecordImpl("3333", priceBands3);
+    PriceRecord allBands = new PriceRecordImpl("allBands", priceBands3);
 
     CAPValuationCalculator capValuationCalculator = new CAPValuationCalculator();
 
@@ -146,7 +146,7 @@ public class CAPTest {
         }
     };
 
-    PriceRecord edgeCasePriceRecord = new PriceRecordImpl("5555", edgeCasePriceBands);
+    PriceRecord edgeCasePriceRecord = new PriceRecordImpl("beyondBands", edgeCasePriceBands);
 
     @Test
     public void testCalculatePriceForNewBands() {
