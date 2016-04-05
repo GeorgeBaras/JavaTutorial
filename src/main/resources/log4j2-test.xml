@@ -40,7 +40,7 @@
   
     <Root level="TRACE">
       <AppenderRef ref="AsyncAppender"/>
-      <AppenderRef ref="Email"/>
+      <!--  <AppenderRef ref="Email"/>   -->
     </Root>
 	
     <logger name="com.apakgroup.training.tutorial.pricing.cap" level="DEBUG">

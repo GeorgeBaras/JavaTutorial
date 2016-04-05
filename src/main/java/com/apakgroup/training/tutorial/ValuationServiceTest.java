@@ -44,14 +44,14 @@ public class ValuationServiceTest {
 
     @Test
     public void testSetCalculator() {
-        valuationService.setCalculator(valuationCalculator);
-        verify(valuationService).setCalculator(valuationCalculator);
+        valuationService.setValuationCalculator(valuationCalculator);
+        verify(valuationService).setValuationCalculator(valuationCalculator);
     }
 
     @Test
     public void testSetDAO() {
-        valuationService.setDAO(valuationDAO);
-        verify(valuationService).setDAO(valuationDAO);
+        valuationService.setValuationDAO(valuationDAO);
+        verify(valuationService).setValuationDAO(valuationDAO);
     }
 
     @Test

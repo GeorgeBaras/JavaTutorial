@@ -20,12 +20,12 @@ public class ValuationService {
                 vehicle.getMileage()));
     }
 
-    public void setDAO(ValuationDAO valuationDAO) {
+    public void setValuationDAO(ValuationDAO valuationDAO) {
         LOGGER.info("Setting the DAO");
         this.valuationDAO = valuationDAO;
     }
 
-    public void setCalculator(ValuationCalculator valuationCalculator) {
+    public void setValuationCalculator(ValuationCalculator valuationCalculator) {
         LOGGER.info("Setting the ValuationCalculator");
         this.valuationCalculator = valuationCalculator;
     }
