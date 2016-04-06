@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd 
+http://www.springframework.org/schema/tx 
+http://www.springframework.org/schema/tx/spring-tx.xsd 
+http://www.springframework.org/schema/aop 
+http://www.springframework.org/schema/aop/spring-aop.xsd" 
+xmlns:tx="http://www.springframework.org/schema/tx" 
+xmlns:aop="http://www.springframework.org/schema/aop" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns="http://www.springframework.org/schema/beans">
+
+<!-- DataBase Connection Details -->
+<bean id="dataSource" class="org.apache.commons.dbcp.BasicSource" destroy-method="close">
+	<property value="jdbc:oracle:thin:@localhost:1521:xe" name="url"/>
+	<property value="oracle.jdbc.OracleDriver" name="driverClassName"/>
+	<property value="tutorial" name="username"/>
+	<property value="welcome" name="password"/>
+	<property value="true" name="removeAbandoned"/>
+	<property value="20" name="initialSize"/>
+	<property value="30" name="maxActive"/>    
+</bean>
+
+<!-- Wiring for hibernate session factory -->
+<bean class="org.springframework.orm.hibernate4.LocalSessionFactoryBean" id="sessionFactory">
+	<property name="dataSource" ref="dataSource"/>
+	<property value="classpath:hibernate.cfg.xml" name="configLocation"/>
+	<property name="Packages">
+	<list>
+	<value>com.apakgroup.training.tutorial.model</value>
+	<value>com.apakgroup.training.tutorial.pricing</value>
+	<value>com.apakgroup.training.tutorial.pricing.cap</value>
+	</list>
+	</property>
+	<property name="hibernateProperties">
+	<props>
+	<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+	<prop key="hibernate.hbm2ddl.auto">update</prop>
+	<prop key="hibernate.connection.sid">xe</prop>
+	</props>
+	</property>
+</bean>
+
+<!--  For the @Transactional -->
+<tx:annotation-driven transaction-manager="txManager"/>
+
+<bean class="org.springframework.orm.hibernate4.HibernateTransactionManager" id="txManager">
+<property name="sessionFactory" ref="sessionFactory"/>
+</bean>
+
+</beans>
