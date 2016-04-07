@@ -3,10 +3,21 @@ package com.apakgroup.training.tutorial.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import com.apakgroup.training.tutorial.pricing.PriceBand;
 import com.apakgroup.training.tutorial.pricing.PriceRecord;
 
+@Entity
+@Table(name = "PriceRecord")
 public class PriceRecordImpl implements PriceRecord {
+
+    private Long priceRecordID;
 
     private String lookupCode;
 
@@ -22,12 +33,23 @@ public class PriceRecordImpl implements PriceRecord {
         this.priceBands.add(priceBands);
     }
 
+    @Id
+    @GeneratedValue
+    public Long getPriceRecordID() {
+        return priceRecordID;
+    }
+
+    public void setPriceRecordID(Long priceRecordID) {
+        this.priceRecordID = priceRecordID;
+    }
+
     @Override
     public String getLookupCode() {
         return this.lookupCode;
     }
 
     @Override
+    @OneToMany(targetEntity = PriceBandImpl.class, mappedBy = "priceRecordImpl", cascade = CascadeType.ALL)
     public List<PriceBand> getPriceBands() {
         return this.priceBands;
     }
