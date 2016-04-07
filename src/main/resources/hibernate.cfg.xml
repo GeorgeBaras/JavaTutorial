@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<!DOCTYPE hibernate-configuration SYSTEM "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<!DOCTYPE hibernate-configuration SYSTEM 
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 
 <hibernate-configuration>
-<session-factory>
-<mapping class="com.apakgroup.training.tutorial.model.PriceBandImpl"/>
-<mapping class="com.apakgroup.training.tutorial.model.PriceRecordImpl"/>
-<mapping class="com.apakgroup.training.tutorial.model.Vehicle"/>
-</session-factory>
+
+	<session-factory>
+
+
+		<mapping class="com.apakgroup.training.tutorial.model.PriceBandImpl" />
+		<mapping class="com.apakgroup.training.tutorial.model.PriceRecordImpl" />	
+		<mapping class="com.apakgroup.training.tutorial.model.Vehicle" />
+	
+	</session-factory>
 </hibernate-configuration>
