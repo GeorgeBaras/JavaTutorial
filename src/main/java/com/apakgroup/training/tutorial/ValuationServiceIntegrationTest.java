@@ -23,7 +23,7 @@ import com.apakgroup.training.tutorial.model.Vehicle;
 @ContextConfiguration(locations = { "classpath*:/spring/applicationContext.xml" })
 public class ValuationServiceIntegrationTest {
 
-    ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+    ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 
     //    @Resource
     //    ValuationService valuationServiceWithList;

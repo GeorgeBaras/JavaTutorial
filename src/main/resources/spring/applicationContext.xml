@@ -87,5 +87,7 @@ xmlns="http://www.springframework.org/schema/beans">
 		<property name="valuationDAO" ref="valuationDAOMapImpl" />
 		<property name="valuationCalculator" ref="CAPValuationCalculator" />
 	</bean>
-
+	
+	<!-- Hibernate -->
+	<import resource="hibernateContext.xml"/>
 </beans>
