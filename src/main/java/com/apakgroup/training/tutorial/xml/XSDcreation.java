@@ -11,6 +11,8 @@ public class XSDcreation {
     public static void createXSDfromClass(Class<?> passedClass) throws JAXBException, IOException {
         JAXBContext jaxbContext = JAXBContext.newInstance(passedClass);
         SchemaOutputResolver sor = new MySchemaOutputResolver();
+        sor.createOutput("http://www.example.com/a", "XSD");
         jaxbContext.generateSchema(sor);
+
     }
 }
