@@ -7,11 +7,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import com.apakgroup.training.tutorial.pricing.PriceBand;
 
 @Entity
 @Table(name = "PriceBand")
+@XmlRootElement(name = "PriceBand")
 public class PriceBandImpl implements PriceBand {
 
     private Long priceBandID;
@@ -27,6 +31,7 @@ public class PriceBandImpl implements PriceBand {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @XmlTransient
     public Long getPriceBandID() {
         return priceBandID;
     }
@@ -36,11 +41,13 @@ public class PriceBandImpl implements PriceBand {
     }
 
     @Override
+    @XmlElement(name = "mileage")
     public int getMileage() {
         return this.mileage;
     }
 
     @Override
+    @XmlElement(name = "valuation")
     public BigDecimal getValuation() {
         return this.valuation;
     }

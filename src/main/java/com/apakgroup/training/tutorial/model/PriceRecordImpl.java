@@ -10,12 +10,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import com.apakgroup.training.tutorial.pricing.PriceBand;
 import com.apakgroup.training.tutorial.pricing.PriceRecord;
 
 @Entity
 @Table(name = "PriceRecord")
+@XmlRootElement(name = "PriceRecord")
 public class PriceRecordImpl implements PriceRecord {
 
     private Long priceRecordID;
@@ -36,6 +41,7 @@ public class PriceRecordImpl implements PriceRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @XmlTransient
     public Long getPriceRecordID() {
         return priceRecordID;
     }
@@ -45,12 +51,15 @@ public class PriceRecordImpl implements PriceRecord {
     }
 
     @Override
+    @XmlElement(name = "lookUpCode")
     public String getLookupCode() {
         return this.lookupCode;
     }
 
     @Override
     @OneToMany(targetEntity = PriceBandImpl.class, mappedBy = "priceRecordImpl", cascade = CascadeType.ALL)
+    @XmlElementWrapper(name = "priceBands")
+    @XmlElement(name = "priceBand")
     public List<PriceBand> getPriceBands() {
         return this.priceBands;
     }
