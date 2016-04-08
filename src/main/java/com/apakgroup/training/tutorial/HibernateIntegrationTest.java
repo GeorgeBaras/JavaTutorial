@@ -14,6 +14,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.apakgroup.training.tutorial.model.PriceBandImpl;
+import com.apakgroup.training.tutorial.model.PriceRecordImpl;
+import com.apakgroup.training.tutorial.model.Vehicle;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath*:/spring/applicationContext.xml" })
@@ -22,30 +24,38 @@ public class HibernateIntegrationTest {
 
     @Resource
     private SessionFactory sessionFactory;
-    //
-    //    @Resource
-    //    private PriceRecord allbands;
 
     //@Resource
     private PriceBandImpl lowBand = new PriceBandImpl(10, new BigDecimal("20000.0"));
 
+    private Vehicle vehicle = new Vehicle("testMake", "testModel", "testDerivative", "testLookupCode", 10);
+
+    @Resource
+    private PriceRecordImpl allBands;
+
     @Test
     public void testPriceBand() {
-        sessionFactory.getCurrentSession();
-        org.hibernate.Session session = sessionFactory.openSession();
+        org.hibernate.Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
         session.save(lowBand);
+        System.out.println(lowBand.getPriceBandID().toString());
         assertNotNull("Band ID is null, problem with session.save", lowBand.getPriceBandID());
     }
 
-    //    @Test
-    //    public void testPriceRecord() {
-    //        fail("Not yet implemented"); // TODO
-    //    }
-    //
-    //    @Test
-    //    public void testVehicle() {
-    //        fail("Not yet implemented"); // TODO
-    //    }
+    @Test
+    public void testPriceRecord() {
+        org.hibernate.Session session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        session.save(allBands);
+        assertNotNull("Band ID is null, problem with session.save", allBands.getPriceRecordID());
+    }
+
+    @Test
+    public void testVehicle() {
+        org.hibernate.Session session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        session.save(vehicle);
+        assertNotNull("Band ID is null, problem with session.save", vehicle.getVehicleID());
+    }
 
 }

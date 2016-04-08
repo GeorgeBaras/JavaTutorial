@@ -21,4 +21,5 @@ public interface PriceBand {
      * @return the valuation
      */
     public BigDecimal getValuation();
+
 }

@@ -24,6 +24,9 @@ public class PriceBandImpl implements PriceBand {
 
     private BigDecimal valuation;
 
+    public PriceBandImpl() {
+    }
+
     public PriceBandImpl(int mileage, BigDecimal valuation) {
         this.mileage = mileage;
         this.valuation = valuation;
@@ -44,6 +47,10 @@ public class PriceBandImpl implements PriceBand {
     @XmlElement(name = "mileage")
     public int getMileage() {
         return this.mileage;
+    }
+
+    public void setMileage(Integer mileage) {
+        this.mileage = mileage;
     }
 
     @Override

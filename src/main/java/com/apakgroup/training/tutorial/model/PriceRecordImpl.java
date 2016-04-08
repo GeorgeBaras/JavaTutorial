@@ -29,6 +29,9 @@ public class PriceRecordImpl implements PriceRecord {
 
     private List<PriceBand> priceBands = new ArrayList<PriceBand>();
 
+    public PriceRecordImpl() {
+    }
+
     public PriceRecordImpl(String lookupCode, List<PriceBand> priceBands) {
         this.lookupCode = lookupCode;
         this.priceBands = priceBands;
@@ -56,12 +59,20 @@ public class PriceRecordImpl implements PriceRecord {
         return this.lookupCode;
     }
 
+    public void setLookupCode(String lookUpCode) {
+        this.lookupCode = lookUpCode;
+    }
+
     @Override
     @OneToMany(targetEntity = PriceBandImpl.class, mappedBy = "priceRecordImpl", cascade = CascadeType.ALL)
     @XmlElementWrapper(name = "priceBands")
-    @XmlElement(name = "priceBand")
+    @XmlElement(name = "priceBand", type = PriceBandImpl.class)
     public List<PriceBand> getPriceBands() {
         return this.priceBands;
+    }
+
+    public void setPriceBands(List<PriceBand> priceBands) {
+        this.priceBands = priceBands;
     }
 
 }
