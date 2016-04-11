@@ -13,13 +13,13 @@ import com.apakgroup.training.tutorial.xml.XSDcreation;
 public class XSDcreationTest {
 
     @Test
-    public final void testCreatePriceRecordXSDfromClass() throws JAXBException, IOException {
-        XSDcreation.createXSDfromClass(PriceRecordImpl.class);
+    public final void testCreatePriceBandXSDfromClass() throws JAXBException, IOException {
+        XSDcreation.createXSDfromClass(PriceBandImpl.class);
     }
 
     @Test
-    public final void testCreatePriceBandXSDfromClass() throws JAXBException, IOException {
-        XSDcreation.createXSDfromClass(PriceBandImpl.class);
+    public final void testCreatePriceRecordXSDfromClass() throws JAXBException, IOException {
+        XSDcreation.createXSDfromClass(PriceRecordImpl.class);
     }
 
 }

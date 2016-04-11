@@ -19,15 +19,20 @@ import com.apakgroup.training.tutorial.pricing.cap.CAPValuationCalculator;
 
 public class CAPTest {
 
+    //    @Before
+    //    public void setUp() {
+    //
+    //    }
+
     private static final Logger LOGGER = LoggerFactory.getLogger(CAPTest.class);
 
-    PriceBand lowBand = new PriceBandImpl(10, new BigDecimal("20000.0"));
+    private final PriceBand lowBand = new PriceBandImpl(10, new BigDecimal("20000.0"));
 
-    PriceBand midBand = new PriceBandImpl(15, new BigDecimal("15000.0"));
+    private final PriceBand midBand = new PriceBandImpl(15, new BigDecimal("15000.0"));
 
-    PriceBand highBand = new PriceBandImpl(20, new BigDecimal("10000.0"));
+    private final PriceBand highBand = new PriceBandImpl(20, new BigDecimal("10000.0"));
 
-    List<PriceBand> priceBands2 = new ArrayList<PriceBand>() {
+    private final List<PriceBand> priceBands2 = new ArrayList<PriceBand>() {
 
         {
             add(lowBand);
@@ -35,7 +40,7 @@ public class CAPTest {
         }
     };
 
-    List<PriceBand> priceBands3 = new ArrayList<PriceBand>() {
+    private final List<PriceBand> priceBands3 = new ArrayList<PriceBand>() {
 
         {
             add(lowBand);
@@ -45,13 +50,29 @@ public class CAPTest {
         }
     };
 
-    PriceRecord lowOnly = new PriceRecordImpl("lowOnly", lowBand);
+    private final PriceRecord lowOnly = new PriceRecordImpl("lowOnly", lowBand);
 
-    PriceRecord lowAndMid = new PriceRecordImpl("lowAndMid", priceBands2);
+    private final PriceRecord lowAndMid = new PriceRecordImpl("lowAndMid", priceBands2);
 
-    PriceRecord allBands = new PriceRecordImpl("allBands", priceBands3);
+    private final PriceRecord allBands = new PriceRecordImpl("allBands", priceBands3);
 
-    CAPValuationCalculator capValuationCalculator = new CAPValuationCalculator();
+    private final CAPValuationCalculator capValuationCalculator = new CAPValuationCalculator();
+
+    // Edge Case1: new bands and current mileage==2
+
+    private final PriceBand edgeCaseBand1 = new PriceBandImpl(1, new BigDecimal("50000.00"));
+
+    private final PriceBand edgeCaseBand2 = new PriceBandImpl(10, new BigDecimal("25000.00"));
+
+    private final List<PriceBand> edgeCasePriceBands = new ArrayList<PriceBand>() {
+
+        {
+            add(edgeCaseBand1);
+            add(edgeCaseBand2);
+        }
+    };
+
+    private final PriceRecord edgeCasePriceRecord = new PriceRecordImpl("beyondBands", edgeCasePriceBands);
 
     // Mileage exact band mileage
     @Test
@@ -131,22 +152,6 @@ public class CAPTest {
         BigDecimal receivedPrice = capValuationCalculator.calculatePrice(lowOnly, 8).round(new MathContext(7));
         assertEquals("failure - Price not correct", expectedPrice, receivedPrice);
     }
-
-    // Edge Case1: new bands and current mileage==2
-
-    PriceBand edgeCaseBand1 = new PriceBandImpl(1, new BigDecimal("50000.00"));
-
-    PriceBand edgeCaseBand2 = new PriceBandImpl(10, new BigDecimal("25000.00"));
-
-    List<PriceBand> edgeCasePriceBands = new ArrayList<PriceBand>() {
-
-        {
-            add(edgeCaseBand1);
-            add(edgeCaseBand2);
-        }
-    };
-
-    PriceRecord edgeCasePriceRecord = new PriceRecordImpl("beyondBands", edgeCasePriceBands);
 
     @Test
     public void testCalculatePriceForNewBands() {

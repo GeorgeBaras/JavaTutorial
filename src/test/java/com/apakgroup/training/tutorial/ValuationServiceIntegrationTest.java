@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import java.math.BigDecimal;
 
+import javax.annotation.Resource;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.context.ApplicationContext;
@@ -23,16 +25,18 @@ import com.apakgroup.training.tutorial.model.Vehicle;
 @ContextConfiguration(locations = { "classpath*:/spring/applicationContext.xml" })
 public class ValuationServiceIntegrationTest {
 
-    ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+    private final ApplicationContext applicationContext = new ClassPathXmlApplicationContext(
+            "spring/applicationContext.xml");
 
-    //    @Resource
-    //    ValuationService valuationServiceWithList;
+    @Resource
+    private PriceBandImpl lowBand;
 
     // Test that all beans have been created
 
     @Test
     public void testBandBeanNotNull() {
-        PriceBandImpl band = (PriceBandImpl) applicationContext.getBean("lowBand");
+        //        PriceBandImpl band = (PriceBandImpl) applicationContext.getBean("lowBand");
+        PriceBandImpl band = lowBand;
         Assert.notNull(band);
     }
 

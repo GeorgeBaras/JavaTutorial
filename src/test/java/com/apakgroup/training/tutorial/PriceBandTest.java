@@ -11,11 +11,11 @@ import com.apakgroup.training.tutorial.pricing.PriceBand;
 
 public class PriceBandTest {
 
-    PriceBand lowBand = new PriceBandImpl(10, new BigDecimal(20000.0));
+    private final PriceBand lowBand = new PriceBandImpl(10, new BigDecimal(20000.0));
 
-    PriceBand midBand = new PriceBandImpl(15, new BigDecimal(15000.0));
+    private final PriceBand midBand = new PriceBandImpl(15, new BigDecimal(15000.0));
 
-    PriceBand highBand = new PriceBandImpl(20, new BigDecimal(10000.0));
+    private final PriceBand highBand = new PriceBandImpl(20, new BigDecimal(10000.0));
 
     @Test
     public void testGetMileage() {
