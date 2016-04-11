@@ -21,6 +21,53 @@ public class CAPTest {
 
     //    @Before
     //    public void setUp() {
+    //        final PriceBand lowBand = new PriceBandImpl(10, new BigDecimal("20000.0"));
+    //
+    //        final PriceBand midBand = new PriceBandImpl(15, new BigDecimal("15000.0"));
+    //
+    //        final PriceBand highBand = new PriceBandImpl(20, new BigDecimal("10000.0"));
+    //
+    //        final List<PriceBand> priceBands2 = new ArrayList<PriceBand>() {
+    //
+    //            {
+    //                add(lowBand);
+    //                add(midBand);
+    //            }
+    //        };
+    //
+    //        final List<PriceBand> priceBands3 = new ArrayList<PriceBand>() {
+    //
+    //            {
+    //                add(lowBand);
+    //                add(midBand);
+    //                add(highBand);
+    //
+    //            }
+    //        };
+    //
+    //        final PriceRecord lowOnly = new PriceRecordImpl("lowOnly", lowBand);
+    //
+    //        final PriceRecord lowAndMid = new PriceRecordImpl("lowAndMid", priceBands2);
+    //
+    //        final PriceRecord allBands = new PriceRecordImpl("allBands", priceBands3);
+    //
+    //        final CAPValuationCalculator capValuationCalculator = new CAPValuationCalculator();
+    //
+    //        // Edge Case1: new bands and current mileage==2
+    //
+    //        final PriceBand edgeCaseBand1 = new PriceBandImpl(1, new BigDecimal("50000.00"));
+    //
+    //        final PriceBand edgeCaseBand2 = new PriceBandImpl(10, new BigDecimal("25000.00"));
+    //
+    //        final List<PriceBand> edgeCasePriceBands = new ArrayList<PriceBand>() {
+    //
+    //            {
+    //                add(edgeCaseBand1);
+    //                add(edgeCaseBand2);
+    //            }
+    //        };
+    //
+    //        final PriceRecord edgeCasePriceRecord = new PriceRecordImpl("beyondBands", edgeCasePriceBands);
     //
     //    }
 

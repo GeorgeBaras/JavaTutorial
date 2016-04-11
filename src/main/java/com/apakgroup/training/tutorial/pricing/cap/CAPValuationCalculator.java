@@ -15,28 +15,34 @@ public class CAPValuationCalculator implements ValuationCalculator {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CAPValuationCalculator.class);
 
-    private BigDecimal ADJUSTMENT_PERCENTAGE = new BigDecimal("0.003");
+    private final BigDecimal ADJUSTMENT_PERCENTAGE = new BigDecimal("0.003");
 
     //  private MathContext mc = new MathContext(4, RoundingMode.HALF_EVEN);
 
     @Override
     public BigDecimal calculatePrice(PriceRecord priceRecord, int currentMileage) {
+        PriceBand specificPriceBand;
+        BigDecimal priceToReturn;
+
         // check if exact match
-        if (findExactPriceBand(priceRecord, currentMileage) != null) {
+        specificPriceBand = findExactPriceBand(priceRecord, currentMileage);
+        if (specificPriceBand != null) {
             LOGGER.debug("Calculating price from exact priceBand");
-            return findExactPriceBand(priceRecord, currentMileage).getValuation();
+            return specificPriceBand.getValuation();
         }
         //check between bands
-        if (calculatePriceBetweenTwoBands(findClosestBandBelowMileage(priceRecord, currentMileage),
-                findClosestBandAboveMileage(priceRecord, currentMileage), currentMileage) != null) {
+
+        priceToReturn = calculatePriceBetweenTwoBands(findClosestBandBelowMileage(priceRecord, currentMileage),
+                findClosestBandAboveMileage(priceRecord, currentMileage), currentMileage);
+        if (priceToReturn != null) {
             LOGGER.debug("Calculating price between two priceBands");
-            return calculatePriceBetweenTwoBands(findClosestBandBelowMileage(priceRecord, currentMileage),
-                    findClosestBandAboveMileage(priceRecord, currentMileage), currentMileage);
+            return priceToReturn;
         }
         //check beyond bands
-        if (calculatePriceFromBand(findBandBeyond(priceRecord, currentMileage), currentMileage) != null) {
+        priceToReturn = calculatePriceFromBand(findBandBeyond(priceRecord, currentMileage), currentMileage);
+        if (priceToReturn != null) {
             LOGGER.debug("Calculating price beyond priceBands");
-            return calculatePriceFromBand(findBandBeyond(priceRecord, currentMileage), currentMileage);
+            return priceToReturn;
         }
         return null;
     }
