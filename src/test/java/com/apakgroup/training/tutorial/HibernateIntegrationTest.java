@@ -63,7 +63,7 @@ public class HibernateIntegrationTest {
         sessionFactory.getCurrentSession();
         Session session = sessionFactory.openSession();
         session.persist(lowBand);
-        //session.flush();
+        // session.flush();
 
         PriceBandImpl priceBandFromDB = (PriceBandImpl) session.get(PriceBandImpl.class, new Long(1));
 
@@ -87,7 +87,7 @@ public class HibernateIntegrationTest {
         sessionFactory.getCurrentSession();
         Session session = sessionFactory.openSession();
         session.save(allBands);
-        //session.flush();
+        // session.flush();
         assertNotNull("PriceRecord not added to table", session.get(PriceRecordImpl.class, new Long(3)));
     }
 

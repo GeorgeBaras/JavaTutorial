@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.apakgroup.training</groupId>
   <artifactId>tutorial-George-Baras</artifactId>
-  <version>5-SNAPSHOT</version>
+  <version>6-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>Tutorial George Baras</name>
   <description>Training tutorial project covering standard skills and libraries used by WFS</description>
