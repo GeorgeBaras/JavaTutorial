@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "Vehicle")
@@ -25,6 +26,10 @@ public class Vehicle {
     private Integer mileage;
 
     private BigDecimal value;
+
+    public Vehicle() {
+
+    }
 
     public Vehicle(String make, String model, String derivative, String lookupCode, int mileage) {
         this.make = make;
@@ -84,6 +89,7 @@ public class Vehicle {
         return this.value;
     }
 
+    @Transient
     public String getLookupCode() {
         return this.lookupCode;
     }

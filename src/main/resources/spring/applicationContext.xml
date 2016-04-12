@@ -88,6 +88,6 @@ xmlns="http://www.springframework.org/schema/beans">
 		<property name="valuationCalculator" ref="CAPValuationCalculator" />
 	</bean>
 	
-	<!-- <import resource="hibernateContext.xml" /> -->
+	<import resource="hibernateContext.xml" />
 	
 </beans>

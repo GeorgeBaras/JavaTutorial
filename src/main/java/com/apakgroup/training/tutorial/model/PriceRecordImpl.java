@@ -64,7 +64,7 @@ public class PriceRecordImpl implements PriceRecord {
     }
 
     @Override
-    @OneToMany(targetEntity = PriceBandImpl.class, mappedBy = "priceRecordImpl", cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = PriceBandImpl.class, cascade = CascadeType.ALL)
     @XmlElementWrapper(name = "priceBands")
     @XmlElement(name = "priceBand", type = PriceBandImpl.class)
     public List<PriceBand> getPriceBands() {

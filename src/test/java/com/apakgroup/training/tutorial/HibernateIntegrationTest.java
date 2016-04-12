@@ -1,65 +1,102 @@
 package com.apakgroup.training.tutorial;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-import java.math.BigDecimal;
+import java.util.List;
 
 import javax.annotation.Resource;
-import javax.transaction.Transactional;
 
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.apakgroup.training.tutorial.model.PriceBandImpl;
 import com.apakgroup.training.tutorial.model.PriceRecordImpl;
 import com.apakgroup.training.tutorial.model.Vehicle;
+import com.apakgroup.training.tutorial.pricing.PriceBand;
+import com.apakgroup.training.tutorial.pricing.PriceRecord;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath*:/spring/applicationContext.xml" })
+@ContextConfiguration(locations = { "classpath*:spring/applicationContext.xml" })
 @Transactional
 public class HibernateIntegrationTest {
 
-    //    @Resource
-    //    private SessionFactory sessionFactory;
-
-    //@Resource
-    private PriceBandImpl lowBand = new PriceBandImpl(10, new BigDecimal("20000.0"));
-
-    private Vehicle vehicle = new Vehicle("testMake", "testModel", "testDerivative", "testLookupCode", 10);
+    @Resource
+    private PriceBand lowBand;
 
     @Resource
-    private PriceRecordImpl allBands;
+    private PriceRecord allBands;
+
+    @Resource
+    private SessionFactory sessionFactory;
 
     @Test
-    public void fakeTest() {
-        assertEquals(1, 1);
+    public void testBand() {
+        //save the entry in the table
+        sessionFactory.getCurrentSession();
+        Session session = sessionFactory.openSession();
+        session.persist(lowBand);
+
+        // session.flush();
+        // Criteria to get the first entry of the table
+        List<PriceBand> priceBandList;
+        Criteria queryCriteria = session.createCriteria(PriceBandImpl.class);
+        queryCriteria.setFirstResult(0);
+        queryCriteria.setMaxResults(1);
+        priceBandList = queryCriteria.list();
+
+        //get the first entry
+        PriceBand priceBandFromDB = priceBandList.get(0);
+
+        assertNotNull("Vehicle not added to table", priceBandFromDB);
     }
 
-    //    @Test
-    //    public void testPriceBand() {
-    //        org.hibernate.Session session = sessionFactory.getCurrentSession();
-    //        session.beginTransaction();
-    //        session.save(lowBand);
-    //        System.out.println(lowBand.getPriceBandID().toString());
-    //        assertNotNull("Band ID is null, problem with session.save", lowBand.getPriceBandID());
-    //    }
-    //
-    //    @Test
-    //    public void testPriceRecord() {
-    //        org.hibernate.Session session = sessionFactory.getCurrentSession();
-    //        session.beginTransaction();
-    //        session.save(allBands);
-    //        assertNotNull("Band ID is null, problem with session.save", allBands.getPriceRecordID());
-    //    }
-    //
-    //    @Test
-    //    public void testVehicle() {
-    //        org.hibernate.Session session = sessionFactory.getCurrentSession();
-    //        session.beginTransaction();
-    //        session.save(vehicle);
-    //        assertNotNull("Band ID is null, problem with session.save", vehicle.getVehicleID());
-    //    }
+    @Test
+    public void testRecord() {
+        //save the entry in the table
+        sessionFactory.getCurrentSession();
+        Session session = sessionFactory.openSession();
+        session.persist(allBands);
+
+        // session.flush();
+        // Criteria to get the first entry of the table
+        List<PriceRecord> priceRecordList;
+        Criteria queryCriteria = session.createCriteria(PriceRecordImpl.class);
+        queryCriteria.setFirstResult(0);
+        queryCriteria.setMaxResults(1);
+        priceRecordList = queryCriteria.list();
+
+        //get the first entry
+        PriceRecord priceRecordFromDB = priceRecordList.get(0);
+
+        assertNotNull("Vehicle not added to table", priceRecordFromDB);
+    }
+
+    @Test
+    public void testVehicle() {
+        //save the entry in the table
+        sessionFactory.getCurrentSession();
+        Session session = sessionFactory.openSession();
+        Vehicle vehicle = new Vehicle("TestMake", "TestModel", "TestDerivative", "TestCode", 22);
+        session.persist(vehicle);
+
+        // session.flush();
+        //Criteria to get the first entry of the table
+        List<Vehicle> vehicleList;
+        Criteria queryCriteria = session.createCriteria(Vehicle.class);
+        queryCriteria.setFirstResult(0);
+        queryCriteria.setMaxResults(1);
+        vehicleList = queryCriteria.list();
+
+        //get the first entry
+        Vehicle vehicleFromDB = vehicleList.get(0);
+
+        assertNotNull("Vehicle not added to table", vehicleFromDB);
+    }
 
 }
