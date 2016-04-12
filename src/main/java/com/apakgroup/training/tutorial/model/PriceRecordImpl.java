@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -19,11 +18,11 @@ import com.apakgroup.training.tutorial.pricing.PriceBand;
 import com.apakgroup.training.tutorial.pricing.PriceRecord;
 
 @Entity
-@Table(name = "PriceRecord")
+@Table(name = "priceRecord")
 @XmlRootElement(name = "PriceRecord")
 public class PriceRecordImpl implements PriceRecord {
 
-    private Long priceRecordID;
+    private long id;
 
     private String lookupCode;
 
@@ -43,14 +42,14 @@ public class PriceRecordImpl implements PriceRecord {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     @XmlTransient
-    public Long getPriceRecordID() {
-        return priceRecordID;
+    public long getID() {
+        return id;
     }
 
-    public void setPriceRecordID(Long priceRecordID) {
-        this.priceRecordID = priceRecordID;
+    public void setID(long priceRecordID) {
+        this.id = priceRecordID;
     }
 
     @Override

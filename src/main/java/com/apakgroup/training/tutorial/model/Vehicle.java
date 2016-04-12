@@ -4,16 +4,15 @@ import java.math.BigDecimal;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name = "Vehicle")
+@Table(name = "vehicle")
 public class Vehicle {
 
-    private Long vehicleID;
+    private long id;
 
     private String make;
 
@@ -40,13 +39,13 @@ public class Vehicle {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getVehicleID() {
-        return vehicleID;
+    @GeneratedValue
+    public long getID() {
+        return id;
     }
 
-    public void setVehicleID(Long vehicleID) {
-        this.vehicleID = vehicleID;
+    public void setID(long vehicleID) {
+        this.id = vehicleID;
     }
 
     public String getMake() {
