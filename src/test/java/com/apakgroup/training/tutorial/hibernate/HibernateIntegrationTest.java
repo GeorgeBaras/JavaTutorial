@@ -1,4 +1,4 @@
-package com.apakgroup.training.tutorial;
+package com.apakgroup.training.tutorial.hibernate;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -31,6 +31,10 @@ public class HibernateIntegrationTest {
 
     @Resource
     private SessionFactory sessionFactory;
+
+    /**
+     * If the stabbed values do not work uncomment the criteria part
+     */
 
     @Transactional
     @Test
@@ -87,8 +91,19 @@ public class HibernateIntegrationTest {
         sessionFactory.getCurrentSession();
         Session session = sessionFactory.openSession();
         session.save(allBands);
+        PriceRecordImpl priceRecordFromDB = (PriceRecordImpl) session.get(PriceRecordImpl.class, new Long(3));
         // session.flush();
-        assertNotNull("PriceRecord not added to table", session.get(PriceRecordImpl.class, new Long(3)));
+        //      // Criteria to get the first entry of the table
+        //        List<PriceRecord> priceRecordList;
+        //        Criteria queryCriteria = session.createCriteria(PriceRecordImpl.class);
+        //        queryCriteria.setFirstResult(0);
+        //        queryCriteria.setMaxResults(1);
+        //        priceRecordList = queryCriteria.list();
+        //
+        //        //get the first entry
+        //        PriceRecord priceRecordFromDB = priceRecordList.get(0);
+
+        assertNotNull("PriceRecord not added to table", priceRecordFromDB);
     }
 
 }
