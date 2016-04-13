@@ -8,10 +8,10 @@ import javax.xml.bind.SchemaOutputResolver;
 
 public class XSDcreation {
 
-    public static void createXSDfromClass(Class<?> passedClass) throws JAXBException, IOException {
+    public static void createXSDfromClass(Class<?> passedClass, String schemaName) throws JAXBException, IOException {
         JAXBContext jaxbContext = JAXBContext.newInstance(passedClass);
         SchemaOutputResolver sor = new MySchemaOutputResolver();
-        sor.createOutput("http://www.example.com/a", "XSD");
+        sor.createOutput("http://www.example.com/a", schemaName);
         jaxbContext.generateSchema(sor);
 
     }

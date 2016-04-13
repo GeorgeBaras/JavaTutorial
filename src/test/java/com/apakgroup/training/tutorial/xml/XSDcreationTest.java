@@ -1,4 +1,4 @@
-package com.apakgroup.training.tutorial;
+package com.apakgroup.training.tutorial.xml;
 
 import java.io.IOException;
 
@@ -8,18 +8,17 @@ import org.junit.Test;
 
 import com.apakgroup.training.tutorial.model.PriceBandImpl;
 import com.apakgroup.training.tutorial.model.PriceRecordImpl;
-import com.apakgroup.training.tutorial.xml.XSDcreation;
 
 public class XSDcreationTest {
 
     @Test
     public final void testCreatePriceBandXSDfromClass() throws JAXBException, IOException {
-        XSDcreation.createXSDfromClass(PriceBandImpl.class);
+        XSDcreation.createXSDfromClass(PriceBandImpl.class, "priceBandSchema");
     }
 
     @Test
     public final void testCreatePriceRecordXSDfromClass() throws JAXBException, IOException {
-        XSDcreation.createXSDfromClass(PriceRecordImpl.class);
+        XSDcreation.createXSDfromClass(PriceRecordImpl.class, "priceRecordSchema");
     }
 
 }
