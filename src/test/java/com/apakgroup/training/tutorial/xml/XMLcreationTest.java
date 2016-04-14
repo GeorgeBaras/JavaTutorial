@@ -1,6 +1,6 @@
 package com.apakgroup.training.tutorial.xml;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,23 +20,9 @@ public class XMLcreationTest {
     public final void marshalToXMLfileTest() throws JAXBException, IOException {
         PriceRecordList listOf10 = new PriceRecordList(PriceRecordsGenerators.listOfPriceRecordGenerator(10, 5));
         XMLcreation.marshalToXMLfile(listOf10, "10EntriesXML");
-        // Uncomment to test for more entries
-        //        PriceRecordList listOf10k = new PriceRecordList(PriceRecordsGenerators.listOfPriceRecordGenerator(10000, 10));
-        //        XMLcreation.writeToXMLfile(listOf10k, "10kEntriesXML");
+        File f = new File("10EntriesXML.xml");
+        assertTrue(f.exists());
 
-        //        PriceRecordList listOf100k = new PriceRecordList(PriceRecordsGenerators.listOfPriceRecordGenerator(100000, 10));
-        //        XMLcreation.writeToXMLfile(listOf100k, "100kEntriesXML");
-        File f = new File("10EntriesXML");
-        assert (f.exists());
-    }
-
-    @Ignore
-    @Test
-    public final void marshalToBigXMLfileTest() throws JAXBException, IOException {
-        PriceRecordList listOf100k = new PriceRecordList(PriceRecordsGenerators.listOfPriceRecordGenerator(100000, 10));
-        XMLcreation.marshalToXMLfile(listOf100k, "100kEntriesXML");
-        File f = new File("100kEntriesXML");
-        assert (f.exists());
     }
 
     @Test
@@ -46,8 +32,29 @@ public class XMLcreationTest {
         PriceRecordList unmarshalledListOf10 = (PriceRecordList) XMLcreation
                 .unmarshalFromXMLfile("EntriesToUnmarhalXML.xml", PriceRecordList.class);
         // the unmarshalled object has the same contents, yet cannot be compared directly
-        assertEquals(unmarshalledListOf10.getListOfPriceRecords().get(3).getLookupCode(),
-                listOf10.getListOfPriceRecords().get(3).getLookupCode());
+        assertTrue(unmarshalledListOf10.compare(listOf10));
+    }
+
+    @Ignore
+    @Test
+    public final void marshalToBIGXMLfileTest() throws JAXBException, IOException {
+        PriceRecordList millionEntries = new PriceRecordList(
+                PriceRecordsGenerators.listOfPriceRecordGenerator(1000000, 10));
+        XMLcreation.marshalToXMLfile(millionEntries, "millionEntriesXML");
+        File f = new File("millionEntriesXML.xml");
+        assertTrue(f.exists());
+    }
+
+    @Ignore
+    @Test
+    public final void unmarshalFromBIGXMLfileTest() throws JAXBException, IOException {
+        PriceRecordList millionEntries = new PriceRecordList(
+                PriceRecordsGenerators.listOfPriceRecordGenerator(1000000, 10));
+        XMLcreation.marshalToXMLfile(millionEntries, "MillionEntriesToUnmarhalXML");
+        PriceRecordList unmarshalledMillionEntries = (PriceRecordList) XMLcreation
+                .unmarshalFromXMLfile("MillionEntriesToUnmarhalXML.xml", PriceRecordList.class);
+        // the unmarshalled object has the same contents, yet cannot be compared directly
+        assertTrue(unmarshalledMillionEntries.compare(millionEntries));
     }
 
 }
