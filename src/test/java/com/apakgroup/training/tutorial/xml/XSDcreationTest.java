@@ -1,5 +1,6 @@
 package com.apakgroup.training.tutorial.xml;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.xml.bind.JAXBException;
@@ -12,13 +13,15 @@ import com.apakgroup.training.tutorial.model.PriceRecordImpl;
 public class XSDcreationTest {
 
     @Test
-    public final void testCreatePriceBandXSDfromClass() throws JAXBException, IOException {
-        XSDcreation.createXSDfromClass(PriceBandImpl.class, "priceBandSchema");
+    public final void testCreatePriceRecordXSD() throws JAXBException, IOException {
+        File file = new File("priceRecordSchema");
+        XSDcreation.writeXsd(file, PriceRecordImpl.class);
     }
 
     @Test
-    public final void testCreatePriceRecordXSDfromClass() throws JAXBException, IOException {
-        XSDcreation.createXSDfromClass(PriceRecordImpl.class, "priceRecordSchema");
+    public final void testCreatePriceBandXSD() throws JAXBException, IOException {
+        File file = new File("priceBandSchema");
+        XSDcreation.writeXsd(file, PriceBandImpl.class);
     }
 
 }
