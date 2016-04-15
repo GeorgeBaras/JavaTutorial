@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.xml.bind.JAXBException;
+import javax.xml.stream.XMLStreamException;
 
 import org.dom4j.DocumentException;
 import org.junit.Ignore;
@@ -82,6 +83,17 @@ public class XMLcreationTest {
 
         PriceRecordList unmarshalledListOf10 = XMLcreation.unmarshalFromXMLDom4j(file);
         assertTrue(unmarshalledListOf10.compare(millionEntries));
+    }
+
+    @Test
+    public final void unmarshalFromXMLStAXTest()
+            throws JAXBException, IOException, DocumentException, XMLStreamException {
+        PriceRecordList listOf10 = new PriceRecordList(PriceRecordsGenerators.listOfPriceRecordGenerator(10, 5));
+        XMLcreation.marshalToXMLfileJAXB(listOf10, "StAXEntriesToUnmarhal");
+        File file = new File("StAXEntriesToUnmarhal.xml");
+
+        PriceRecordList unmarshalledListOf10 = XMLcreation.unmarshalFromXMLStAX(file);
+        assertTrue(unmarshalledListOf10.compare(listOf10));
     }
 
 }

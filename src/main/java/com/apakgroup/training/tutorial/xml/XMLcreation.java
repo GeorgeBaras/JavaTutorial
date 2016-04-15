@@ -1,7 +1,9 @@
 package com.apakgroup.training.tutorial.xml;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.math.BigDecimal;
@@ -12,6 +14,12 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.stream.XMLEventReader;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.events.EndElement;
+import javax.xml.stream.events.StartElement;
+import javax.xml.stream.events.XMLEvent;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -103,6 +111,89 @@ public class XMLcreation {
         }
 
         return priceRecordlist;
+    }
+
+    /**
+     * goes through opening and closing tags in the xml file that it gets as a parameter and
+     * recreates the PriceRecordList
+     * 
+     * @param file
+     * @return
+     * @throws FileNotFoundException
+     * @throws XMLStreamException
+     */
+    public static PriceRecordList unmarshalFromXMLStAX(File file) throws FileNotFoundException, XMLStreamException {
+        PriceRecordList priceRecordList = new PriceRecordList();
+        List<PriceBand> priceBands = new ArrayList<>();
+        PriceBandImpl priceBand = null;
+        PriceRecordImpl priceRecord = null;
+        String tagName;
+
+        XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
+        XMLEventReader xmlEventReader = xmlInputFactory.createXMLEventReader(new FileReader(file));
+
+        while (xmlEventReader.hasNext()) {
+            XMLEvent xmlEvent = xmlEventReader.nextEvent();
+            if (xmlEvent.isStartElement()) {
+                StartElement startElement = xmlEvent.asStartElement();
+                tagName = startElement.getName().getLocalPart().toString();
+                switch (tagName) {
+                    case "priceRecords":
+                        // create a PriceRecord
+                        priceRecord = new PriceRecordImpl();
+                        break;
+                    case "lookUpCode":
+                        // get to next event and set the lookupcode for the record
+                        xmlEvent = xmlEventReader.nextEvent();
+                        priceRecord.setLookupCode(xmlEvent.asCharacters().getData().toString());
+                        break;
+                    case "priceBand":
+                        //create a PriceBand
+                        priceBand = new PriceBandImpl();
+                        break;
+                    case "mileage":
+                        // get to next event and set the mileage for the PriceBand
+                        xmlEvent = xmlEventReader.nextEvent();
+                        priceBand.setMileage(Integer.parseInt(xmlEvent.asCharacters().getData().toString()));
+                        break;
+                    case "valuation":
+                        // get to next event and set the valuation for the PriceBand
+                        xmlEvent = xmlEventReader.nextEvent();
+                        priceBand.setValuation(new BigDecimal(xmlEvent.asCharacters().getData().toString()));
+                        break;
+                    default:
+                }
+
+                // Access the local parts and check whether they fit our desired element description
+
+                //System.out.println(tagName);
+
+            }
+
+            if (xmlEvent.isEndElement()) {
+                EndElement endElement = xmlEvent.asEndElement();
+                tagName = endElement.getName().getLocalPart().toString();
+                switch (tagName) {
+                    case "priceRecords":
+                        // add the PriceRecord to the PriceRecordList
+                        priceRecordList.addPriceRecordToList(priceRecord);
+                        //clear the PriceRecord
+                        priceRecord = null;
+                        break;
+                    case "priceBand":
+                        //add the PriceBand the the PriceRecord
+                        priceRecord.addPriceBand(priceBand);
+                        //clear the PriceBand 
+                        priceBand = null;
+                        break;
+                    default:
+                }
+            }
+
+        }
+
+        return priceRecordList;
+
     }
 
 }

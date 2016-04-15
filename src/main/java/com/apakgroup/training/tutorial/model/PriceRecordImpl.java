@@ -29,6 +29,7 @@ public class PriceRecordImpl implements PriceRecord {
     private List<PriceBand> priceBands = new ArrayList<PriceBand>();
 
     public PriceRecordImpl() {
+
     }
 
     public PriceRecordImpl(String lookupCode, List<PriceBand> priceBands) {
@@ -72,6 +73,10 @@ public class PriceRecordImpl implements PriceRecord {
 
     public void setPriceBands(List<PriceBand> priceBands) {
         this.priceBands = priceBands;
+    }
+
+    public void addPriceBand(PriceBand priceBand) {
+        this.priceBands.add(priceBand);
     }
 
 }
