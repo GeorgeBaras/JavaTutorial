@@ -79,6 +79,12 @@ public class PriceRecordImpl implements PriceRecord {
         this.priceBands.add(priceBand);
     }
 
+    public void removeLastPriceBand() {
+        if (this.getPriceBands().size() > 0) {
+            this.priceBands.remove(this.getPriceBands().size() - 1);
+        }
+    }
+
     public boolean compare(PriceRecord priceRecord) {
         boolean isSame = true;
         //only check the pricebands if pricebands lists are of the same size
