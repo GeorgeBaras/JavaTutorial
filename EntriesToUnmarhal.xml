@@ -1,252 +1,252 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <PriceRecordsList>
     <priceRecords>
-        <lookUpCode>lookUpCode20</lookUpCode>
-        <priceBands>
-            <priceBand>
-                <mileage>21</mileage>
-                <valuation>4761</valuation>
-            </priceBand>
-            <priceBand>
-                <mileage>69</mileage>
-                <valuation>2380.5</valuation>
-            </priceBand>
-            <priceBand>
-                <mileage>72</mileage>
-                <valuation>2308.36363636</valuation>
-            </priceBand>
-            <priceBand>
-                <mileage>73</mileage>
-                <valuation>2285.28000000</valuation>
-            </priceBand>
-            <priceBand>
-                <mileage>89</mileage>
-                <valuation>1904.40000000</valuation>
-            </priceBand>
-        </priceBands>
-    </priceRecords>
-    <priceRecords>
-        <lookUpCode>lookUpCode21</lookUpCode>
-        <priceBands>
-            <priceBand>
-                <mileage>12</mileage>
-                <valuation>8333</valuation>
-            </priceBand>
-            <priceBand>
-                <mileage>16</mileage>
-                <valuation>7999.68</valuation>
-            </priceBand>
-            <priceBand>
-                <mileage>38</mileage>
-                <valuation>5999.76</valuation>
-            </priceBand>
-            <priceBand>
-                <mileage>49</mileage>
-                <valuation>5333.12</valuation>
-            </priceBand>
-            <priceBand>
-                <mileage>59</mileage>
-                <valuation>4799.808</valuation>
-            </priceBand>
-        </priceBands>
-    </priceRecords>
-    <priceRecords>
-        <lookUpCode>lookUpCode22</lookUpCode>
-        <priceBands>
-            <priceBand>
-                <mileage>42</mileage>
-                <valuation>2380</valuation>
-            </priceBand>
-            <priceBand>
-                <mileage>47</mileage>
-                <valuation>2261</valuation>
-            </priceBand>
-            <priceBand>
-                <mileage>66</mileage>
-                <valuation>1808.8</valuation>
-            </priceBand>
-            <priceBand>
-                <mileage>77</mileage>
-                <valuation>1607.8222222</valuation>
-            </priceBand>
-            <priceBand>
-                <mileage>83</mileage>
-                <valuation>1507.3333333</valuation>
-            </priceBand>
-        </priceBands>
-    </priceRecords>
-    <priceRecords>
-        <lookUpCode>lookUpCode23</lookUpCode>
-        <priceBands>
-            <priceBand>
-                <mileage>14</mileage>
-                <valuation>7142</valuation>
-            </priceBand>
-            <priceBand>
-                <mileage>43</mileage>
-                <valuation>4761.333333</valuation>
-            </priceBand>
-            <priceBand>
-                <mileage>93</mileage>
-                <valuation>2380.666667</valuation>
-            </priceBand>
-            <priceBand>
-                <mileage>110</mileage>
-                <valuation>1904.5333336</valuation>
-            </priceBand>
-            <priceBand>
-                <mileage>141</mileage>
-                <valuation>1269.6888891</valuation>
-            </priceBand>
-        </priceBands>
-    </priceRecords>
-    <priceRecords>
-        <lookUpCode>lookUpCode24</lookUpCode>
+        <lookUpCode>lookUpCode38</lookUpCode>
         <priceBands>
             <priceBand>
                 <mileage>28</mileage>
                 <valuation>3571</valuation>
             </priceBand>
             <priceBand>
-                <mileage>54</mileage>
-                <valuation>2380.666667</valuation>
+                <mileage>50</mileage>
+                <valuation>2678.25</valuation>
             </priceBand>
             <priceBand>
-                <mileage>94</mileage>
-                <valuation>1190.333333</valuation>
+                <mileage>56</mileage>
+                <valuation>2510.859375</valuation>
             </priceBand>
             <priceBand>
-                <mileage>142</mileage>
-                <valuation>595.1666665</valuation>
+                <mileage>85</mileage>
+                <valuation>1673.906250</valuation>
             </priceBand>
             <priceBand>
-                <mileage>173</mileage>
-                <valuation>396.7777777</valuation>
-            </priceBand>
-        </priceBands>
-    </priceRecords>
-    <priceRecords>
-        <lookUpCode>lookUpCode25</lookUpCode>
-        <priceBands>
-            <priceBand>
-                <mileage>38</mileage>
-                <valuation>2631</valuation>
-            </priceBand>
-            <priceBand>
-                <mileage>47</mileage>
-                <valuation>2391.8181818</valuation>
-            </priceBand>
-            <priceBand>
-                <mileage>58</mileage>
-                <valuation>2126.0606060</valuation>
-            </priceBand>
-            <priceBand>
-                <mileage>69</mileage>
-                <valuation>1889.8316498</valuation>
-            </priceBand>
-            <priceBand>
-                <mileage>88</mileage>
-                <valuation>1511.8653198</valuation>
+                <mileage>123</mileage>
+                <valuation>836.953125</valuation>
             </priceBand>
         </priceBands>
     </priceRecords>
     <priceRecords>
-        <lookUpCode>lookUpCode26</lookUpCode>
+        <lookUpCode>lookUpCode39</lookUpCode>
         <priceBands>
             <priceBand>
-                <mileage>16</mileage>
-                <valuation>6250</valuation>
-            </priceBand>
-            <priceBand>
-                <mileage>19</mileage>
-                <valuation>6060.6060606</valuation>
-            </priceBand>
-            <priceBand>
-                <mileage>59</mileage>
-                <valuation>3030.3030306</valuation>
-            </priceBand>
-            <priceBand>
-                <mileage>67</mileage>
-                <valuation>2777.7777780</valuation>
-            </priceBand>
-            <priceBand>
-                <mileage>74</mileage>
-                <valuation>2579.3650796</valuation>
-            </priceBand>
-        </priceBands>
-    </priceRecords>
-    <priceRecords>
-        <lookUpCode>lookUpCode27</lookUpCode>
-        <priceBands>
-            <priceBand>
-                <mileage>3</mileage>
-                <valuation>33333</valuation>
-            </priceBand>
-            <priceBand>
-                <mileage>49</mileage>
-                <valuation>16666.5</valuation>
+                <mileage>27</mileage>
+                <valuation>3703</valuation>
             </priceBand>
             <priceBand>
                 <mileage>72</mileage>
-                <valuation>12499.875</valuation>
+                <valuation>1851.5</valuation>
             </priceBand>
             <priceBand>
-                <mileage>114</mileage>
-                <valuation>6249.9375</valuation>
+                <mileage>120</mileage>
+                <valuation>925.75</valuation>
             </priceBand>
             <priceBand>
-                <mileage>149</mileage>
-                <valuation>3124.96875</valuation>
+                <mileage>151</mileage>
+                <valuation>617.1666667</valuation>
+            </priceBand>
+            <priceBand>
+                <mileage>188</mileage>
+                <valuation>308.5833333</valuation>
             </priceBand>
         </priceBands>
     </priceRecords>
     <priceRecords>
-        <lookUpCode>lookUpCode28</lookUpCode>
+        <lookUpCode>lookUpCode40</lookUpCode>
         <priceBands>
             <priceBand>
-                <mileage>5</mileage>
-                <valuation>20000</valuation>
+                <mileage>14</mileage>
+                <valuation>7142</valuation>
             </priceBand>
             <priceBand>
-                <mileage>41</mileage>
-                <valuation>10000</valuation>
-            </priceBand>
-            <priceBand>
-                <mileage>51</mileage>
-                <valuation>9000</valuation>
+                <mileage>35</mileage>
+                <valuation>5356.5</valuation>
             </priceBand>
             <priceBand>
                 <mileage>84</mileage>
-                <valuation>6000</valuation>
+                <valuation>2678.25</valuation>
             </priceBand>
             <priceBand>
-                <mileage>126</mileage>
-                <valuation>3000</valuation>
+                <mileage>113</mileage>
+                <valuation>1785.50</valuation>
+            </priceBand>
+            <priceBand>
+                <mileage>119</mileage>
+                <valuation>1673.90625</valuation>
             </priceBand>
         </priceBands>
     </priceRecords>
     <priceRecords>
-        <lookUpCode>lookUpCode29</lookUpCode>
+        <lookUpCode>lookUpCode41</lookUpCode>
         <priceBands>
             <priceBand>
-                <mileage>25</mileage>
-                <valuation>4000</valuation>
+                <mileage>15</mileage>
+                <valuation>6666</valuation>
             </priceBand>
             <priceBand>
-                <mileage>69</mileage>
-                <valuation>2000</valuation>
+                <mileage>62</mileage>
+                <valuation>3333</valuation>
             </priceBand>
             <priceBand>
-                <mileage>74</mileage>
-                <valuation>1900</valuation>
+                <mileage>108</mileage>
+                <valuation>1666.5</valuation>
             </priceBand>
             <priceBand>
-                <mileage>117</mileage>
-                <valuation>950</valuation>
+                <mileage>150</mileage>
+                <valuation>833.25</valuation>
+            </priceBand>
+            <priceBand>
+                <mileage>189</mileage>
+                <valuation>416.625</valuation>
+            </priceBand>
+        </priceBands>
+    </priceRecords>
+    <priceRecords>
+        <lookUpCode>lookUpCode42</lookUpCode>
+        <priceBands>
+            <priceBand>
+                <mileage>11</mileage>
+                <valuation>9090</valuation>
+            </priceBand>
+            <priceBand>
+                <mileage>55</mileage>
+                <valuation>4545</valuation>
+            </priceBand>
+            <priceBand>
+                <mileage>73</mileage>
+                <valuation>3636</valuation>
+            </priceBand>
+            <priceBand>
+                <mileage>100</mileage>
+                <valuation>2424</valuation>
+            </priceBand>
+            <priceBand>
+                <mileage>112</mileage>
+                <valuation>2121</valuation>
+            </priceBand>
+        </priceBands>
+    </priceRecords>
+    <priceRecords>
+        <lookUpCode>lookUpCode43</lookUpCode>
+        <priceBands>
+            <priceBand>
+                <mileage>28</mileage>
+                <valuation>3571</valuation>
+            </priceBand>
+            <priceBand>
+                <mileage>72</mileage>
+                <valuation>1785.5</valuation>
+            </priceBand>
+            <priceBand>
+                <mileage>105</mileage>
+                <valuation>1190.3333333</valuation>
+            </priceBand>
+            <priceBand>
+                <mileage>141</mileage>
+                <valuation>595.1666667</valuation>
             </priceBand>
             <priceBand>
                 <mileage>145</mileage>
-                <valuation>633.3333333</valuation>
+                <valuation>571.36000003</valuation>
+            </priceBand>
+        </priceBands>
+    </priceRecords>
+    <priceRecords>
+        <lookUpCode>lookUpCode44</lookUpCode>
+        <priceBands>
+            <priceBand>
+                <mileage>17</mileage>
+                <valuation>5882</valuation>
+            </priceBand>
+            <priceBand>
+                <mileage>62</mileage>
+                <valuation>2941</valuation>
+            </priceBand>
+            <priceBand>
+                <mileage>86</mileage>
+                <valuation>2205.75</valuation>
+            </priceBand>
+            <priceBand>
+                <mileage>103</mileage>
+                <valuation>1764.60</valuation>
+            </priceBand>
+            <priceBand>
+                <mileage>107</mileage>
+                <valuation>1694.016</valuation>
+            </priceBand>
+        </priceBands>
+    </priceRecords>
+    <priceRecords>
+        <lookUpCode>lookUpCode45</lookUpCode>
+        <priceBands>
+            <priceBand>
+                <mileage>8</mileage>
+                <valuation>12500</valuation>
+            </priceBand>
+            <priceBand>
+                <mileage>34</mileage>
+                <valuation>8333.333333</valuation>
+            </priceBand>
+            <priceBand>
+                <mileage>72</mileage>
+                <valuation>4166.666667</valuation>
+            </priceBand>
+            <priceBand>
+                <mileage>91</mileage>
+                <valuation>3333.3333336</valuation>
+            </priceBand>
+            <priceBand>
+                <mileage>138</mileage>
+                <valuation>1666.6666666</valuation>
+            </priceBand>
+        </priceBands>
+    </priceRecords>
+    <priceRecords>
+        <lookUpCode>lookUpCode46</lookUpCode>
+        <priceBands>
+            <priceBand>
+                <mileage>1</mileage>
+                <valuation>100000</valuation>
+            </priceBand>
+            <priceBand>
+                <mileage>20</mileage>
+                <valuation>80000</valuation>
+            </priceBand>
+            <priceBand>
+                <mileage>70</mileage>
+                <valuation>40000</valuation>
+            </priceBand>
+            <priceBand>
+                <mileage>87</mileage>
+                <valuation>32000</valuation>
+            </priceBand>
+            <priceBand>
+                <mileage>120</mileage>
+                <valuation>21333.33333</valuation>
+            </priceBand>
+        </priceBands>
+    </priceRecords>
+    <priceRecords>
+        <lookUpCode>lookUpCode47</lookUpCode>
+        <priceBands>
+            <priceBand>
+                <mileage>29</mileage>
+                <valuation>3448</valuation>
+            </priceBand>
+            <priceBand>
+                <mileage>50</mileage>
+                <valuation>2586</valuation>
+            </priceBand>
+            <priceBand>
+                <mileage>65</mileage>
+                <valuation>2155</valuation>
+            </priceBand>
+            <priceBand>
+                <mileage>109</mileage>
+                <valuation>1077.5</valuation>
+            </priceBand>
+            <priceBand>
+                <mileage>158</mileage>
+                <valuation>538.75</valuation>
             </priceBand>
         </priceBands>
     </priceRecords>

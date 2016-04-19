@@ -79,4 +79,30 @@ public class PriceRecordImpl implements PriceRecord {
         this.priceBands.add(priceBand);
     }
 
+    public boolean compare(PriceRecord priceRecord) {
+        boolean isSame = true;
+        //only check the pricebands if pricebands lists are of the same size
+        if (this.priceBands.size() == priceRecord.getPriceBands().size()) {
+
+            // for every priceBand in the priceRecord
+            for (int j = 0; j < this.getPriceBands().size(); j++) {
+                // if the mileage or the valuation of the priceBand do not match for the two lists set the siSame to false
+                if (this.getPriceBands().get(j).getMileage() != priceRecord.getPriceBands().get(j).getMileage()) {
+                    isSame = false;
+                }
+                if (this.getPriceBands().get(j).getValuation()
+                        .compareTo(priceRecord.getPriceBands().get(j).getValuation()) != 0) {
+                    isSame = false;
+                }
+            }
+        } else {
+            isSame = false;
+        }
+        if (!this.lookupCode.equals(priceRecord.getLookupCode())) {
+            isSame = false;
+        }
+
+        return isSame;
+    }
+
 }

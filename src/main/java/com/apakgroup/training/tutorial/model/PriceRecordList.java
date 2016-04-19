@@ -42,20 +42,35 @@ public class PriceRecordList {
      */
     public boolean compare(PriceRecordList priceRecordList) {
         boolean isSame = true;
-        // for every priceRecord in the list
-        for (int i = 0; i < this.priceRecords.size(); i++) {
-            // for every priceBand in the priceRecord
-            for (int j = 0; j < this.priceRecords.get(i).getPriceBands().size(); j++) {
-                // if the mileage or the valuation of the priceBand do not match for the two lists set the siSame to false
-                if (this.priceRecords.get(i).getPriceBands().get(j).getMileage() != priceRecordList.get(i)
-                        .getPriceBands().get(j).getMileage()) {
+        // only check the recordlists if the are of the same size
+        if (this.getListOfPriceRecords().size() == priceRecordList.getListOfPriceRecords().size()) {
+            // for every priceRecord in the list
+
+            for (int i = 0; i < this.priceRecords.size(); i++) {
+                if (!this.priceRecords.get(i).getLookupCode()
+                        .equals(priceRecordList.getListOfPriceRecords().get(i).getLookupCode())) {
                     isSame = false;
                 }
-                if (this.priceRecords.get(i).getPriceBands().get(j).getValuation()
-                        .compareTo(priceRecordList.get(i).getPriceBands().get(j).getValuation()) != 0) {
+                //Only check pricebands if the priceband lists are of the same size
+                if (this.priceRecords.get(i).getPriceBands().size() == priceRecordList.get(i).getPriceBands().size()) {
+                    // for every priceBand in the priceRecord
+                    for (int j = 0; j < this.priceRecords.get(i).getPriceBands().size(); j++) {
+                        // if the mileage or the valuation of the priceBand do not match for the two lists set the siSame to false
+                        if (this.priceRecords.get(i).getPriceBands().get(j).getMileage() != priceRecordList.get(i)
+                                .getPriceBands().get(j).getMileage()) {
+                            isSame = false;
+                        }
+                        if (this.priceRecords.get(i).getPriceBands().get(j).getValuation()
+                                .compareTo(priceRecordList.get(i).getPriceBands().get(j).getValuation()) != 0) {
+                            isSame = false;
+                        }
+                    } //
+                } else {
                     isSame = false;
                 }
             }
+        } else {
+            isSame = false;
         }
         return isSame;
     }

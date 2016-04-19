@@ -1,6 +1,7 @@
 package com.apakgroup.training.tutorial;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -92,6 +93,13 @@ public class PriceRecordTest {
         };
         List<PriceBand> receivedPriceBands = pr.getPriceBands();
         assertEquals("failure - PriceBands do not match", expectedPriceBands, receivedPriceBands);
+    }
+
+    @Test
+    public void testCompare() {
+        PriceRecordImpl pr1 = new PriceRecordImpl("lowOnly", priceBands3);
+        PriceRecordImpl pr2 = new PriceRecordImpl("lowOnly", priceBands3);
+        assertTrue(pr1.compare(pr2));
     }
 
 }
