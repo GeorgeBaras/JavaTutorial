@@ -88,6 +88,15 @@ xmlns="http://www.springframework.org/schema/beans">
 		<property name="valuationCalculator" ref="CAPValuationCalculator" />
 	</bean>
 	
+	<!-- PriceRecordDAO and Service beans -->
+	
+	<bean id="priceRecordDAO" class="com.apakgroup.training.tutorial.model.PriceRecordDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	
+	
+	<!-- Import the hibernateContext -->
 	<import resource="hibernateContext.xml" />
 	
 </beans>
