@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
-import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -22,7 +22,6 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.apakgroup.training.tutorial.pricing.PriceBand;
 import com.apakgroup.training.tutorial.pricing.PriceRecord;
 import com.apakgroup.training.tutorial.xml.PriceRecordsGenerators;
 
@@ -34,230 +33,275 @@ public class PriceRecordDAOTest {
     private SessionFactory sessionFactory;
 
     @Resource
-    private PriceRecord lowOnly;
-
-    private final PriceBand lowBand2 = new PriceBandImpl(15, new BigDecimal(15000.0));
-
-    private final PriceRecord low1 = new PriceRecordImpl("low1", lowBand2);
-
-    private final PriceBand lowBand3 = new PriceBandImpl(25, new BigDecimal(25000.0));
-
-    private final PriceRecord low2 = new PriceRecordImpl("low2", lowBand3);
-
-    private final PriceBand lowBand4 = new PriceBandImpl(35, new BigDecimal(35000.0));
-
-    private final PriceRecord lowToDelete = new PriceRecordImpl("lowToDelete", lowBand4);
-
-    private final PriceBand lowBand5 = new PriceBandImpl(35, new BigDecimal(35000.0));
-
-    private final PriceRecord lowToDelete2 = new PriceRecordImpl("lowToDelete2", lowBand5);
-
-    private final PriceBand lowBand6 = new PriceBandImpl(45, new BigDecimal(55000.0));
-
-    private final PriceRecord lowToDelete3 = new PriceRecordImpl("lowToDelete3", lowBand6);
+    private PriceRecordService priceRecordService;
 
     @Transactional
+    @Ignore //@Rollback(false) 
+    @Test
+    public final void populateDBfromXML() throws JAXBException {
+        File file = new File("10kEntriesXML.xml");
+        int recordsInserted = priceRecordService.addPriceRecordsFromXMLFile(file).size();
+        assertEquals(10000, recordsInserted); // fixed size from the file
+    }
+
+    @Transactional
+    @Ignore //  @Rollback(false) //// 
     @Test
     public final void addPriceRecordTest() {
         PriceRecordImpl priceRecord = (PriceRecordImpl) PriceRecordsGenerators.priceRecordGenerator(1);
-        PriceRecordDAO.addPriceRecord(priceRecord);
+        priceRecordService.addPriceRecord(priceRecord);
+
         // To get the latest addition to the database, the records will be ordered descendingly and the first one will be pulled
-        sessionFactory.getCurrentSession();
-        Session session = sessionFactory.openSession();
+        // sessionFactory.getCurrentSession();
+        Session session = sessionFactory.getCurrentSession();
         Criteria criterion = session.createCriteria(PriceRecordImpl.class);
         criterion.addOrder(Order.desc("id"));
         criterion.setMaxResults(1);
         PriceRecordImpl priceRercordFromDB = (PriceRecordImpl) criterion.uniqueResult();
 
         assertTrue(priceRecord.compare(priceRercordFromDB));
+
     }
 
-    // addPriceRecordList
     @Transactional
+    @Ignore //@Rollback(false) //
     @Test
     public final void addPriceRecordListTest() {
-        PriceRecordList priceRecordList = new PriceRecordList(PriceRecordsGenerators.listOfPriceRecordGenerator(2, 2));
-        // size before adding priceRecordList
-        sessionFactory.getCurrentSession();
-        Session session = sessionFactory.openSession();
-        Criteria criterion = session.createCriteria(PriceRecordImpl.class);
-        criterion.setProjection(Projections.rowCount());
-        Long countBefore = (Long) criterion.uniqueResult();
-        int countBeforeList = new Integer(countBefore.toString());
+        PriceRecordList priceRecordList = new PriceRecordList(PriceRecordsGenerators.listOfPriceRecordGenerator(3, 2));
         // Add the List
-        PriceRecordDAO.addPriceRecordList(priceRecordList);
-        // Get the count again and compare the list's size with the new entries on the table 
-        Long countAfter = (Long) criterion.uniqueResult();
-        int countAfterList = new Integer(countAfter.toString());
-
-        assertEquals(priceRecordList.getListOfPriceRecords().size(), countAfterList - countBeforeList);
+        int recordsInserted = priceRecordService.addPriceRecordList(priceRecordList).size();
+        assertEquals(priceRecordList.getListOfPriceRecords().size(), recordsInserted);
     }
 
-    // addListOfPriceRecords
     @Transactional
+    @Ignore //@Rollback(false) //
     @Test
     public final void addListOfPriceRecordsTest() {
         List<PriceRecord> listOfPriceRecords = PriceRecordsGenerators.listOfPriceRecordGenerator(2, 2);
-        // size before adding priceRecordList
-        sessionFactory.getCurrentSession();
-        Session session = sessionFactory.openSession();
-        Criteria criterion = session.createCriteria(PriceRecordImpl.class);
-        criterion.setProjection(Projections.rowCount());
-        Long countBefore = (Long) criterion.uniqueResult();
-        int countBeforeList = new Integer(countBefore.toString());
-        // Add the List
-        PriceRecordDAO.addListOfPriceRecords(listOfPriceRecords);
-        // Get the count again and compare the list's size with the new entries on the table 
-        Long countAfter = (Long) criterion.uniqueResult();
-        int countAfterList = new Integer(countAfter.toString());
 
-        assertEquals(listOfPriceRecords.size(), countAfterList - countBeforeList);
+        // Add the List
+        int recordsInserted = priceRecordService.addListOfPriceRecords(listOfPriceRecords).size();
+        assertEquals(listOfPriceRecords.size(), recordsInserted);
     }
 
     // addPriceRecordsFromXMLFile
     @Transactional
+    @Ignore //@Rollback(false) //
     @Test
     public final void addPriceRecordsFromXMLFileTest() throws JAXBException {
-        // size before adding priceRecordList
-        sessionFactory.getCurrentSession();
-        Session session = sessionFactory.openSession();
-        Criteria criterion = session.createCriteria(PriceRecordImpl.class);
-        criterion.setProjection(Projections.rowCount());
-        Long countBefore = (Long) criterion.uniqueResult();
-        int countBeforeList = new Integer(countBefore.toString());
         // Add the List
         File file = new File("EntriesToUnmarhal.xml");
-        PriceRecordDAO.addPriceRecordsFromXMLFile(file);
-        // Get the count again and compare the list's size with the new entries on the table 
-        Long countAfter = (Long) criterion.uniqueResult();
-        int countAfterList = new Integer(countAfter.toString());
-
-        assertEquals(10, countAfterList - countBeforeList); // fixed size from the file
+        int recordsInserted = priceRecordService.addPriceRecordsFromXMLFile(file).size();
+        assertEquals(10, recordsInserted); // fixed size from the file
     }
 
     @Transactional
-    @Test
-    public final void getPriceRecordByIDTest() {
-        long lowID = PriceRecordDAO.addPriceRecord(lowOnly);
-        PriceRecordImpl priceRecordFromDB = (PriceRecordImpl) PriceRecordDAO.getPriceRecordByID(lowID);
-        assertTrue(priceRecordFromDB.compare(lowOnly));
-    }
-
-    @Transactional
+    @Ignore //@Rollback(false) //
     @Test
     public final void getPriceRecordByLookupcodeTest() {
         // add a stabbed record to the database
-        PriceRecordDAO.addPriceRecord(low1);
+        PriceRecordImpl priceRecord = (PriceRecordImpl) PriceRecordsGenerators.priceRecordGenerator(1);
+        long priceRecordID = priceRecordService.addPriceRecord(priceRecord);
         // get it by lookupcode
-        PriceRecordImpl priceRecord = (PriceRecordImpl) PriceRecordDAO.getPriceRecordByLookupcode(low1.getLookupCode());
-
-        assertTrue(priceRecord.compare(low1));
+        PriceRecordImpl priceRecordFromDB = (PriceRecordImpl) priceRecordService
+                .getPriceRecordByLookupcode(priceRecord.getLookupCode());
+        assertTrue(priceRecordFromDB.compare(priceRecord));
     }
 
-    @Ignore
     @Transactional
+    @Ignore //@Rollback(false) //
+    @Test
+    public final void getPriceRecordByIDTest() {
+        PriceRecordImpl priceRecord = (PriceRecordImpl) PriceRecordsGenerators.priceRecordGenerator(1);
+        long priceRecordID = priceRecordService.addPriceRecord(priceRecord);
+        PriceRecordImpl priceRecordFromDB = (PriceRecordImpl) priceRecordService.getPriceRecordByID(priceRecordID);
+        assertTrue(priceRecordFromDB.compare(priceRecord));
+    }
+
+    @Transactional
+    @Ignore //@Rollback(false) //
     @Test
     public final void getAllPriceRecordsTest() {
-        // Get the count of entries
-        sessionFactory.getCurrentSession();
-        Session session = sessionFactory.openSession();
-        Criteria criterion = session.createCriteria(PriceRecordImpl.class);
+        // Get the count of all entries
+        Criteria criterion = sessionFactory.getCurrentSession().createCriteria(PriceRecordImpl.class);
         criterion.setProjection(Projections.rowCount());
         Long countBefore = (Long) criterion.uniqueResult();
         int countBeforeGetAll = new Integer(countBefore.toString());
         // Get all entries from DB as a list and check the size
-        assertEquals(PriceRecordDAO.getAllPriceRecords().size(), countBeforeGetAll);
-
+        assertEquals(priceRecordService.getAllPriceRecords().size(), countBeforeGetAll);
     }
 
-    @Ignore
     @Transactional
+    @Ignore //@Rollback(false) //
     @Test
     public final void getIDbyLookupcodeTest() {
         PriceRecordImpl priceRecord = (PriceRecordImpl) PriceRecordsGenerators.priceRecordGenerator(1);
-        long actualID = PriceRecordDAO.addPriceRecord(priceRecord);
-        long id = PriceRecordDAO.getIDbyLookupcode(priceRecord.getLookupCode());
+        long actualID = priceRecordService.addPriceRecord(priceRecord);
+        long id = priceRecordService.getIDbyLookupcode(priceRecord.getLookupCode());
         assertEquals(actualID, id);
 
     }
 
-    @Ignore
     @Transactional
-    @Test
-    public final void deletePriceRecordByLookupcodeTest() {
-        // Get the count of entries
-        PriceRecordDAO.addPriceRecord(lowToDelete);
-        sessionFactory.getCurrentSession();
-        Session session = sessionFactory.openSession();
-        Criteria criterion = session.createCriteria(PriceRecordImpl.class);
-        criterion.setProjection(Projections.rowCount());
-        Long countBefore = (Long) criterion.uniqueResult();
-        int countBeforeDelete = new Integer(countBefore.toString());
-        // Remove a record that is in the DB
-        PriceRecordDAO.deletePriceRecordByLookupcode("lowToDelete");
-
-        // Get the count again and compare 
-        Long countAfter = (Long) criterion.uniqueResult();
-        int countAfterDelete = new Integer(countAfter.toString());
-        assertEquals(countBeforeDelete, (countAfterDelete + 1));
-
-    }
-
-    // @Ignore
-    @Transactional
-    @Test
-    public final void deletePriceRecordByIdTest() {
-        // PriceRecordDAO.deletePriceRecordByLookupcode("lowToDelete");
-        long id = PriceRecordDAO.addPriceRecord(lowToDelete2);
-        // Get the count of entries
-        sessionFactory.getCurrentSession();
-        Session session = sessionFactory.openSession();
-        Criteria criterion = session.createCriteria(PriceRecordImpl.class);
-        criterion.setProjection(Projections.rowCount());
-        Long countBefore = (Long) criterion.uniqueResult();
-        int countBeforeDelete = new Integer(countBefore.toString());
-        // Remove a record that is in the DB
-        PriceRecordDAO.deletePriceRecordByID(id);
-        // Get the count again and compare 
-        Long countAfter = (Long) criterion.uniqueResult();
-        int countAfterDelete = new Integer(countAfter.toString());
-        assertEquals(countBeforeDelete, (countAfterDelete + 1));
-
-    }
-
-    @Transactional
+    @Ignore //@Rollback(false) //
     @Test
     public final void updateLookupcodeByLookupcodeTest() {
-        long id = PriceRecordDAO.addPriceRecord(lowToDelete2);
-        PriceRecordDAO.updateLookupcodeByLookupcode("lowToDelete2", "newLow2");
+        PriceRecordImpl priceRecord = (PriceRecordImpl) PriceRecordsGenerators.priceRecordGenerator(1);
+        long id = priceRecordService.addPriceRecord(priceRecord);
 
-        assert (true);
+        priceRecordService.updateLookupcodeByLookupcode(priceRecord.getLookupCode(), "AlteredLookUpCode");
+
+        String updatedLookUpCode = priceRecordService.getPriceRecordByID(id).getLookupCode();
+        assertEquals(updatedLookUpCode, "AlteredLookUpCode");
     }
 
     @Transactional
+    @Ignore //@Rollback(false) //
     @Test
     public final void updateLookupcodeByIDTest() {
-        long id = PriceRecordDAO.addPriceRecord(lowToDelete3);
-        PriceRecordDAO.updateLookupcodeByID(id, "newLow3");
+        PriceRecordImpl priceRecord = (PriceRecordImpl) PriceRecordsGenerators.priceRecordGenerator(1);
+        long id = priceRecordService.addPriceRecord(priceRecord);
 
-        assert (true);
+        priceRecordService.updateLookupcodeByID(id, "AlteredLookUpCodeById");
+
+        String updatedLookUpCode = priceRecordService.getPriceRecordByID(id).getLookupCode();
+        assertEquals(updatedLookUpCode, "AlteredLookUpCodeById");
     }
-    //////////////////////////////////////////////////////////////////////////////////////////////
 
-    @Ignore
     @Transactional
+    @Ignore //@Rollback(false) //
+    @Test
+    public final void addPriceBandByLookupcodeTest() {
+        PriceRecordImpl priceRecord = (PriceRecordImpl) PriceRecordsGenerators.priceRecordGenerator(2);
+        long id = priceRecordService.addPriceRecord(priceRecord);
+        PriceBandImpl priceBand = (PriceBandImpl) PriceRecordsGenerators.priceBandGenerator(
+                priceRecord.getPriceBands().get(priceRecord.getPriceBands().size() - 1).getMileage(),
+                priceRecord.getPriceBands().get(priceRecord.getPriceBands().size() - 1).getValuation());
+        //Add the priceBand to the record
+        priceRecordService.addPriceBandByLookupcode(priceBand, priceRecord.getLookupCode());
+        //Retrieve it
+        PriceBandImpl updatedLastPriceBand = (PriceBandImpl) priceRecordService.getPriceRecordByID(id).getPriceBands()
+                .get(priceRecordService.getPriceRecordByID(id).getPriceBands().size() - 1);
+        // Compare
+        assertTrue(priceBand.compare(updatedLastPriceBand));
+    }
+
+    @Transactional
+    @Ignore //@Rollback(false) //
+    @Test
+    public final void addPriceBandByIDTest() {
+        PriceRecordImpl priceRecord = (PriceRecordImpl) PriceRecordsGenerators.priceRecordGenerator(2);
+        long id = priceRecordService.addPriceRecord(priceRecord);
+        PriceBandImpl priceBand = (PriceBandImpl) PriceRecordsGenerators.priceBandGenerator(
+                priceRecord.getPriceBands().get(priceRecord.getPriceBands().size() - 1).getMileage(),
+                priceRecord.getPriceBands().get(priceRecord.getPriceBands().size() - 1).getValuation());
+        //Add the priceBand to the record
+        priceRecordService.addPriceBandByID(priceBand, id);
+        //Retrieve it
+        PriceBandImpl updatedLastPriceBand = (PriceBandImpl) priceRecordService.getPriceRecordByID(id).getPriceBands()
+                .get(priceRecordService.getPriceRecordByID(id).getPriceBands().size() - 1);
+        // Compare
+        assertTrue(priceBand.compare(updatedLastPriceBand));
+    }
+
+    @Transactional
+    @Ignore //@Rollback(false) //
+    @Test
+    public final void removeLastPriceBandByLookupcodeTest() {
+        PriceRecordImpl priceRecord = (PriceRecordImpl) PriceRecordsGenerators.priceRecordGenerator(3); // 3 priceBands
+        long id = priceRecordService.addPriceRecord(priceRecord);
+
+        //Remove the priceBand to the record
+        priceRecordService.removeLastPriceBandByLookupcode(priceRecord.getLookupCode());
+        //Retrieve the number of priceBands
+        int numberOfPriceBands = priceRecordService.getPriceRecordByID(id).getPriceBands().size();
+        // Compare
+        assertEquals(numberOfPriceBands, 2);
+    }
+
+    @Transactional
+    @Ignore //@Rollback(false) //
+    @Test
+    public final void removeLastPriceBandByIDTest() {
+        PriceRecordImpl priceRecord = (PriceRecordImpl) PriceRecordsGenerators.priceRecordGenerator(3); // 3 priceBands
+        long id = priceRecordService.addPriceRecord(priceRecord);
+
+        //Remove the priceBand to the record
+        priceRecordService.removeLastPriceBandByID(id);
+        //Retrieve the number of priceBands
+        int numberOfPriceBands = priceRecordService.getPriceRecordByID(id).getPriceBands().size();
+        // Compare
+        assertEquals(numberOfPriceBands, 2);
+    }
+
+    @Transactional
+    @Ignore //@Rollback(false) //
+    @Test
+    public final void deletePriceRecordByLookupcodeTest() {
+        PriceRecordImpl priceRecord = (PriceRecordImpl) PriceRecordsGenerators.priceRecordGenerator(2);
+        long id = priceRecordService.addPriceRecord(priceRecord);
+        int numberOfRecordsBeforeDeletion = priceRecordService.getAllPriceRecords().size();
+        //Remove the priceBand to the record
+        priceRecordService.deletePriceRecordByLookupcode(priceRecord.getLookupCode());
+        int numberOfRecordsAfterDeletion = priceRecordService.getAllPriceRecords().size();
+        // Check that one record has been deleted from the DB
+        assertEquals(numberOfRecordsBeforeDeletion, numberOfRecordsAfterDeletion + 1);
+    }
+
+    @Transactional
+    @Ignore //@Rollback(false) // 
+    @Test
+    public final void deletePriceRecordByIDTest() {
+        PriceRecordImpl priceRecord = (PriceRecordImpl) PriceRecordsGenerators.priceRecordGenerator(2);
+        long id = priceRecordService.addPriceRecord(priceRecord);
+        int numberOfRecordsBeforeDeletion = priceRecordService.getAllPriceRecords().size();
+        //Remove the priceBand to the record
+        priceRecordService.deletePriceRecordByID(id);
+        int numberOfRecordsAfterDeletion = priceRecordService.getAllPriceRecords().size();
+        // Check that one record has been deleted from the DB
+        assertEquals(numberOfRecordsBeforeDeletion, numberOfRecordsAfterDeletion + 1);
+    }
+
+    @Transactional
+    @Ignore // @Rollback(false) // 
+    @Test
+    public final void deleteListOfPriceRecordsTest() {
+        //Create a list of priceRecords
+        PriceRecordImpl priceRecord1 = (PriceRecordImpl) PriceRecordsGenerators.priceRecordGenerator(2);
+        PriceRecordImpl priceRecord2 = (PriceRecordImpl) PriceRecordsGenerators.priceRecordGenerator(2);
+        List<PriceRecord> priceRecords = new ArrayList<>();
+        priceRecords.add(priceRecord1);
+        priceRecords.add(priceRecord2);
+        // Add it to the DB
+        priceRecordService.addListOfPriceRecords(priceRecords);
+
+        int numberOfRecordsBeforeDeletion = priceRecordService.getAllPriceRecords().size();
+        //Remove the list of records
+        priceRecordService.deleteListOfPriceRecords(priceRecords);
+        int numberOfRecordsAfterDeletion = priceRecordService.getAllPriceRecords().size();
+        // Check that 2 records have been deleted from the DB
+        assertEquals(numberOfRecordsBeforeDeletion, numberOfRecordsAfterDeletion + 2);
+    }
+
+    @Transactional
+    @Ignore // @Rollback(false) // 
     @Test
     public final void deleteAllPriceRecordsTest() {
-        //long id = PriceRecordDAO.addPriceRecord(lowToDelete2);
-        PriceRecordDAO.deleteAllPriceRecords();
-        // Get the count of entries
-        sessionFactory.getCurrentSession();
-        Session session = sessionFactory.openSession();
-        Criteria criterion = session.createCriteria(PriceRecordImpl.class);
-        criterion.setProjection(Projections.rowCount());
-        Long count = (Long) criterion.uniqueResult();
-        int countAfterDelete = new Integer(count.toString());
-        assertEquals(countAfterDelete, 0);
+        //Create a list of priceRecords
+        PriceRecordImpl priceRecord1 = (PriceRecordImpl) PriceRecordsGenerators.priceRecordGenerator(2);
+        PriceRecordImpl priceRecord2 = (PriceRecordImpl) PriceRecordsGenerators.priceRecordGenerator(2);
+        PriceRecordImpl priceRecord3 = (PriceRecordImpl) PriceRecordsGenerators.priceRecordGenerator(2);
+        List<PriceRecord> priceRecords = new ArrayList<>();
+        priceRecords.add(priceRecord1);
+        priceRecords.add(priceRecord2);
+        priceRecords.add(priceRecord3);
+        // Add it to the DB
+        priceRecordService.addListOfPriceRecords(priceRecords);
+        //Call the delete method
+        priceRecordService.deleteAllPriceRecords();
+        int numberOfRecordsAfterDeletion = priceRecordService.getAllPriceRecords().size();
+        // Check that all records have been deleted from the DB
+        assertEquals(0, numberOfRecordsAfterDeletion);
     }
 
 }

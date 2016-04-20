@@ -1,13 +1,14 @@
 package com.apakgroup.training.tutorial.model;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.JAXBException;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -18,233 +19,164 @@ import com.apakgroup.training.tutorial.xml.XMLcreation;
 @Repository
 public class PriceRecordDAO {
 
-    // private static final Logger LOGGER = LoggerFactory.getLogger(PriceRecordDAO.class);
+    //private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(PriceRecordDAO.class);
 
-    private static SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
 
-    public static SessionFactory getSessionFactory() {
+    public SessionFactory getSessionFactory() {
         return sessionFactory;
     }
 
-    public static void setSessionFactory(SessionFactory sessionFactory) {
-        PriceRecordDAO.sessionFactory = sessionFactory;
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
+    public PriceRecordDAO() {
     }
 
     // Create
-    // Add priceRecord
 
-    public static long addPriceRecord(PriceRecord priceRecord) {
-        sessionFactory.getCurrentSession();
-        Session session = sessionFactory.openSession();
-        long identifier = (long) session.save(priceRecord);
-        //session.persist(priceRecord);
-        session.flush();
+    public long addPriceRecord(PriceRecord priceRecord) {
+        long identifier = (long) sessionFactory.getCurrentSession().save(priceRecord);
+        //LOGGER.info("PriceRecord saved to database");
         return identifier;
     }
 
-    // Add priceRecordList
-    public static void addPriceRecordList(PriceRecordList priceRecordList) {
+    public ArrayList<Long> addPriceRecordList(PriceRecordList priceRecordList) {
+        ArrayList<Long> identifiers = new ArrayList<>();
         for (PriceRecord priceRecord : priceRecordList.getListOfPriceRecords()) {
-            PriceRecordDAO.addPriceRecord(priceRecord);
+            identifiers.add(addPriceRecord(priceRecord));
         }
+        return identifiers;
     }
 
-    // Add list of PriceRecords
-    public static void addListOfPriceRecords(List<PriceRecord> listOfPriceRecords) {
+    public ArrayList<Long> addListOfPriceRecords(List<PriceRecord> listOfPriceRecords) {
+        ArrayList<Long> identifiers = new ArrayList<>();
         for (PriceRecord priceRecord : listOfPriceRecords) {
-            PriceRecordDAO.addPriceRecord(priceRecord);
+            identifiers.add(addPriceRecord(priceRecord));
         }
+        return identifiers;
     }
 
     // Add priceRecord from xml file
-    public static void addPriceRecordsFromXMLFile(File file) throws JAXBException {
+    public ArrayList<Long> addPriceRecordsFromXMLFile(File file) throws JAXBException {
         // call the unmarshaller for the file given as parameter
         PriceRecordList priceRecordList = (PriceRecordList) XMLcreation.unmarshalFromXMLfileJAXB(file,
                 PriceRecordList.class);
+        ArrayList<Long> identifiers = new ArrayList<>();
         for (PriceRecord priceRecord : priceRecordList.getListOfPriceRecords()) {
-            PriceRecordDAO.addPriceRecord(priceRecord);
+            identifiers.add(addPriceRecord(priceRecord));
         }
+        return identifiers;
     }
 
-    // Read
     // get priceRecord by lookupcode
-    public static PriceRecord getPriceRecordByLookupcode(String lookupcode) {
-        sessionFactory.getCurrentSession();
-        Session session = sessionFactory.openSession();
-        List priceRecordsFromDB = session.createCriteria(PriceRecordImpl.class)
+    public PriceRecord getPriceRecordByLookupcode(String lookupcode) {
+        List priceRecordsFromDB = sessionFactory.getCurrentSession().createCriteria(PriceRecordImpl.class)
                 .add(Restrictions.like("lookupCode", lookupcode)).list();
+        //LOGGER.info("PriceRecord retrieved from the database");
         return (PriceRecord) priceRecordsFromDB.get(0);
     }
 
     // get priceRecord by id
-    public static PriceRecord getPriceRecordByID(long ID) {
-        sessionFactory.getCurrentSession();
-        Session session = sessionFactory.openSession();
-        List priceRecordsFromDB = session.createCriteria(PriceRecordImpl.class).add(Restrictions.like("id", ID)).list();
+    public PriceRecord getPriceRecordByID(long ID) {
+        List priceRecordsFromDB = sessionFactory.getCurrentSession().createCriteria(PriceRecordImpl.class)
+                .add(Restrictions.like("id", ID)).list();
+        //LOGGER.info("PriceRecord retrieved from the database");
         return (PriceRecord) priceRecordsFromDB.get(0);
     }
 
     // get all priceRecords
-    public static List<PriceRecordImpl> getAllPriceRecords() {
-        sessionFactory.getCurrentSession();
-        Session session = sessionFactory.openSession();
-        List priceRecordsFromDB = session.createCriteria(PriceRecordImpl.class).list();
+    public List<PriceRecordImpl> getAllPriceRecords() {
+        List priceRecordsFromDB = sessionFactory.getCurrentSession().createCriteria(PriceRecordImpl.class).list();
+        //LOGGER.info("PriceRecords retrieved from the database");
         return priceRecordsFromDB;
     }
 
-    public static long getIDbyLookupcode(String lookupcode) {
-        sessionFactory.getCurrentSession();
-        Session session = sessionFactory.openSession();
-        PriceRecordImpl priceRecord = (PriceRecordImpl) PriceRecordDAO.getPriceRecordByLookupcode(lookupcode);
-
+    public long getIDbyLookupcode(String lookupcode) {
+        PriceRecordImpl priceRecord = (PriceRecordImpl) getPriceRecordByLookupcode(lookupcode);
+        //LOGGER.info("PriceRecord retrieved from the database");
         return priceRecord.getID();
     }
 
-    // Update
-    // Update lookupCode by lookupcode  WORKING
-    public static void updateLookupcodeByLookupcode(String oldLookupcode, String newLookupcode) {
-        // Prep work to load the required record
-        sessionFactory.getCurrentSession();
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
-        PriceRecordImpl priceRecord = (PriceRecordImpl) session.load(PriceRecordImpl.class,
-                PriceRecordDAO.getIDbyLookupcode(oldLookupcode));
-        transaction.commit();
-
-        // Update
-        Transaction transaction1 = session.beginTransaction();
-        priceRecord.setLookupCode(newLookupcode);
-        session.update(priceRecord);
-        transaction1.commit();
+    public void updateLookupcodeByLookupcode(String oldLookupcode, String newLookupcode) {
+        Query query = sessionFactory.getCurrentSession()
+                .createQuery("update PriceRecordImpl set lookupCode = :lookupCode where lookupCode = :oldcode");
+        query.setParameter("lookupCode", newLookupcode);
+        query.setParameter("oldcode", oldLookupcode);
+        query.executeUpdate();
+        //LOGGER.info("PriceRecordImpl.lookupCode updated");
     }
 
-    // Update lookupCode by id  
-    public static void updateLookupcodeByID(long id, String newLookupcode) {
-        // HQL NOT WORKING/ NOT COMING UP WITH ERROR EITHER
-        //        Query query = sessionFactory.getCurrentSession()
-        //                .createQuery("update PriceRecordImpl set lookupCode = :lookupCode where id = :id");
-        //        query.setParameter("lookupCode", newLookupcode);
-        //        query.setParameter("id", id);
-        //        query.executeUpdate();
-        // Prep work to load the required record
-        sessionFactory.getCurrentSession();
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
-        PriceRecordImpl priceRecord = (PriceRecordImpl) session.load(PriceRecordImpl.class, id);
-        transaction.commit();
-
-        // Update
-        Transaction transaction1 = session.beginTransaction();
-        priceRecord.setLookupCode(newLookupcode);
-        session.update(priceRecord);
-        transaction1.commit();
-
+    public void updateLookupcodeByID(long id, String newLookupcode) {
+        Query query = sessionFactory.getCurrentSession()
+                .createQuery("update PriceRecordImpl set lookupCode = :lookupCode where id = :id");
+        query.setParameter("lookupCode", newLookupcode);
+        query.setParameter("id", id);
+        query.executeUpdate();
+        //LOGGER.info("PriceRecordImpl.lookupCode updated");
     }
 
-    // Add priceBand by lookupcode
-    public static void addPriceBandByLookupcode(PriceBand priceBand, String lookupcode) {
-        // Prep work to load the required record
-        sessionFactory.getCurrentSession();
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
+    public void addPriceBandByLookupcode(PriceBand priceBand, String lookupcode) {
+        Session session = sessionFactory.getCurrentSession();
         PriceRecordImpl priceRecord = (PriceRecordImpl) session.load(PriceRecordImpl.class,
-                PriceRecordDAO.getIDbyLookupcode(lookupcode));
-        transaction.commit();
-
-        // Update
-        Transaction transaction1 = session.beginTransaction();
+                getIDbyLookupcode(lookupcode));
         priceRecord.addPriceBand(priceBand);
         session.update(priceRecord);
-        transaction1.commit();
+        //LOGGER.info("PriceBand added to the database");
     }
 
-    // Add priceBand by id
-    public static void addPriceBandByID(PriceBand priceBand, long id) {
-        // Prep work to load the required record
-        sessionFactory.getCurrentSession();
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
+    public void addPriceBandByID(PriceBand priceBand, long id) {
+        Session session = sessionFactory.getCurrentSession();
         PriceRecordImpl priceRecord = (PriceRecordImpl) session.load(PriceRecordImpl.class, id);
-        transaction.commit();
-
-        // Update
-        Transaction transaction1 = session.beginTransaction();
         priceRecord.addPriceBand(priceBand);
         session.update(priceRecord);
-        transaction1.commit();
-
+        //LOGGER.info("PriceBand added to the database");
     }
 
-    // Remove priceBand by lookupcode
-    public static void removePriceBandByLookupcode(String lookupcode) {
-        // Prep work to load the required record
-        sessionFactory.getCurrentSession();
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
+    public void removeLastPriceBandByLookupcode(String lookupcode) {
+        Session session = sessionFactory.getCurrentSession();
         PriceRecordImpl priceRecord = (PriceRecordImpl) session.load(PriceRecordImpl.class,
-                PriceRecordDAO.getIDbyLookupcode(lookupcode));
-        transaction.commit();
-
-        // Update
-        Transaction transaction1 = session.beginTransaction();
+                getIDbyLookupcode(lookupcode));
         priceRecord.removeLastPriceBand();
         session.update(priceRecord);
-        transaction1.commit();
+        //LOGGER.info("PriceBand removed from the database");
     }
 
-    // Remove priceBand by id
-    public static void removePriceBandByID(long id) {
-        // Prep work to load the required record
-        sessionFactory.getCurrentSession();
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
+    public void removeLastPriceBandByID(long id) {
+        Session session = sessionFactory.getCurrentSession();
         PriceRecordImpl priceRecord = (PriceRecordImpl) session.load(PriceRecordImpl.class, id);
-        transaction.commit();
-
-        // Update
-        Transaction transaction1 = session.beginTransaction();
         priceRecord.removeLastPriceBand();
         session.update(priceRecord);
-        transaction1.commit();
+        //LOGGER.info("PriceBand removed from the database");
     }
 
-    // Delete
-    // delete priceRecord by lookupcode
-    public static void deletePriceRecordByLookupcode(String lookupcode) {
-        sessionFactory.getCurrentSession();
-        Session session = sessionFactory.openSession();
-        long id = PriceRecordDAO.getIDbyLookupcode(lookupcode);
+    public void deletePriceRecordByLookupcode(String lookupcode) {
+        Session session = sessionFactory.getCurrentSession();
+        long id = getIDbyLookupcode(lookupcode);
         PriceRecordImpl priceRecordToDelete = (PriceRecordImpl) session.load(PriceRecordImpl.class, id);
         session.delete(priceRecordToDelete);
-        session.flush();
-
+        //LOGGER.info("PriceRecord removed from the database");
     }
 
-    // delete priceRecord by id
-    public static void deletePriceRecordByID(long id) {
-        sessionFactory.getCurrentSession();
-        Session session = sessionFactory.openSession();
+    public void deletePriceRecordByID(long id) {
+        Session session = sessionFactory.getCurrentSession();
         PriceRecordImpl priceRecordToDelete = (PriceRecordImpl) session.load(PriceRecordImpl.class, id);
         session.delete(priceRecordToDelete);
-        session.flush();
-
+        //LOGGER.info("PriceRecord removed from the database");
     }
 
-    // delete list of priceRecords
-    public static void deleteListOfPriceRecords(List<PriceRecord> listOfPriceRecords) {
+    public void deleteListOfPriceRecords(List<PriceRecord> listOfPriceRecords) {
         for (PriceRecord priceRecord : listOfPriceRecords) {
-            PriceRecordDAO.deletePriceRecordByLookupcode(priceRecord.getLookupCode());
+            deletePriceRecordByLookupcode(priceRecord.getLookupCode());
         }
     }
 
-    // delete all priceRecords
-    public static void deleteAllPriceRecords() {
-        sessionFactory.getCurrentSession();
-        Session session = sessionFactory.openSession();
-
-        session.createQuery("delete from PriceBandImpl").executeUpdate();
-
-        session.flush();
+    public void deleteAllPriceRecords() {
+        for (PriceRecord priceRecord : getAllPriceRecords()) {
+            deletePriceRecordByLookupcode(priceRecord.getLookupCode());
+        }
 
     }
+
 }

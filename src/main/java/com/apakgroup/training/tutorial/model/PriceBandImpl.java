@@ -66,4 +66,15 @@ public class PriceBandImpl implements PriceBand {
         this.mileage = mileage;
     }
 
+    public boolean compare(PriceBand priceBand) {
+        boolean isSame = true;
+        if (!(this.getMileage() == priceBand.getMileage())) {
+            isSame = false;
+        }
+        if (!this.getValuation().equals(priceBand.getValuation())) {
+            isSame = false;
+        }
+        return isSame;
+    }
+
 }

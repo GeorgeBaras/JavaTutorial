@@ -94,6 +94,10 @@ xmlns="http://www.springframework.org/schema/beans">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
+	<bean id="priceRecordService" class="com.apakgroup.training.tutorial.model.PriceRecordService">
+		<property name="priceRecordDAO" ref="priceRecordDAO" />
+	</bean>
+	
 	
 	
 	<!-- Import the hibernateContext -->
