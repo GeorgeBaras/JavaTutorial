@@ -36,6 +36,12 @@ public class PriceRecordDAO {
 
     // Create
 
+    public void flushAndClear() {
+        Session session = sessionFactory.getCurrentSession();
+        session.flush();
+        session.clear();
+    }
+
     public long addPriceRecord(PriceRecord priceRecord) {
         long identifier = (long) sessionFactory.getCurrentSession().save(priceRecord);
         //LOGGER.info("PriceRecord saved to database");
@@ -105,6 +111,7 @@ public class PriceRecordDAO {
         query.setParameter("lookupCode", newLookupcode);
         query.setParameter("oldcode", oldLookupcode);
         query.executeUpdate();
+        flushAndClear();
         //LOGGER.info("PriceRecordImpl.lookupCode updated");
     }
 
@@ -114,6 +121,7 @@ public class PriceRecordDAO {
         query.setParameter("lookupCode", newLookupcode);
         query.setParameter("id", id);
         query.executeUpdate();
+        flushAndClear();
         //LOGGER.info("PriceRecordImpl.lookupCode updated");
     }
 

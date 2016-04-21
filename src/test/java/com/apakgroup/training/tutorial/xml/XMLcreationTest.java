@@ -64,6 +64,7 @@ public class XMLcreationTest {
         assertTrue(unmarshalledMillionEntries.compare(millionEntries));
     }
 
+    @Ignore
     @Test
     public final void unmarshalFromXMLDom4jTest() throws JAXBException, IOException, DocumentException {
         PriceRecordList listOf10 = new PriceRecordList(PriceRecordsGenerators.listOfPriceRecordGenerator(100, 6));

@@ -4,11 +4,10 @@ import static org.junit.Assert.assertNotNull;
 
 import javax.annotation.Resource;
 
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,80 +32,36 @@ public class HibernateIntegrationTest {
     @Resource
     private SessionFactory sessionFactory;
 
-    /**
-     * If the stabbed values do not work uncomment the criteria part
-     */
-
-    @Ignore
     @Transactional
+    @Rollback
     @Test
     public void testVehicle() {
         //save the entry in the table
-        sessionFactory.getCurrentSession();
-        Session session = sessionFactory.openSession();
         Vehicle vehicle = new Vehicle("TestMake", "TestModel", "TestDerivative", "TestCode", 22);
-        session.persist(vehicle);
+        long id = (long) sessionFactory.getCurrentSession().save(vehicle);
         // session.flush();
 
-        Vehicle vehicleFromDB = (Vehicle) session.get(Vehicle.class, new Long(2));
-
-        //        //Criteria to get the first entry of the table
-        //        List<Vehicle> vehicleList;
-        //        Criteria queryCriteria = session.createCriteria(Vehicle.class);
-        //        queryCriteria.setFirstResult(0);
-        //        queryCriteria.setMaxResults(1);
-        //        vehicleList = queryCriteria.list();
-        //        //get the first entry
-        //        Vehicle vehicleFromDB = vehicleList.get(0);
+        Vehicle vehicleFromDB = (Vehicle) sessionFactory.getCurrentSession().get(Vehicle.class, id);
 
         assertNotNull("Vehicle not added to table", vehicleFromDB);
     }
 
-    @Ignore
     @Transactional
+    @Rollback
     @Test
     public void testBand() {
-        //save the entry in the table
-        sessionFactory.getCurrentSession();
-        Session session = sessionFactory.openSession();
-        session.persist(lowBand);
-        // session.flush();
-
-        PriceBandImpl priceBandFromDB = (PriceBandImpl) session.get(PriceBandImpl.class, new Long(1));
-
-        //        // Criteria to get the first entry of the table
-        //        List<PriceBand> priceBandList;
-        //        Criteria queryCriteria = session.createCriteria(PriceBandImpl.class);
-        //        queryCriteria.setFirstResult(0);
-        //        queryCriteria.setMaxResults(1);
-        //        priceBandList = queryCriteria.list();
-        //
-        //        //get the first entry
-        //        PriceBand priceBandFromDB = priceBandList.get(0);
-
+        long id = (long) sessionFactory.getCurrentSession().save(lowBand);
+        PriceBandImpl priceBandFromDB = (PriceBandImpl) sessionFactory.getCurrentSession().get(PriceBandImpl.class, id);
         assertNotNull("PriceBand not added to table", priceBandFromDB);
     }
 
-    @Ignore
     @Transactional
+    @Rollback
     @Test
     public void testRecord() {
-        //save the entry in the table
-        sessionFactory.getCurrentSession();
-        Session session = sessionFactory.openSession();
-        session.save(allBands);
-        PriceRecordImpl priceRecordFromDB = (PriceRecordImpl) session.get(PriceRecordImpl.class, new Long(1));
-        session.flush();
-        //      // Criteria to get the first entry of the table
-        //        List<PriceRecord> priceRecordList;
-        //        Criteria queryCriteria = session.createCriteria(PriceRecordImpl.class);
-        //        queryCriteria.setFirstResult(0);
-        //        queryCriteria.setMaxResults(1);
-        //        priceRecordList = queryCriteria.list();
-        //
-        //        //get the first entry
-        //        PriceRecord priceRecordFromDB = priceRecordList.get(0);
-
+        long id = (long) sessionFactory.getCurrentSession().save(allBands);
+        PriceRecordImpl priceRecordFromDB = (PriceRecordImpl) sessionFactory.getCurrentSession()
+                .get(PriceRecordImpl.class, id);
         assertNotNull("PriceRecord not added to table", priceRecordFromDB);
     }
 

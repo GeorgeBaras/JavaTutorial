@@ -96,4 +96,27 @@ public class Vehicle {
     public int getMileage() {
         return this.mileage;
     }
+
+    public boolean compare(Vehicle vehicle) {
+        boolean isSame = true;
+        if (!(this.getLookupCode().equals(vehicle.getLookupCode()))) {
+            isSame = false;
+        }
+        if (!(this.getDerivative().equals(vehicle.getDerivative()))) {
+            isSame = false;
+        }
+        if (!(this.getMake().equals(vehicle.getMake()))) {
+            isSame = false;
+        }
+        if (!(this.getModel().equals(vehicle.getModel()))) {
+            isSame = false;
+        }
+        if (!(this.getMileage() == vehicle.getMileage())) {
+            isSame = false;
+        }
+        if (!(this.getValue().equals(vehicle.getValue()))) {
+            isSame = false;
+        }
+        return isSame;
+    }
 }

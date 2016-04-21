@@ -19,6 +19,7 @@ import org.hibernate.criterion.Projections;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -27,7 +28,7 @@ import com.apakgroup.training.tutorial.xml.PriceRecordsGenerators;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath*:spring/applicationContext.xml" })
-public class PriceRecordDAOTest {
+public class PriceRecordServiceTest {
 
     @Resource
     private SessionFactory sessionFactory;
@@ -45,7 +46,7 @@ public class PriceRecordDAOTest {
     }
 
     @Transactional
-    @Ignore //  @Rollback(false) //// 
+    @Rollback //// @Ignore //  
     @Test
     public final void addPriceRecordTest() {
         PriceRecordImpl priceRecord = (PriceRecordImpl) PriceRecordsGenerators.priceRecordGenerator(1);
@@ -64,7 +65,7 @@ public class PriceRecordDAOTest {
     }
 
     @Transactional
-    @Ignore //@Rollback(false) //
+    @Rollback
     @Test
     public final void addPriceRecordListTest() {
         PriceRecordList priceRecordList = new PriceRecordList(PriceRecordsGenerators.listOfPriceRecordGenerator(3, 2));
@@ -74,7 +75,7 @@ public class PriceRecordDAOTest {
     }
 
     @Transactional
-    @Ignore //@Rollback(false) //
+    @Rollback
     @Test
     public final void addListOfPriceRecordsTest() {
         List<PriceRecord> listOfPriceRecords = PriceRecordsGenerators.listOfPriceRecordGenerator(2, 2);
@@ -86,7 +87,7 @@ public class PriceRecordDAOTest {
 
     // addPriceRecordsFromXMLFile
     @Transactional
-    @Ignore //@Rollback(false) //
+    @Rollback
     @Test
     public final void addPriceRecordsFromXMLFileTest() throws JAXBException {
         // Add the List
@@ -96,7 +97,7 @@ public class PriceRecordDAOTest {
     }
 
     @Transactional
-    @Ignore //@Rollback(false) //
+    @Rollback
     @Test
     public final void getPriceRecordByLookupcodeTest() {
         // add a stabbed record to the database
@@ -109,7 +110,7 @@ public class PriceRecordDAOTest {
     }
 
     @Transactional
-    @Ignore //@Rollback(false) //
+    @Rollback
     @Test
     public final void getPriceRecordByIDTest() {
         PriceRecordImpl priceRecord = (PriceRecordImpl) PriceRecordsGenerators.priceRecordGenerator(1);
@@ -119,7 +120,7 @@ public class PriceRecordDAOTest {
     }
 
     @Transactional
-    @Ignore //@Rollback(false) //
+    @Rollback
     @Test
     public final void getAllPriceRecordsTest() {
         // Get the count of all entries
@@ -132,7 +133,7 @@ public class PriceRecordDAOTest {
     }
 
     @Transactional
-    @Ignore //@Rollback(false) //
+    @Rollback
     @Test
     public final void getIDbyLookupcodeTest() {
         PriceRecordImpl priceRecord = (PriceRecordImpl) PriceRecordsGenerators.priceRecordGenerator(1);
@@ -143,7 +144,7 @@ public class PriceRecordDAOTest {
     }
 
     @Transactional
-    @Ignore //@Rollback(false) //
+    @Rollback
     @Test
     public final void updateLookupcodeByLookupcodeTest() {
         PriceRecordImpl priceRecord = (PriceRecordImpl) PriceRecordsGenerators.priceRecordGenerator(1);
@@ -156,7 +157,7 @@ public class PriceRecordDAOTest {
     }
 
     @Transactional
-    @Ignore //@Rollback(false) //
+    @Rollback
     @Test
     public final void updateLookupcodeByIDTest() {
         PriceRecordImpl priceRecord = (PriceRecordImpl) PriceRecordsGenerators.priceRecordGenerator(1);
@@ -169,7 +170,7 @@ public class PriceRecordDAOTest {
     }
 
     @Transactional
-    @Ignore //@Rollback(false) //
+    @Rollback
     @Test
     public final void addPriceBandByLookupcodeTest() {
         PriceRecordImpl priceRecord = (PriceRecordImpl) PriceRecordsGenerators.priceRecordGenerator(2);
@@ -187,7 +188,7 @@ public class PriceRecordDAOTest {
     }
 
     @Transactional
-    @Ignore //@Rollback(false) //
+    @Rollback
     @Test
     public final void addPriceBandByIDTest() {
         PriceRecordImpl priceRecord = (PriceRecordImpl) PriceRecordsGenerators.priceRecordGenerator(2);
@@ -205,7 +206,7 @@ public class PriceRecordDAOTest {
     }
 
     @Transactional
-    @Ignore //@Rollback(false) //
+    @Rollback
     @Test
     public final void removeLastPriceBandByLookupcodeTest() {
         PriceRecordImpl priceRecord = (PriceRecordImpl) PriceRecordsGenerators.priceRecordGenerator(3); // 3 priceBands
@@ -220,7 +221,7 @@ public class PriceRecordDAOTest {
     }
 
     @Transactional
-    @Ignore //@Rollback(false) //
+    @Rollback
     @Test
     public final void removeLastPriceBandByIDTest() {
         PriceRecordImpl priceRecord = (PriceRecordImpl) PriceRecordsGenerators.priceRecordGenerator(3); // 3 priceBands
@@ -235,7 +236,7 @@ public class PriceRecordDAOTest {
     }
 
     @Transactional
-    @Ignore //@Rollback(false) //
+    @Rollback
     @Test
     public final void deletePriceRecordByLookupcodeTest() {
         PriceRecordImpl priceRecord = (PriceRecordImpl) PriceRecordsGenerators.priceRecordGenerator(2);
@@ -249,7 +250,7 @@ public class PriceRecordDAOTest {
     }
 
     @Transactional
-    @Ignore //@Rollback(false) // 
+    @Rollback
     @Test
     public final void deletePriceRecordByIDTest() {
         PriceRecordImpl priceRecord = (PriceRecordImpl) PriceRecordsGenerators.priceRecordGenerator(2);
@@ -263,7 +264,7 @@ public class PriceRecordDAOTest {
     }
 
     @Transactional
-    @Ignore // @Rollback(false) // 
+    @Rollback
     @Test
     public final void deleteListOfPriceRecordsTest() {
         //Create a list of priceRecords
@@ -284,7 +285,7 @@ public class PriceRecordDAOTest {
     }
 
     @Transactional
-    @Ignore // @Rollback(false) // 
+    @Rollback
     @Test
     public final void deleteAllPriceRecordsTest() {
         //Create a list of priceRecords

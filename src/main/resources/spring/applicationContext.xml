@@ -98,6 +98,13 @@ xmlns="http://www.springframework.org/schema/beans">
 		<property name="priceRecordDAO" ref="priceRecordDAO" />
 	</bean>
 	
+	<bean id="vehicleDAO" class="com.apakgroup.training.tutorial.model.VehicleDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean id="vehicleService" class="com.apakgroup.training.tutorial.model.VehicleService">
+		<property name="vehicleDAO" ref="vehicleDAO" />
+	</bean>
 	
 	
 	<!-- Import the hibernateContext -->
