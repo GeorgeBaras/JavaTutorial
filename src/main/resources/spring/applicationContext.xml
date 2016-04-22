@@ -106,6 +106,15 @@ xmlns="http://www.springframework.org/schema/beans">
 		<property name="vehicleDAO" ref="vehicleDAO" />
 	</bean>
 	
+	<!-- JSF example bean -->
+	<bean id="userBo" class="com.apakgroup.training.tutorial.webapp.examples.UserBoImpl"></bean>
+	
+	<bean id="userBean" class="com.apakgroup.training.tutorial.webapp.examples.UserBean">
+	<property name="userBo" ref="userBo" />
+	</bean>
+	
+	
+	<!-- JSF example bean end -->
 	
 	<!-- Import the hibernateContext -->
 	<import resource="hibernateContext.xml" />

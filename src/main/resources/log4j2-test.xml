@@ -43,7 +43,7 @@
       <!--  <AppenderRef ref="Email"/>   -->
     </Root>
 	
-    <logger name="com.apakgroup.training.tutorial.pricing.cap" level="DEBUG">
+    <logger name="com.apakgroup.training.tutorial" level="TRACE">
 		<AppenderRef ref="Console"/>
 	</logger>
    

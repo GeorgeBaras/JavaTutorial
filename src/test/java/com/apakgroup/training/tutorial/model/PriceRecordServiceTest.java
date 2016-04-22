@@ -37,7 +37,7 @@ public class PriceRecordServiceTest {
     private PriceRecordService priceRecordService;
 
     @Transactional
-    @Ignore //@Rollback(false) 
+    @Ignore //@Rollback(false) // 
     @Test
     public final void populateDBfromXML() throws JAXBException {
         File file = new File("10kEntriesXML.xml");
