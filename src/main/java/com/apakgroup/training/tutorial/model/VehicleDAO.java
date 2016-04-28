@@ -7,6 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.transaction.annotation.Transactional;
 
 public class VehicleDAO {
 
@@ -32,12 +33,15 @@ public class VehicleDAO {
     }
 
     // create
+    @Transactional
     public long addVehicle(Vehicle vehicle) {
         long identifier = (long) sessionFactory.getCurrentSession().save(vehicle);
         return identifier;
     }
 
     // read
+
+    @Transactional
     public Vehicle getVehicleByID(long id) {
         List vehiclesFromDB = sessionFactory.getCurrentSession().createCriteria(Vehicle.class)
                 .add(Restrictions.like("id", id)).list();
@@ -45,12 +49,14 @@ public class VehicleDAO {
         return (Vehicle) vehiclesFromDB.get(0);
     }
 
+    @Transactional
     public List<Vehicle> getAllVehicles() {
         List vehiclesFromDB = sessionFactory.getCurrentSession().createCriteria(Vehicle.class).list();
         return vehiclesFromDB;
     }
 
     // update
+    @Transactional
     public void updateDerivativeByID(long id, String newDerivative) {
         Query query = sessionFactory.getCurrentSession()
                 .createQuery("update Vehicle set derivative = :Derivative where id = :id");
@@ -60,6 +66,7 @@ public class VehicleDAO {
         flushAndClear();
     }
 
+    @Transactional
     public void updateMileageByID(long id, int newMileage) {
         Query query = sessionFactory.getCurrentSession()
                 .createQuery("update Vehicle set mileage = :Mileage where id = :id");
@@ -69,6 +76,7 @@ public class VehicleDAO {
         flushAndClear();
     }
 
+    @Transactional
     public void updateValueByID(long id, BigDecimal newValue) {
         Query query = sessionFactory.getCurrentSession()
                 .createQuery("update Vehicle set value = :Value where id = :id");
@@ -79,13 +87,14 @@ public class VehicleDAO {
     }
 
     // delete
-
+    @Transactional
     public void deleteVehicleByID(long id) {
         Session session = sessionFactory.getCurrentSession();
         Vehicle vehicleToDelete = (Vehicle) session.load(Vehicle.class, id);
         session.delete(vehicleToDelete);
     }
 
+    @Transactional
     public void deleteAllVehicles() {
         for (Vehicle vehicle : getAllVehicles()) {
             deleteVehicleByID(vehicle.getID());

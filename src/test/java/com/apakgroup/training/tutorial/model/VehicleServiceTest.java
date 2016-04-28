@@ -14,7 +14,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.annotation.Rollback;
@@ -38,10 +37,10 @@ public class VehicleServiceTest {
     }
 
     @Transactional
-    @Ignore //@Rollback(false) // 
+    @Rollback(false) // 
     @Test
     public final void populateDBwithRandomEntries() {
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 10; i++) {
             Vehicle vehicle = VehicleGenerator.vehicleGenerator();
             vehicleService.addVehicle(vehicle);
         }

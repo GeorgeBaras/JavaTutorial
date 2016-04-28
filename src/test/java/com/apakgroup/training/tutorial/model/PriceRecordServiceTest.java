@@ -16,7 +16,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.annotation.Rollback;
@@ -37,7 +36,7 @@ public class PriceRecordServiceTest {
     private PriceRecordService priceRecordService;
 
     @Transactional
-    @Ignore //@Rollback(false) // 
+    @Rollback(false) //  @Ignore //
     @Test
     public final void populateDBfromXML() throws JAXBException {
         File file = new File("10kEntriesXML.xml");
@@ -107,6 +106,20 @@ public class PriceRecordServiceTest {
         PriceRecordImpl priceRecordFromDB = (PriceRecordImpl) priceRecordService
                 .getPriceRecordByLookupcode(priceRecord.getLookupCode());
         assertTrue(priceRecordFromDB.compare(priceRecord));
+    }
+
+    @Transactional
+    @Rollback
+    @Test
+    public final void getPriceRecordBySpecificLookupcodeTest() {
+        // record already in database, get its id
+        long priceRecordID = priceRecordService.getIDbyLookupcode("lookUpCode0");
+        // get it by lookupcode
+        PriceRecordImpl priceRecordFromDB = (PriceRecordImpl) priceRecordService
+                .getPriceRecordByLookupcode("lookUpCode0");
+        System.out.println("this priceRecord has " + priceRecordFromDB.getPriceBands().size() + " bands ");
+        System.out.println("Its second band is " + priceRecordFromDB.getPriceBands().get(1).getMileage() + " miles");
+        assert (true);
     }
 
     @Transactional

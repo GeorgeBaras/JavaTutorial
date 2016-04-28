@@ -1,8 +1,12 @@
 package com.apakgroup.training.tutorial.model;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class VehicleService {
 
     private VehicleDAO vehicleDAO;
@@ -54,6 +58,14 @@ public class VehicleService {
 
     public void deleteAllVehicles() {
         this.getVehicleDAO().deleteAllVehicles();
+    }
+
+    public List<Long> getAllVehicleIDs() {
+        List<Long> vehicleIDs = new ArrayList<>();
+        for (Vehicle vehicle : this.getAllVehicles()) {
+            vehicleIDs.add(vehicle.getID());
+        }
+        return vehicleIDs;
     }
 
 }
