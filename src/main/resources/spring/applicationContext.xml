@@ -108,11 +108,28 @@ xmlns="http://www.springframework.org/schema/beans">
 	
 	<!-- JSF example bean -->
 	<bean id="userBo" class="com.apakgroup.training.tutorial.webapp.examples.UserBoImpl"></bean>
+	<bean id="dropDownListChoice" class="java.lang.String"/>
+	<bean id="priceRecordLookupcode" class="java.lang.String"/>
+	
 	
 	<bean id="userBean" class="com.apakgroup.training.tutorial.webapp.examples.UserBean">
 	<property name="userBo" ref="userBo" />
+	<property name="vehicleService" ref="vehicleService" />
+	<property name="priceRecordService" ref="priceRecordService" />
+	<property name="dropDownListChoice" ref="dropDownListChoice" />
+	<property name="priceRecordLookupcode" ref="priceRecordLookupcode" />
 	</bean>
 	
+	<!-- JSFcontroller backing bean -->
+	<bean id="selectedLookUpCode" class="java.lang.String"/>
+	
+	
+	<bean id="jSFcontroller" class="com.apakgroup.training.tutorial.webapp.jsf.JSFcontroller">
+	<property name="vehicleService" ref="vehicleService" />
+	<property name="priceRecordService" ref="priceRecordService" />
+	<property name="selectedLookUpCode" ref="selectedLookUpCode" />
+	
+	</bean>
 	
 	<!-- JSF example bean end -->
 	

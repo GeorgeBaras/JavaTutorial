@@ -27,9 +27,7 @@ id="WebApp_ID" version="2.5">
 		org.springframework.web.context.request.RequestContextListener
 	</listener-class>
   </listener>
-    <listener>
-    <listener-class>com.sun.faces.config.ConfigureListener</listener-class>
-  </listener>
+    
   
   <context-param>
     <param-name>contextConfigLocation</param-name>
@@ -50,18 +48,19 @@ id="WebApp_ID" version="2.5">
   
   <servlet-mapping>
     <servlet-name>Faces Servlet</servlet-name>
-    <url-pattern>*.jsf</url-pattern>
+    <url-pattern>*.xhtml</url-pattern>
   </servlet-mapping>
   
+  <!-- 
   <servlet-mapping>
     <servlet-name>Faces Servlet</servlet-name>
-    <url-pattern>*.xhtml</url-pattern>
+    <url-pattern>*.jsf</url-pattern>
   </servlet-mapping>
   
   <servlet-mapping>
     <servlet-name>Faces Servlet</servlet-name>
     <url-pattern>*.faces</url-pattern>
   </servlet-mapping>
-  
-
+   -->
+   
 </web-app>
