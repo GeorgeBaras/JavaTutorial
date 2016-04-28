@@ -7,7 +7,7 @@ public class UserBoImpl implements UserBo {
 
     @Override
     public String getMessage() {
-        return "JSF 2 + SpringIntegration!!!!!";
+        return "JSF 2 + SpringIntegration works";
     }
 
 }

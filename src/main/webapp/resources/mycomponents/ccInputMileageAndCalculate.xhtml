@@ -1,0 +1,28 @@
+<ui:component
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui" 
+    xmlns:composite="http://java.sun.com/jsf/composite"
+>
+    
+<composite:interface>
+  <composite:attribute name="one"/>
+</composite:interface>
+
+<composite:implementation>
+
+<h:inputText id="ageInput" value="#{userData.age}" 
+         label="age" >
+    <f:validateLongRange minimum="5" maximum="200" />
+</h:inputText>			
+<h:commandButton value="submit" action="result"/>
+<h:message for="ageInput" style="color:red" />
+
+ 
+</composite:implementation>
+
+</ui:component>
+
+

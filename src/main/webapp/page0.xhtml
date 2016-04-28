@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:my="http://java.sun.com/jsf/composite/mycomponents"
+      >
+ 
+<h:body>
+ 
+<h3>page0</h3>
+
+<h5>vehicleDropDownList</h5>
+ <h:form>
+<my:ccVehicleDropDownList />
+ </h:form>
+<br/>
+<br/>
+
+
+
+<h5>dropdownList example</h5><br/>
+<h:form>
+<h:selectOneMenu id="vehicleDropDownList" value="#{userBean.dropDownListChoice}">
+    <f:selectItems value="#{userBean.getVehicles()}" var="vehicle" 
+        itemLabel="#{vehicle.getModel()}" itemValue="#{vehicle.getModel()}" />
+</h:selectOneMenu>
+<br/>
+<h:commandButton value="Submit" onclick="return confirm('Are you sure?');" action="page1"/>
+</h:form>
+<br/>
+
+<h5>Iterating though priceBands</h5>
+<ui:repeat value="#{userBean.getPriceBands()" var="priceBand">
+    #{priceBand.getMileage()} <br />
+</ui:repeat>
+
+
+ </h:body>
+ 
+</html>
