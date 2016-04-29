@@ -36,6 +36,20 @@ public class JSFcontroller {
         this.mileageInput = null;
     }
 
+    public boolean renderTable() {
+        if (this.selectedLookUpCode == null || this.selectedLookUpCode.equals("")) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean renderCalc() {
+        if (this.mileageInput == null || this.mileageInput.equals("")) {
+            return false;
+        }
+        return true;
+    }
+
     @Transactional
     public ArrayList<Vehicle> getVehicles() {
         ArrayList<Vehicle> vehicles = new ArrayList<Vehicle>();
@@ -64,7 +78,7 @@ public class JSFcontroller {
             int currentMileage = Integer.valueOf(this.mileageInput);
             return this.capValuationCalculator.calculatePrice(priceRecord, currentMileage).toString();
         }
-        return "standard return";
+        return "not yet calculated,please reset";
     }
 
     //public PriceRecord

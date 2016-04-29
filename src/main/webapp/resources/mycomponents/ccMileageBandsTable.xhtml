@@ -15,11 +15,11 @@
  <h:dataTable value="#{jSFcontroller.getPriceBands()}" var="priceBand">
       <h:column> 
          <f:facet name="header">Mileage</f:facet>
-          #{priceBand.getMileage()}
+          #{priceBand.getMileage()}000
       </h:column>
       <h:column>    				
          <f:facet name="header">Valuation</f:facet>    				
-          #{priceBand.getValuation()}
+          #{priceBand.getValuation()}£
       </h:column>
  </h:dataTable>
 
