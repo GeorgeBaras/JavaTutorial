@@ -10,6 +10,8 @@ import com.apakgroup.training.tutorial.model.PriceRecordService;
 import com.apakgroup.training.tutorial.model.Vehicle;
 import com.apakgroup.training.tutorial.model.VehicleService;
 import com.apakgroup.training.tutorial.pricing.PriceBand;
+import com.apakgroup.training.tutorial.pricing.PriceRecord;
+import com.apakgroup.training.tutorial.pricing.cap.CAPValuationCalculator;
 import com.apakgroup.training.tutorial.xml.PriceRecordsGenerators;
 
 @Component
@@ -20,13 +22,18 @@ public class JSFcontroller {
 
     private PriceRecordService priceRecordService;
 
-    private String selectedLookUpCode = null;
+    private CAPValuationCalculator capValuationCalculator;
 
-    //private Double selectedMileage;
+    private String selectedLookUpCode;
+
+    private String mileageInput;
+
+    private String showVehicleValue = null;
 
     //Constructor
     public JSFcontroller() {
         this.selectedLookUpCode = null;
+        this.mileageInput = null;
     }
 
     @Transactional
@@ -39,7 +46,7 @@ public class JSFcontroller {
     @Transactional
     public ArrayList<PriceBand> getPriceBands() {
         ArrayList<PriceBand> priceBands = new ArrayList<PriceBand>();
-        System.out.println("selectedlookUpCode is: " + selectedLookUpCode);
+        //System.out.println("selectedlookUpCode is: " + selectedLookUpCode);
         // this if statement is only need to avoid an error, the returned value is never rendered
         if (this.selectedLookUpCode.equals(null) || this.selectedLookUpCode.equals("")) {
             priceBands.add(PriceRecordsGenerators.firstpriceBandGenerator());
@@ -50,8 +57,21 @@ public class JSFcontroller {
         return priceBands;
     }
 
+    @Transactional
+    public String calculateValuation() {
+        if (!this.mileageInput.equals("")) {
+            PriceRecord priceRecord = this.priceRecordService.getPriceRecordByLookupcode(selectedLookUpCode);
+            int currentMileage = Integer.valueOf(this.mileageInput);
+            return this.capValuationCalculator.calculatePrice(priceRecord, currentMileage).toString();
+        }
+        return "standard return";
+    }
+
+    //public PriceRecord
+
     public void reset() {
         this.selectedLookUpCode = null;
+        this.mileageInput = null;
 
     }
 
@@ -72,6 +92,14 @@ public class JSFcontroller {
         this.priceRecordService = priceRecordService;
     }
 
+    public CAPValuationCalculator getCapValuationCalculator() {
+        return capValuationCalculator;
+    }
+
+    public void setCapValuationCalculator(CAPValuationCalculator capValuationCalculator) {
+        this.capValuationCalculator = capValuationCalculator;
+    }
+
     public String getSelectedLookUpCode() {
         return selectedLookUpCode;
     }
@@ -80,12 +108,20 @@ public class JSFcontroller {
         this.selectedLookUpCode = selectedLookUpCode;
     }
 
-    //    public Integer getSelectedMileage() {
-    //        return selectedMileage;
-    //    }
-    //
-    //    public void setSelectedMileage(Integer selectedMileage) {
-    //        this.selectedMileage = selectedMileage;
-    //    }
+    public String getMileageInput() {
+        return mileageInput;
+    }
+
+    public void setMileageInput(String mileageInput) {
+        this.mileageInput = mileageInput;
+    }
+
+    public String getShowVehicleValue() {
+        return showVehicleValue;
+    }
+
+    public void setShowVehicleValue(String showVehicleValue) {
+        this.showVehicleValue = showVehicleValue;
+    }
 
 }

@@ -50,6 +50,14 @@ public class VehicleDAO {
     }
 
     @Transactional
+    public Vehicle getVehicleByLookUpCode(String lookupcode) {
+        List vehiclesFromDB = sessionFactory.getCurrentSession().createCriteria(Vehicle.class)
+                .add(Restrictions.like("lookupCode", lookupcode)).list();
+        //LOGGER.info("PriceRecord retrieved from the database");
+        return (Vehicle) vehiclesFromDB.get(0);
+    }
+
+    @Transactional
     public List<Vehicle> getAllVehicles() {
         List vehiclesFromDB = sessionFactory.getCurrentSession().createCriteria(Vehicle.class).list();
         return vehiclesFromDB;

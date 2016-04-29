@@ -11,15 +11,25 @@
 <h:body>
 <h2>Car Valuation</h2>
 
+
 <h:form id="vehicledropdown">
 <my:ccVehicleDropDownList></my:ccVehicleDropDownList>
 </h:form>
 
 <h:form id="priceBandsTable" rendered="#{jSFcontroller.selectedLookUpCode!=null}">
 <my:ccMileageBandsTable></my:ccMileageBandsTable>
+<br/>
+<my:ccInputMileageAndCalculate></my:ccInputMileageAndCalculate>
+<br/>
+
+<br/>
+<div>mileage(in thousands of miles) in body is: #{jSFcontroller.mileageInput}</div>
 
 </h:form>
 
+<h:form id="showCalculatedPrice" rendered="#{jSFcontroller.mileageInput!=null}">
+<div>Calculated Valuation: #{jSFcontroller.calculateValuation()}</div>
+</h:form>
 
 
 

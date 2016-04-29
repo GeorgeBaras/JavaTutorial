@@ -77,6 +77,16 @@ public class VehicleServiceTest {
     @Transactional
     @Rollback //// @Ignore // 
     @Test
+    public final void testGetVehicleByLookupcode() {
+        Vehicle vehicle = VehicleGenerator.vehicleGenerator();
+        vehicleService.addVehicle(vehicle);
+        Vehicle vehicleFromDB = vehicleService.getVehicleByLookUpCode(vehicle.getLookupCode());
+        assertTrue(vehicleFromDB.compare(vehicle));
+    }
+
+    @Transactional
+    @Rollback //// @Ignore // 
+    @Test
     public final void testGetAllVehicles() {
         Vehicle vehicle = VehicleGenerator.vehicleGenerator();
         Vehicle vehicle1 = VehicleGenerator.vehicleGenerator();

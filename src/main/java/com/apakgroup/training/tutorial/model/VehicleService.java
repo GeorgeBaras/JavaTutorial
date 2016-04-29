@@ -33,6 +33,10 @@ public class VehicleService {
         return this.getVehicleDAO().getVehicleByID(id);
     }
 
+    public Vehicle getVehicleByLookUpCode(String lookupcode) {
+        return this.getVehicleDAO().getVehicleByLookUpCode(lookupcode);
+    }
+
     // update
     public void updateDerivativeByID(long id, String newDerivative) {
         this.getVehicleDAO().updateDerivativeByID(id, newDerivative);

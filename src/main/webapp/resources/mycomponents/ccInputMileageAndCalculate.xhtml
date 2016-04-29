@@ -12,15 +12,16 @@
 </composite:interface>
 
 <composite:implementation>
-
-<h:inputText id="ageInput" value="#{userData.age}" 
-         label="age" >
-    <f:validateLongRange minimum="5" maximum="200" />
-</h:inputText>			
-<h:commandButton value="submit" action="result"/>
-<h:message for="ageInput" style="color:red" />
-
- 
+<div>Enter your vehicle's miles</div>	
+<h:inputText id="mileageFromUser" value="#{jSFcontroller.mileageInput}" 
+         label="miles" >
+    <f:validator validatorId="mileageValidator"></f:validator>  
+   <!--<f:validateLength minimum="1" /> -->
+    <f:converter converterId="mileageConverter" />  
+</h:inputText>
+	
+<h:commandButton value="calculate" action="carValuation"/><!-- add calling the calculate method here -->
+<h:message for="mileageFromUser" style="color:red" />
 </composite:implementation>
 
 </ui:component>
