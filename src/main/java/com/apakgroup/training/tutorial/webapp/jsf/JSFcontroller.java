@@ -49,25 +49,29 @@ public class JSFcontroller {
     }
 
     public ArrayList<String> autocomplete(String prefix) {
-        ArrayList<String> cities = new ArrayList<>();
-        cities.add("Milano");
-        cities.add("Athens");
-        cities.add("London");
+        ArrayList<String> miles = new ArrayList<>();
+
+        miles.add("10000");
+        miles.add("20000");
+        miles.add("50000");
+        miles.add("75000");
+        miles.add("100000");
 
         ArrayList<String> result = new ArrayList<String>();
         // recommendations for no input
         if ((prefix == null) || (prefix.length() == 0)) {
-            for (int i = 0; i < 3; i++) {
-                result.add(cities.get(i));
+            for (int i = 0; i < 5; i++) {
+                result.add(miles.get(i));
             }
+            return result;
         } else {
-            for (String city : cities) {
-                if (city.toLowerCase().startsWith(prefix.toLowerCase())) {
-                    result.add(city);
+            for (String myMiles : miles) {
+                if (myMiles.toLowerCase().startsWith(prefix.toLowerCase())) {
+                    result.add(myMiles);
                 }
             }
+            return result;
         }
-        return result;
     }
 
     @Transactional

@@ -13,33 +13,33 @@
 
 <h:body>
 
-<div class="carValuation">
-<h2>Car Valuation</h2>
+<h2 id="pageTitle">Car Valuation</h2>
 <!-- CSS -->
 <h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>
-<br/>
 
-<h:form id="vehicledropdown">
+<h:form class="form" id="vehicledropdown">
 <my:ccVehicleDropDownList></my:ccVehicleDropDownList>
 </h:form>
 <br/>
 
-<h:form id="priceBandsTable" rendered="#{jSFcontroller.renderTable()}">
+<h:form class="form" id="priceBandsTable" rendered="#{jSFcontroller.renderTable()}">
 <my:ccMileageBandsTable></my:ccMileageBandsTable>
 <br/>
 <my:ccInputMileageAndCalculate></my:ccInputMileageAndCalculate>
 </h:form>
 <br/>
 
-<h:form id="showCalculatedPrice" rendered="#{jSFcontroller.renderCalc()}">
+<h:form class="form" id="showCalculatedPrice" rendered="#{jSFcontroller.renderCalc()}">
 <p>Calculated Valuation: </p>#{jSFcontroller.calculateValuation()}
 </h:form>
 
-<h:form id="resetButton">
+<h:form class="form" id="resetButton">
 <h:commandButton value="Reset" action="#{jSFcontroller.reset()}" />
 </h:form>
-</div>
 
+<div id="example">
+
+</div>
 
 </h:body>
 </html>

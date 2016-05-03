@@ -4,6 +4,8 @@
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui" 
+    xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
     xmlns:composite="http://java.sun.com/jsf/composite"
 >
     
@@ -12,13 +14,13 @@
 </composite:interface>
 
 <composite:implementation>
-<div class="label">Enter your vehicle's miles:</div>	
-<h:inputText id="mileageFromUser" value="#{jSFcontroller.mileageInput}" 
-         label="miles" >
+<div class="label">Enter your vehicle's miles:</div>
+<!-- rich autocomplete instead of classic inputText -->
+<rich:autocomplete id="mileageFromUser" mode="client" minChars="1" autocompleteMethod="#{jSFcontroller.autocomplete}"  value="#{jSFcontroller.mileageInput}" 
+         label="miles">
     <f:validator validatorId="mileageValidator"></f:validator>  
-   <!--<f:validateLength minimum="1" /> -->
     <f:converter converterId="mileageConverter" />  
-</h:inputText> 
+</rich:autocomplete>
 <br/>
 <h:commandButton value="calculate" action="carValuation"/><!-- add calling the calculate method here -->
 <h:message for="mileageFromUser" style="color:red" />
