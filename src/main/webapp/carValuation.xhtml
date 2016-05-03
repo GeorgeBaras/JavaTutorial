@@ -5,11 +5,18 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
       xmlns:my="http://java.sun.com/jsf/composite/mycomponents"
       >
+<h:head></h:head>
 
 <h:body>
+
+<div class="carValuation">
 <h2>Car Valuation</h2>
+<!-- CSS -->
+<h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>
 <br/>
 
 <h:form id="vehicledropdown">
@@ -25,14 +32,14 @@
 <br/>
 
 <h:form id="showCalculatedPrice" rendered="#{jSFcontroller.renderCalc()}">
-<div>Calculated Valuation: #{jSFcontroller.calculateValuation()}</div>
+<p>Calculated Valuation: </p>#{jSFcontroller.calculateValuation()}
 </h:form>
-<br/>
 
 <h:form id="resetButton">
 <h:commandButton value="Reset" action="#{jSFcontroller.reset()}" />
 </h:form>
+</div>
+
 
 </h:body>
- 
 </html>

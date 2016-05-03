@@ -12,14 +12,14 @@
 </composite:interface>
 
 <composite:implementation>
-<div>Enter your vehicle's miles</div>	
+<div class="label">Enter your vehicle's miles:</div>	
 <h:inputText id="mileageFromUser" value="#{jSFcontroller.mileageInput}" 
          label="miles" >
     <f:validator validatorId="mileageValidator"></f:validator>  
    <!--<f:validateLength minimum="1" /> -->
     <f:converter converterId="mileageConverter" />  
-</h:inputText>
-	
+</h:inputText> 
+<br/>
 <h:commandButton value="calculate" action="carValuation"/><!-- add calling the calculate method here -->
 <h:message for="mileageFromUser" style="color:red" />
 </composite:implementation>

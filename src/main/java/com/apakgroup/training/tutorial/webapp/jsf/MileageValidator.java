@@ -30,7 +30,7 @@ public class MileageValidator implements Validator {
 
         if (value == null || isOffRange) {
             FacesMessage msg = new FacesMessage(
-                    "Your input is invalid. Please enter an integer value within the [0-999998] range");
+                    "Your input is invalid. Please enter an integer value within the [0-999999] range");
             msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 
             throw new ValidatorException(msg);

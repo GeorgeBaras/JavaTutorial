@@ -1,0 +1,85 @@
+
+body{
+	font-family: "Trebuchet MS";
+	background-image: url("images/bi.png");
+}
+
+<!-- the following div contains all the forms -->
+.carValuation{
+	font-size: 1;
+	
+}
+
+.label {
+   width: 150px;
+   height: 33px;
+   font-size: 0.7vw;
+}
+
+select{
+   width: 150px;
+   height: 30px;
+   overflow: hidden;
+   background: url(new_arrow.png) no-repeat right #ddd;
+   border: 1px solid #ccc;
+   font-size: 15px;
+}
+
+option{
+	width: 150px;
+   height: 30px;
+   overflow: hidden;
+   border: 1px solid #ccc;
+   font-size: 15px;
+}
+
+p {
+    color: black;
+    font-weight: bold;
+}
+
+table {
+	font-size: 110%;
+}
+
+th {
+    background-color: #004080;
+    color: white;
+}
+
+td {
+	background-color: #808080;
+    color: white;
+}
+
+input {
+	height: 27px;
+	font-weight:bold;
+	width: 150px;
+	font-size: 15px;
+}
+
+input[value="Reset"] { 
+	font-size: 15px;
+	width: 150px;
+	color: #004080; 
+}
+
+input[value="calculate"] { 
+	font-size: 15px;
+	width: 150px;
+	color: #004080; 
+}
+
+input[value="Submit your vehicle"] { 
+	font-size: 15px;
+	width: 150px;
+	color: #004080; 
+}
+
+#priceBandsTable\:j_id_r\:mileageFromUser { 
+    font-weight: bold;
+}
+
+
+​

@@ -12,13 +12,13 @@
 
 <composite:implementation>
 
-<div>Please select your model</div>
+<div class="label">Please select your model:</div>
   <h:selectOneMenu id="vehicleDropDownList" value="#{jSFcontroller.selectedLookUpCode}">
     <f:selectItems value="#{jSFcontroller.getVehicles()}" var="vehicle" 
         itemLabel="#{vehicle.getMake()} - #{vehicle.getModel()} " itemValue="#{vehicle.getLookupCode()}" />
   </h:selectOneMenu>
   <br/>
-  <h:commandButton value="Submit" onclick="return confirm('Are you sure?');" action="carValuation"/>
+  <h:commandButton value="Submit your vehicle" onclick="return confirm('Are you sure?');" action="carValuation"/>
 </composite:implementation>
 
 </ui:component>

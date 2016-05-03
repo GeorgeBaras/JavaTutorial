@@ -28,8 +28,6 @@ public class JSFcontroller {
 
     private String mileageInput;
 
-    private String showVehicleValue = null;
-
     //Constructor
     public JSFcontroller() {
         this.selectedLookUpCode = null;
@@ -48,6 +46,28 @@ public class JSFcontroller {
             return false;
         }
         return true;
+    }
+
+    public ArrayList<String> autocomplete(String prefix) {
+        ArrayList<String> cities = new ArrayList<>();
+        cities.add("Milano");
+        cities.add("Athens");
+        cities.add("London");
+
+        ArrayList<String> result = new ArrayList<String>();
+        // recommendations for no input
+        if ((prefix == null) || (prefix.length() == 0)) {
+            for (int i = 0; i < 3; i++) {
+                result.add(cities.get(i));
+            }
+        } else {
+            for (String city : cities) {
+                if (city.toLowerCase().startsWith(prefix.toLowerCase())) {
+                    result.add(city);
+                }
+            }
+        }
+        return result;
     }
 
     @Transactional
@@ -80,8 +100,6 @@ public class JSFcontroller {
         }
         return "not yet calculated,please reset";
     }
-
-    //public PriceRecord
 
     public void reset() {
         this.selectedLookUpCode = null;
@@ -128,14 +146,6 @@ public class JSFcontroller {
 
     public void setMileageInput(String mileageInput) {
         this.mileageInput = mileageInput;
-    }
-
-    public String getShowVehicleValue() {
-        return showVehicleValue;
-    }
-
-    public void setShowVehicleValue(String showVehicleValue) {
-        this.showVehicleValue = showVehicleValue;
     }
 
 }

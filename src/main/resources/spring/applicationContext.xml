@@ -123,7 +123,7 @@ xmlns="http://www.springframework.org/schema/beans">
 	<!-- JSFcontroller backing bean and validator -->
 	<bean id="selectedLookUpCode" class="java.lang.String"/>
 	<bean id="mileageInput" class="java.lang.String"/>
-	<bean id="showVehicleValue" class="java.lang.String"/>
+	
 	
 	
 	<bean id="jSFcontroller" class="com.apakgroup.training.tutorial.webapp.jsf.JSFcontroller">
@@ -131,8 +131,7 @@ xmlns="http://www.springframework.org/schema/beans">
 	<property name="priceRecordService" ref="priceRecordService" />
 	<property name="capValuationCalculator" ref="CAPValuationCalculator" />	
 	<property name="selectedLookUpCode" ref="selectedLookUpCode" />
-	<property name="mileageInput" ref="mileageInput" />
-	<property name="showVehicleValue" ref="showVehicleValue" />
+	<property name="mileageInput" ref="mileageInput" />	
 	</bean>
 	
 	<bean id="numberInput" class="java.lang.String"/>
