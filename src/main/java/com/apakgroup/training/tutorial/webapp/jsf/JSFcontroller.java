@@ -1,5 +1,7 @@
 package com.apakgroup.training.tutorial.webapp.jsf;
 
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import org.springframework.context.annotation.Scope;
@@ -84,7 +86,6 @@ public class JSFcontroller {
     @Transactional
     public ArrayList<PriceBand> getPriceBands() {
         ArrayList<PriceBand> priceBands = new ArrayList<PriceBand>();
-        //System.out.println("selectedlookUpCode is: " + selectedLookUpCode);
         // this if statement is only need to avoid an error, the returned value is never rendered
         if (this.selectedLookUpCode.equals(null) || this.selectedLookUpCode.equals("")) {
             priceBands.add(PriceRecordsGenerators.firstpriceBandGenerator());
@@ -100,9 +101,14 @@ public class JSFcontroller {
         if (!this.mileageInput.equals("")) {
             PriceRecord priceRecord = this.priceRecordService.getPriceRecordByLookupcode(selectedLookUpCode);
             int currentMileage = Integer.valueOf(this.mileageInput);
-            return this.capValuationCalculator.calculatePrice(priceRecord, currentMileage).toString();
+            return this.capValuationCalculator.calculatePrice(priceRecord, currentMileage)
+                    .round(new MathContext(7, RoundingMode.HALF_EVEN)).toString();
         }
         return "not yet calculated,please reset";
+    }
+
+    public int clientRows() {
+        return 0;
     }
 
     public void reset() {

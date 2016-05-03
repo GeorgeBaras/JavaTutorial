@@ -13,7 +13,7 @@
 
 <h:body>
 
-<h2 id="pageTitle">Car Valuation</h2>
+<h2 id="pageTitle">Vehicle Valuation</h2>
 <!-- CSS -->
 <h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>
 
@@ -27,10 +27,9 @@
 <br/>
 <my:ccInputMileageAndCalculate></my:ccInputMileageAndCalculate>
 </h:form>
-<br/>
 
 <h:form class="form" id="showCalculatedPrice" rendered="#{jSFcontroller.renderCalc()}">
-<p>Calculated Valuation: </p>#{jSFcontroller.calculateValuation()}
+<p>Calculated Valuation: #{jSFcontroller.calculateValuation()} £</p>
 </h:form>
 
 <h:form class="form" id="resetButton">

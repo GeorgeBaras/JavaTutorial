@@ -50,6 +50,10 @@ p {
     font-weight: bold;
 }
 
+.priceBands{
+	height: 50px;
+}
+
 table {
 	font-size: 110%;
 }
@@ -62,6 +66,7 @@ th {
 td {
 	background-color: #808080;
     color: white;
+    text-align: center;
 }
 
 input {
@@ -89,7 +94,7 @@ input[value="Submit your vehicle"] {
 	color: #004080; 
 }
 
-#priceBandsTable\:j_id_q\:mileageFromUserInput { 
+#priceBandsTable\:j_id_q\:mileageFromUserInput{ 
     font-size: 15px;
 	width: 150px;
 	color: #004080; 
