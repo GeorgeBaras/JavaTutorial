@@ -17,21 +17,25 @@
 <!-- CSS -->
 <h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>
 
-<h:form class="form" id="vehicledropdown">
-<my:ccVehicleDropDownList></my:ccVehicleDropDownList>
+<h:form class="form" id="vehicledropdown" rendered="#{jSFcontroller.renderDropDownList()}">
+<my:VehicleDropDownList></my:VehicleDropDownList>
+</h:form>
+
+<h:form class="form" id="vehicledropdownAsString" rendered="#{jSFcontroller.renderDropDownAsString()}">
+<my:VehicleDropDownAsString></my:VehicleDropDownAsString>
 </h:form>
 <br/>
 
 <h:form class="form" id="priceBandsTable" rendered="#{jSFcontroller.renderTable()}">
-<my:ccMileageBandsTable></my:ccMileageBandsTable>
+<my:MileageBandsTable></my:MileageBandsTable>
 <br/>
-<my:ccInputMileageAndCalculate></my:ccInputMileageAndCalculate>
+<my:InputMileageAndCalculate></my:InputMileageAndCalculate>
 </h:form>
 
 <h:form class="form" id="showCalculatedPrice" rendered="#{jSFcontroller.renderCalc()}">
 <p>Calculated Valuation: #{jSFcontroller.calculateValuation()} £</p>
 </h:form>
-
+<br/>
 <h:form class="form" id="resetButton">
 <h:commandButton value="Reset" action="#{jSFcontroller.reset()}" />
 </h:form>

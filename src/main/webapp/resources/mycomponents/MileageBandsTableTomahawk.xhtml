@@ -4,8 +4,7 @@
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui" 
-    xmlns:a4j="http://richfaces.org/a4j"
-    xmlns:rich="http://richfaces.org/rich"
+    xmlns:t="http://myfaces.apache.org/tomahawk"
     xmlns:composite="http://java.sun.com/jsf/composite"
 >
     
@@ -14,34 +13,27 @@
 </composite:interface>
 
 <composite:implementation>
-        <rich:extendedDataTable 
-        value="#{jSFcontroller.getPriceBands()}"
-        var="priceBand" id="table" frozenColumns="1"
-        style="height:150px; width:200px;" selectionMode="none"
-        
-        showColumnControl="true">
-            <f:facet name="header">
-                <h:outputText value="Price bands for your selected vehicle"/>
-            </f:facet>     
-            <rich:column>
-                <f:facet name="header">
+<t:dataTable newspaperColumns="1" value="#{jSFcontroller.getPriceBands()}" newspaperOrientation="vertical" var="priceBand">
+    
+    <h:column>
+          <f:facet name="header">
                     <h:outputText value="Mileage"/>
                 </f:facet>
                 <h:outputText value="#{priceBand.getMileage()}000"/>
-            </rich:column>
-            <rich:column>
-                <f:facet name="header">
+    </h:column>
+    <h:column>
+        <f:facet name="header">
                     <h:outputText value="Valuation"/>
                 </f:facet>
                 <h:outputText value="#{priceBand.getValuation()}£"/>
-            </rich:column>
-            <rich:column>
-                <f:facet name="header">
+    </h:column>
+    <h:column>
+        <f:facet name="header">
                     <h:outputText value="Band id from DB"/>
                 </f:facet>
                 <h:outputText value="#{priceBand.getID()}"/>
-            </rich:column>
-         </rich:extendedDataTable>
+    </h:column>
+</t:dataTable>
 </composite:implementation>
 
 </ui:component>

@@ -14,24 +14,14 @@
 </composite:interface>
 
 <composite:implementation>
-
-
- <h:form>   
         <rich:extendedDataTable 
         value="#{jSFcontroller.getPriceBands()}"
-        var="priceBand" id="table" frozenColumns="0"
-        style="height:150px; width:350px;" selectionMode="none"
-        
+        var="priceBand" id="table" frozenColumns="1"
+        style="height:150px; width:200px;" selectionMode="none"
         showColumnControl="true">
             <f:facet name="header">
-                <h:outputText value="Price bands for your selected price record"/>
-            </f:facet>
-            <rich:column>
-                <f:facet name="header">
-                    <h:outputText value="Band id from DB"/>
-                </f:facet>
-                <h:outputText value="#{priceBand.getID()}"/>
-            </rich:column>
+                <h:outputText value="Price bands for your selected vehicle"/>
+            </f:facet>     
             <rich:column>
                 <f:facet name="header">
                     <h:outputText value="Mileage"/>
@@ -46,13 +36,11 @@
             </rich:column>
             <rich:column>
                 <f:facet name="header">
-                    <h:outputText value="Mileage in thousands of miles"/>
+                    <h:outputText value="Band id from DB"/>
                 </f:facet>
-                <h:outputText value="#{priceBand.getMileage()}"/>
+                <h:outputText value="#{priceBand.getID()}"/>
             </rich:column>
          </rich:extendedDataTable>
-    </h:form>
-
 </composite:implementation>
 
 </ui:component>

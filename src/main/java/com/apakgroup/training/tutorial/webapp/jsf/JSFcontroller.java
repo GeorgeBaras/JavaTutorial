@@ -15,6 +15,7 @@ import com.apakgroup.training.tutorial.pricing.PriceBand;
 import com.apakgroup.training.tutorial.pricing.PriceRecord;
 import com.apakgroup.training.tutorial.pricing.cap.CAPValuationCalculator;
 import com.apakgroup.training.tutorial.xml.PriceRecordsGenerators;
+import com.apakgroup.training.tutorial.xml.VehicleGenerator;
 
 @Component
 @Scope("session")
@@ -34,6 +35,23 @@ public class JSFcontroller {
     public JSFcontroller() {
         this.selectedLookUpCode = null;
         this.mileageInput = null;
+    }
+
+    public boolean renderDropDownList() {
+        if (this.selectedLookUpCode == null) {
+            return true;
+        }
+        if (this.selectedLookUpCode.length() > 0) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean renderDropDownAsString() {
+        if (this.selectedLookUpCode == null || this.selectedLookUpCode.equals("")) {
+            return false;
+        }
+        return true;
     }
 
     public boolean renderTable() {
@@ -84,6 +102,15 @@ public class JSFcontroller {
     }
 
     @Transactional
+    public Vehicle getVehicleByLookupCode() {
+        if (this.selectedLookUpCode == null || this.selectedLookUpCode.equals("")) {
+            return VehicleGenerator.vehicleGenerator(); // random vehicle to avoid error, will not be rendered
+        }
+        return vehicleService.getVehicleByLookUpCode(selectedLookUpCode);
+
+    }
+
+    @Transactional
     public ArrayList<PriceBand> getPriceBands() {
         ArrayList<PriceBand> priceBands = new ArrayList<PriceBand>();
         // this if statement is only need to avoid an error, the returned value is never rendered
@@ -105,10 +132,6 @@ public class JSFcontroller {
                     .round(new MathContext(7, RoundingMode.HALF_EVEN)).toString();
         }
         return "not yet calculated,please reset";
-    }
-
-    public int clientRows() {
-        return 0;
     }
 
     public void reset() {
