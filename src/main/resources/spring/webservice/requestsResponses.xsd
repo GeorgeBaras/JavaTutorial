@@ -135,7 +135,11 @@ elementFormDefault="qualified">
 </xs:element>
 
 <xs:element name="deletePriceRecordByIDResponse">
-	<xs:complexType/>
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="confirmation" type="xs:boolean" />
+		</xs:sequence>
+	</xs:complexType>
 </xs:element>
 
 
@@ -148,7 +152,11 @@ elementFormDefault="qualified">
 </xs:element>
 
 <xs:element name="deletePriceRecordByLookUpCodeResponse">
-	<xs:complexType/>
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="confirmation" type="xs:boolean" />
+		</xs:sequence>
+	</xs:complexType>
 </xs:element>
 
 <!-- Adding price bands -->
@@ -165,7 +173,7 @@ elementFormDefault="qualified">
 <xs:element name="addPriceBandResponse">
 	<xs:complexType>
 		<xs:sequence>
-			<xs:element name="confirmation" type="xs:integer" />
+			<xs:element name="confirmation" type="xs:boolean" />
 		</xs:sequence>
 	</xs:complexType>
 </xs:element>
@@ -182,7 +190,11 @@ elementFormDefault="qualified">
 
 
 <xs:element name="deletePriceBandByIDResponse">
-	<xs:complexType/>
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="confirmation" type="xs:boolean" />
+		</xs:sequence>
+	</xs:complexType>
 </xs:element>
 
 
@@ -195,7 +207,11 @@ elementFormDefault="qualified">
 </xs:element>
 
 <xs:element name="deletePriceBandByLookUpCodeResponse">
-	<xs:complexType/>
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="confirmation" type="xs:boolean" />
+		</xs:sequence>
+	</xs:complexType>
 </xs:element>
 
 </xs:schema>
