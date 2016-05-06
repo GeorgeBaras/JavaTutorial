@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+targetNamespace="com.apakgroup.training.tutorial.webservice"
+xmlns:tns="com.apakgroup.training.tutorial.webservice"
+elementFormDefault="qualified">
+  
+  
+
+<xs:include schemaLocation="priceRecordListWire.xsd" />
+<xs:include schemaLocation="vehicleWire.xsd" />
+
+<!-- Valuing a vehicle based on lookupCode and mileage -->
+
+<xs:element name="valueVehicleRequest">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="lookupCode" type="xs:string" />
+			<xs:element name="mileage" type="xs:integer" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="valueVehicleResponse">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="value" type="xs:decimal" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+<!-- Listing Price Records -->
+<xs:element name="getPriceRecordByLookupCodeRequest">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="lookupCode" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="getPriceRecordByLookupCodeResponse">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="priceRecord" type="tns:PriceRecordWire" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="getPriceRecordByIDRequest">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="id" type="xs:long" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="getPriceRecordByIDResponse">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="priceRecord" type="tns:PriceRecordWire" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="getAllPriceRecordsRequest">
+	<xs:complexType/>
+</xs:element>
+
+<xs:element name="getAllPriceRecordsResponse">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="priceRecord" type="tns:PriceRecordWire" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+<!-- Listing Price Bands within a Price Record -->
+
+<xs:element name="getPriceBandsByLookUpCodeRequest">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="lookupCode" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="getPriceBandsByLookUpCodeResponse">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="priceBands" type="tns:PriceBandWire" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="getPriceBandsByIDRequest">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="id" type="xs:long" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="getPriceBandsByIDResponse">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="priceBands" type="tns:PriceBandWire" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+<!-- Adding price records -->
+<xs:element name="addPriceRecordRequest">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="priceRecord" type="tns:PriceRecordWire" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="addPriceRecordResponse">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="id" type="xs:long" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+<!-- Deleting price records -->
+
+<xs:element name="deletePriceRecordByIDRequest">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="id" type="xs:long" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="deletePriceRecordByIDResponse">
+	<xs:complexType/>
+</xs:element>
+
+
+<xs:element name="deletePriceRecordByLookUpCodeRequest">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="lookupCode" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="deletePriceRecordByLookUpCodeResponse">
+	<xs:complexType/>
+</xs:element>
+
+<!-- Adding price bands -->
+
+<xs:element name="addPriceBandRequest">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="lookupCode" type="xs:string" />
+			<xs:element name="priceBand" type="tns:PriceBandWire" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="addPriceBandResponse">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="confirmation" type="xs:integer" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+<!-- Deleting price bands -->
+
+<xs:element name="deletePriceBandByIDRequest">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="id" type="xs:long" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+
+<xs:element name="deletePriceBandByIDResponse">
+	<xs:complexType/>
+</xs:element>
+
+
+<xs:element name="deletePriceBandByLookUpCodeRequest">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="lookupCode" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="deletePriceBandByLookUpCodeResponse">
+	<xs:complexType/>
+</xs:element>
+
+</xs:schema>

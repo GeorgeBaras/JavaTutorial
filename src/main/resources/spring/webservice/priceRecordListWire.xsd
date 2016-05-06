@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+targetNamespace="com.apakgroup.training.tutorial.webservice"
+xmlns:tns="com.apakgroup.training.tutorial.webservice"
+elementFormDefault="qualified">
+  
+   <xs:complexType name="PriceBandWire">
+    <xs:sequence>
+      <xs:element name="mileage" type="xs:int"/>
+      <xs:element name="valuation" type="xs:decimal" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType> 
+
+  <xs:complexType name="PriceRecordWire">
+    <xs:sequence>
+      <xs:element name="lookUpCode" type="xs:string" minOccurs="0"/>
+      <xs:element name="priceBands" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="priceBand" type="tns:PriceBandWire" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+ <xs:complexType name="PriceRecordListWire">
+    <xs:sequence>
+      <xs:element name="priceRecords" type="tns:PriceRecordWire" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+</xs:schema>

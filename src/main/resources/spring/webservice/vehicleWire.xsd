@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+targetNamespace="com.apakgroup.training.tutorial.webservice"
+xmlns:tns="com.apakgroup.training.tutorial.webservice"
+elementFormDefault="qualified">
+  
+   <xs:complexType name="VehicleWire">
+    <xs:sequence>
+      <xs:element name="id" type="xs:long"/>
+      <xs:element name="make" type="xs:string" minOccurs="0"/>
+      <xs:element name="model" type="xs:string" minOccurs="0"/>
+      <xs:element name="derivative" type="xs:string" minOccurs="0"/>
+      <xs:element name="lookupCode" type="xs:string" minOccurs="0"/>
+      <xs:element name="mileage" type="xs:integer" minOccurs="0"/>
+      <xs:element name="value" type="xs:decimal" minOccurs="0"/>    
+    </xs:sequence>
+  </xs:complexType> 
+  
+</xs:schema>
