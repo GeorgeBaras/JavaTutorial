@@ -106,19 +106,6 @@ xmlns="http://www.springframework.org/schema/beans">
 		<property name="vehicleDAO" ref="vehicleDAO" />
 	</bean>
 	
-	<!-- JSF example bean -->
-	<bean id="userBo" class="com.apakgroup.training.tutorial.webapp.examples.UserBoImpl"></bean>
-	<bean id="dropDownListChoice" class="java.lang.String"/>
-	<bean id="priceRecordLookupcode" class="java.lang.String"/>
-	
-	
-	<bean id="userBean" class="com.apakgroup.training.tutorial.webapp.examples.UserBean">
-	<property name="userBo" ref="userBo" />
-	<property name="vehicleService" ref="vehicleService" />
-	<property name="priceRecordService" ref="priceRecordService" />
-	<property name="dropDownListChoice" ref="dropDownListChoice" />
-	<property name="priceRecordLookupcode" ref="priceRecordLookupcode" />
-	</bean>
 	
 	<!-- JSFcontroller backing bean and validator -->
 	<bean id="selectedLookUpCode" class="java.lang.String"/>
@@ -142,6 +129,20 @@ xmlns="http://www.springframework.org/schema/beans">
 	
 	
 	<!-- JSF example bean end -->
+	
+	<!-- Vehicle Endpoint -->
+	
+	<bean id="vehicleEndpoint" class="com.apakgroup.training.tutorial.webservice.VehicleEndpoint">
+	<property name="priceRecordService" ref="priceRecordService" />
+	<property name="capValuationCalculator" ref="CAPValuationCalculator" />	
+	</bean>
+
+	<!-- PriceRecord Endpoint -->
+	
+	<bean id="priceRecordEndpoint" class="com.apakgroup.training.tutorial.webservice.PriceRecordEndpoint">
+	<property name="priceRecordService" ref="priceRecordService" />
+	</bean>
+	
 	
 	<!-- Import the hibernateContext -->
 	<import resource="hibernateContext.xml" />
