@@ -65,20 +65,20 @@ public class PriceRecordService {
         this.getPriceRecordDAO().updateLookupcodeByID(id, newLookupcode);
     }
 
-    public void addPriceBandByLookupcode(PriceBand priceBand, String lookupcode) {
-        this.getPriceRecordDAO().addPriceBandByLookupcode(priceBand, lookupcode);
+    public boolean addPriceBandByLookupcode(PriceBand priceBand, String lookupcode) {
+        return this.getPriceRecordDAO().addPriceBandByLookupcode(priceBand, lookupcode);
     }
 
     public void addPriceBandByID(PriceBand priceBand, long id) {
         this.getPriceRecordDAO().addPriceBandByID(priceBand, id);
     }
 
-    public void removeLastPriceBandByLookupcode(String lookupcode) {
-        this.getPriceRecordDAO().removeLastPriceBandByLookupcode(lookupcode);
+    public boolean removeLastPriceBandByLookupcode(String lookupcode) {
+        return this.getPriceRecordDAO().removeLastPriceBandByLookupcode(lookupcode);
     }
 
-    public void removeLastPriceBandByID(long id) {
-        this.getPriceRecordDAO().removeLastPriceBandByID(id);
+    public boolean removeLastPriceBandByID(long id) {
+        return this.getPriceRecordDAO().removeLastPriceBandByID(id);
     }
 
     public void deletePriceRecordByLookupcode(String lookupcode) {

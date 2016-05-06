@@ -75,14 +75,16 @@ public class PriceRecordImpl implements PriceRecord {
         this.priceBands = priceBands;
     }
 
-    public void addPriceBand(PriceBand priceBand) {
-        this.priceBands.add(priceBand);
+    public boolean addPriceBand(PriceBand priceBand) {
+        return this.priceBands.add(priceBand);
     }
 
-    public void removeLastPriceBand() {
+    public boolean removeLastPriceBand() {
         if (this.getPriceBands().size() > 0) {
             this.priceBands.remove(this.getPriceBands().size() - 1);
+            return true;
         }
+        return false;
     }
 
     public boolean compare(PriceRecord priceRecord) {

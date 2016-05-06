@@ -16,6 +16,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.annotation.Rollback;
@@ -36,7 +37,7 @@ public class PriceRecordServiceTest {
     private PriceRecordService priceRecordService;
 
     @Transactional
-    @Rollback(false) //  @Ignore //
+    @Ignore //@Rollback(false) //  
     @Test
     public final void populateDBfromXML() throws JAXBException {
         File file = new File("10kEntriesXML.xml");

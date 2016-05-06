@@ -135,12 +135,13 @@ public class PriceRecordDAO {
     }
 
     @Transactional
-    public void addPriceBandByLookupcode(PriceBand priceBand, String lookupcode) {
+    public boolean addPriceBandByLookupcode(PriceBand priceBand, String lookupcode) {
         Session session = sessionFactory.getCurrentSession();
         PriceRecordImpl priceRecord = (PriceRecordImpl) session.load(PriceRecordImpl.class,
                 getIDbyLookupcode(lookupcode));
-        priceRecord.addPriceBand(priceBand);
+        boolean success = priceRecord.addPriceBand(priceBand);
         session.update(priceRecord);
+        return success;
         //LOGGER.info("PriceBand added to the database");
     }
 
@@ -154,21 +155,23 @@ public class PriceRecordDAO {
     }
 
     @Transactional
-    public void removeLastPriceBandByLookupcode(String lookupcode) {
+    public boolean removeLastPriceBandByLookupcode(String lookupcode) {
         Session session = sessionFactory.getCurrentSession();
         PriceRecordImpl priceRecord = (PriceRecordImpl) session.load(PriceRecordImpl.class,
                 getIDbyLookupcode(lookupcode));
-        priceRecord.removeLastPriceBand();
+        boolean success = priceRecord.removeLastPriceBand();
         session.update(priceRecord);
+        return success;
         //LOGGER.info("PriceBand removed from the database");
     }
 
     @Transactional
-    public void removeLastPriceBandByID(long id) {
+    public boolean removeLastPriceBandByID(long id) {
         Session session = sessionFactory.getCurrentSession();
         PriceRecordImpl priceRecord = (PriceRecordImpl) session.load(PriceRecordImpl.class, id);
-        priceRecord.removeLastPriceBand();
+        boolean success = priceRecord.removeLastPriceBand();
         session.update(priceRecord);
+        return success;
         //LOGGER.info("PriceBand removed from the database");
     }
 
