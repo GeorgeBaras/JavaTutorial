@@ -143,8 +143,24 @@ xmlns="http://www.springframework.org/schema/beans">
 	<property name="priceRecordService" ref="priceRecordService" />
 	</bean>
 	
+	<!-- SimpleMethodEndpointMapping -->
+	
+	<bean
+		class="org.springframework.ws.server.endpoint.mapping.SimpleMethodEndpointMapping">
+		<property name="endpoints">
+			<list>
+				<ref bean="vehicleEndpoint" />
+				<ref bean="priceRecordEndpoint" />
+			</list>
+		</property>
+	</bean>
+	
+	
 	
 	<!-- Import the hibernateContext -->
 	<import resource="hibernateContext.xml" />
+	<!-- Import for the spring-ws-servlet ** -->
+	<import resource="spring-ws-servlet.xml" />
+	
 	
 </beans>

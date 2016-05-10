@@ -12,7 +12,7 @@ public class PriceRecordEndpoint {
     }
 
     // Add PriceBand
-    public AddPriceBandResponse handleAddPriceBandRequest(AddPriceBandRequest request) {
+    public AddPriceBandResponse handleaddPriceBandRequest(AddPriceBandRequest request) {
         AddPriceBandResponse result = new AddPriceBandResponse();
         /* Add the request's priceBand to the PriceRecord with the corresponding lookupCode */
         result.setConfirmation(this.priceRecordService.addPriceBandByLookupcode((PriceBand) request.getPriceBand(),
@@ -21,21 +21,21 @@ public class PriceRecordEndpoint {
     }
 
     // Add PriceRecord
-    public AddPriceRecordResponse handleAddPriceRecordRequest(AddPriceRecordRequest request) {
+    public AddPriceRecordResponse handleaddPriceRecordRequest(AddPriceRecordRequest request) {
         AddPriceRecordResponse result = new AddPriceRecordResponse();
         /* Add the request's PriceRecord to the database */
         result.setId(this.priceRecordService.addPriceRecord((PriceRecord) request.getPriceRecord()));
         return result;
     }
 
-    public DeletePriceBandByIDResponse handleDeletePriceBandByIDRequest(DeletePriceBandByIDRequest request) {
+    public DeletePriceBandByIDResponse handledeletePriceBandByIDRequest(DeletePriceBandByIDRequest request) {
         DeletePriceBandByIDResponse result = new DeletePriceBandByIDResponse();
         /* Delete the request's priceBand from the PriceRecord with the corresponding id */
         result.setConfirmation(this.priceRecordService.removeLastPriceBandByID(request.getId()));
         return result;
     }
 
-    public DeletePriceBandByLookUpCodeResponse handleDeletePriceBandByLookUpCodeRequest(
+    public DeletePriceBandByLookUpCodeResponse handledeletePriceBandByLookUpCodeRequest(
             DeletePriceBandByLookUpCodeRequest request) {
         DeletePriceBandByLookUpCodeResponse result = new DeletePriceBandByLookUpCodeResponse();
         /* Delete the request's priceBand from the PriceRecord with the corresponding id */
@@ -43,7 +43,7 @@ public class PriceRecordEndpoint {
         return result;
     }
 
-    public DeletePriceRecordByIDResponse handleDeletePriceRecordByIDRequest(DeletePriceRecordByIDRequest request) {
+    public DeletePriceRecordByIDResponse handledeletePriceRecordByIDRequest(DeletePriceRecordByIDRequest request) {
         DeletePriceRecordByIDResponse result = new DeletePriceRecordByIDResponse();
         // Delete the priceRecord with the corresponding id
         this.priceRecordService.deletePriceRecordByID(request.getId());
@@ -52,7 +52,7 @@ public class PriceRecordEndpoint {
         return result;
     }
 
-    public DeletePriceRecordByLookUpCodeResponse handleDeletePriceRecordByLookUpCodeRequest(
+    public DeletePriceRecordByLookUpCodeResponse handledeletePriceRecordByLookUpCodeRequest(
             DeletePriceRecordByLookUpCodeRequest request) {
         DeletePriceRecordByLookUpCodeResponse result = new DeletePriceRecordByLookUpCodeResponse();
         // Delete the priceRecord with the corresponding id
@@ -62,7 +62,7 @@ public class PriceRecordEndpoint {
         return result;
     }
 
-    public GetAllPriceRecordsResponse handleGetAllPriceRecordsRequest(GetAllPriceRecordsRequest request) {
+    public GetAllPriceRecordsResponse handlegetAllPriceRecordsRequest(GetAllPriceRecordsRequest request) {
         GetAllPriceRecordsResponse result = new GetAllPriceRecordsResponse();
         // Get all priceRecords from the DB
         for (PriceRecord priceRecord : this.priceRecordService.getAllPriceRecords()) {
@@ -71,7 +71,7 @@ public class PriceRecordEndpoint {
         return result;
     }
 
-    public GetPriceBandsByIDResponse handleGetPriceBandsByIDRequest(GetPriceBandsByIDRequest request) {
+    public GetPriceBandsByIDResponse handlegetPriceBandsByIDRequest(GetPriceBandsByIDRequest request) {
         GetPriceBandsByIDResponse result = new GetPriceBandsByIDResponse();
         // Get the priceRecord
         PriceRecord priceRecord = this.priceRecordService.getPriceRecordByID(request.getId());
@@ -82,7 +82,7 @@ public class PriceRecordEndpoint {
         return result;
     }
 
-    public GetPriceBandsByLookUpCodeResponse handleGetPriceBandsByLookUpCodeRequest(
+    public GetPriceBandsByLookUpCodeResponse handlegetPriceBandsByLookUpCodeRequest(
             GetPriceBandsByLookUpCodeRequest request) {
         GetPriceBandsByLookUpCodeResponse result = new GetPriceBandsByLookUpCodeResponse();
         // Get the priceRecord
@@ -94,7 +94,7 @@ public class PriceRecordEndpoint {
         return result;
     }
 
-    public GetPriceRecordByIDResponse handleGetPriceRecordByIDRequest(GetPriceRecordByIDRequest request) {
+    public GetPriceRecordByIDResponse handlegetPriceRecordByIDRequest(GetPriceRecordByIDRequest request) {
         GetPriceRecordByIDResponse result = new GetPriceRecordByIDResponse();
         // Get the priceRecord
         PriceRecord priceRecord = this.priceRecordService.getPriceRecordByID(request.getId());
@@ -103,7 +103,7 @@ public class PriceRecordEndpoint {
         return result;
     }
 
-    public GetPriceRecordByLookupCodeResponse handleGetPriceRecordByLookupCodeRequest(
+    public GetPriceRecordByLookupCodeResponse handlegetPriceRecordByLookupCodeRequest(
             GetPriceRecordByLookupCodeRequest request) {
         GetPriceRecordByLookupCodeResponse result = new GetPriceRecordByLookupCodeResponse();
         PriceRecord priceRecord = this.priceRecordService.getPriceRecordByLookupcode(request.getLookupCode());

@@ -20,18 +20,22 @@ id="WebApp_ID" version="2.5">
   
   <!-- Add Support for Spring -->
   <listener>
-    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    <listener-class>
+    	org.springframework.web.context.ContextLoaderListener
+    </listener-class>
   </listener>
+  
   <listener>
     <listener-class>
 		org.springframework.web.context.request.RequestContextListener
 	</listener-class>
   </listener>
     
-  
+  <!-- ** -->
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>WEB-INF/classes/spring/applicationContext.xml</param-value>
+    <param-value>WEB-INF/classes/spring/applicationContext.xml
+    </param-value>
   </context-param>
   
   <!-- JSF Mapping -->
@@ -50,31 +54,22 @@ id="WebApp_ID" version="2.5">
     <servlet-name>Faces Servlet</servlet-name>
     <url-pattern>*.xhtml</url-pattern>
   </servlet-mapping>
-  
-  <!-- 
-  <servlet-mapping>
-    <servlet-name>Faces Servlet</servlet-name>
-    <url-pattern>*.jsf</url-pattern>
-  </servlet-mapping>
-  
-  <servlet-mapping>
-    <servlet-name>Faces Servlet</servlet-name>
-    <url-pattern>*.faces</url-pattern>
-  </servlet-mapping>
-   -->
    
-   <!-- MessageDispatcherServlet 
+   <!-- added servlet and servlet-mapping ** --> 
+    
    <servlet>
-        <servlet-name>spring-ws</servlet-name>
-        <servlet-class>org.springframework.ws.transport.http.MessageDispatcherServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>spring-ws</servlet-name>
-        <url-pattern>/*</url-pattern>
-    </servlet-mapping>
-    -->
-   
+		<servlet-name>spring-ws</servlet-name>
+		<servlet-class>org.springframework.ws.transport.http.MessageDispatcherServlet</servlet-class>
+		<load-on-startup>2</load-on-startup>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:/spring/spring-ws-servlet.xml</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>spring-ws</servlet-name>
+		<url-pattern>/webservice/*</url-pattern>
+	</servlet-mapping>
+ 
    
 </web-app>

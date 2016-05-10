@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-targetNamespace="com.apakgroup.training.tutorial.webservice"
-xmlns:tns="com.apakgroup.training.tutorial.webservice"
+targetNamespace="http://localhost:8080/webservice/"
+xmlns:tns="http://localhost:8080/webservice/"
 elementFormDefault="qualified">
   
    <xs:complexType name="PriceBandWire">

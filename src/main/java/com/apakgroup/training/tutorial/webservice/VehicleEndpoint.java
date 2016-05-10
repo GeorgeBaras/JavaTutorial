@@ -16,7 +16,7 @@ public class VehicleEndpoint {
         super();
     }
 
-    public ValueVehicleResponse handleValueVehicleRequest(ValueVehicleRequest request) {
+    public ValueVehicleResponse handlevalueVehicleRequest(ValueVehicleRequest request) {
         ValueVehicleResponse result = new ValueVehicleResponse();
         // get the priceRecord by the lookupcode sent with the request
         PriceRecord priceRecord = this.priceRecordService.getPriceRecordByLookupcode(request.getLookupCode());
