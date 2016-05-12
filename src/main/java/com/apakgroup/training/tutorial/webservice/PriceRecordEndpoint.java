@@ -1,5 +1,10 @@
 package com.apakgroup.training.tutorial.webservice;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.apakgroup.training.tutorial.model.PriceBandImpl;
+import com.apakgroup.training.tutorial.model.PriceRecordImpl;
 import com.apakgroup.training.tutorial.model.PriceRecordService;
 import com.apakgroup.training.tutorial.pricing.PriceBand;
 import com.apakgroup.training.tutorial.pricing.PriceRecord;
@@ -11,20 +16,65 @@ public class PriceRecordEndpoint {
     public PriceRecordEndpoint() {
     }
 
+    // Converters to and from wire classes
+
+    public PriceBandImpl wireToPriceBand(PriceBandWire priceBandWire) {
+        PriceBandImpl priceBand = new PriceBandImpl();
+        priceBand.setMileage(priceBandWire.getMileage());
+        priceBand.setValuation(priceBandWire.getValuation());
+        return priceBand;
+    }
+
+    public PriceBandWire priceBandToWire(PriceBand priceBand) {
+        PriceBandWire priceBandWire = new PriceBandWire();
+        priceBandWire.setMileage(priceBand.getMileage());
+        priceBandWire.setValuation(priceBand.getValuation());
+        return priceBandWire;
+    }
+
+    public PriceRecordImpl wireToPriceRecord(PriceRecordWire priceRecordWire) {
+        PriceRecordImpl priceRecord = new PriceRecordImpl();
+        priceRecord.setLookupCode(priceRecordWire.getLookUpCode());
+        // get the priceBands from the priceBand List of the priceRecordWire
+        List<PriceBand> priceBands = new ArrayList<PriceBand>();
+        for (PriceBandWire priceBandWire : priceRecordWire.getPriceBands().getPriceBand()) {
+            priceBands.add(this.wireToPriceBand(priceBandWire));
+        }
+        // add the priceBands to the priceRecord
+        priceRecord.setPriceBands(priceBands);
+        return priceRecord;
+    }
+
+    public PriceRecordWire priceRecordToWire(PriceRecord priceRecord) {
+        PriceRecordWire priceRecordWire = new PriceRecordWire();
+        priceRecordWire.setLookUpCode(priceRecord.getLookupCode());
+        // get the priceBands from the priceBand List of the priceRecord
+        List<PriceBandWire> priceBands = new ArrayList<PriceBandWire>();
+        for (PriceBand priceBand : priceRecord.getPriceBands()) {
+            priceBands.add(this.priceBandToWire(priceBand));
+        }
+        // add the priceBands to the priceRecord
+        priceRecordWire.getPriceBands().getPriceBand().addAll(priceBands);
+        return priceRecordWire;
+    }
+
     // Add PriceBand
     public AddPriceBandResponse handleaddPriceBandRequest(AddPriceBandRequest request) {
         AddPriceBandResponse result = new AddPriceBandResponse();
+        // Convert the request to PriceBand
+        PriceBandImpl priceBand = this.wireToPriceBand(request.getPriceBand());
         /* Add the request's priceBand to the PriceRecord with the corresponding lookupCode */
-        result.setConfirmation(this.priceRecordService.addPriceBandByLookupcode((PriceBand) request.getPriceBand(),
-                request.getLookupCode()));
+        result.setConfirmation(this.priceRecordService.addPriceBandByLookupcode(priceBand, request.getLookupCode()));
         return result;
     }
 
     // Add PriceRecord
     public AddPriceRecordResponse handleaddPriceRecordRequest(AddPriceRecordRequest request) {
         AddPriceRecordResponse result = new AddPriceRecordResponse();
-        /* Add the request's PriceRecord to the database */
-        result.setId(this.priceRecordService.addPriceRecord((PriceRecord) request.getPriceRecord()));
+        // create a priceRecord out of the request
+        PriceRecordImpl priceRecord = this.wireToPriceRecord(request.getPriceRecord());
+        /* Add the priceRecord to the database */
+        result.setId(this.priceRecordService.addPriceRecord(priceRecord));
         return result;
     }
 
@@ -66,7 +116,7 @@ public class PriceRecordEndpoint {
         GetAllPriceRecordsResponse result = new GetAllPriceRecordsResponse();
         // Get all priceRecords from the DB
         for (PriceRecord priceRecord : this.priceRecordService.getAllPriceRecords()) {
-            result.getPriceRecord().add((PriceRecordWire) priceRecord);
+            result.getPriceRecord().add(this.priceRecordToWire(priceRecord));
         }
         return result;
     }
@@ -77,7 +127,7 @@ public class PriceRecordEndpoint {
         PriceRecord priceRecord = this.priceRecordService.getPriceRecordByID(request.getId());
         // populate the result's list with the priceBands of the priceRecord
         for (PriceBand priceBand : priceRecord.getPriceBands()) {
-            result.getPriceBands().add((PriceBandWire) priceBand);
+            result.getPriceBands().add(this.priceBandToWire(priceBand));
         }
         return result;
     }
@@ -89,7 +139,7 @@ public class PriceRecordEndpoint {
         PriceRecord priceRecord = this.priceRecordService.getPriceRecordByLookupcode(request.getLookupCode());
         // populate the result's list with the priceBands of the priceRecord
         for (PriceBand priceBand : priceRecord.getPriceBands()) {
-            result.getPriceBands().add((PriceBandWire) priceBand);
+            result.getPriceBands().add(this.priceBandToWire(priceBand));
         }
         return result;
     }
@@ -99,7 +149,7 @@ public class PriceRecordEndpoint {
         // Get the priceRecord
         PriceRecord priceRecord = this.priceRecordService.getPriceRecordByID(request.getId());
         // set the result
-        result.setPriceRecord((PriceRecordWire) priceRecord);
+        result.setPriceRecord(this.priceRecordToWire(priceRecord));
         return result;
     }
 
@@ -108,7 +158,7 @@ public class PriceRecordEndpoint {
         GetPriceRecordByLookupCodeResponse result = new GetPriceRecordByLookupCodeResponse();
         PriceRecord priceRecord = this.priceRecordService.getPriceRecordByLookupcode(request.getLookupCode());
         // set the result
-        result.setPriceRecord((PriceRecordWire) priceRecord);
+        result.setPriceRecord(this.priceRecordToWire(priceRecord));
         return result;
     }
 

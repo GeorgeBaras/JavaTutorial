@@ -274,7 +274,13 @@
     <version>2.2.11</version>
 </dependency>
 
-
+<!-- Mock web service client -->
+<dependency>
+    <groupId>org.springframework.ws</groupId>
+    <artifactId>spring-ws-test</artifactId>
+    <!-- Make sure this matches version of Spring-WS above -->
+    <version>2.2.0.RELEASE</version>
+</dependency>
 
 </dependencies>
 	

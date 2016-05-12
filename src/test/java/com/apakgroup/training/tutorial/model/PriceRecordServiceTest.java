@@ -299,7 +299,7 @@ public class PriceRecordServiceTest {
     }
 
     @Transactional
-    @Rollback
+    @Ignore // @Rollback
     @Test
     public final void deleteAllPriceRecordsTest() {
         //Create a list of priceRecords
