@@ -36,8 +36,7 @@ public class PriceRecordServiceTest {
     @Resource
     private PriceRecordService priceRecordService;
 
-    @Transactional
-    @Ignore //@Rollback(false) //  
+    // @Ignore //@Rollback(false) //  
     @Test
     public final void populateDBfromXML() throws JAXBException {
         File file = new File("10kEntriesXML.xml");
@@ -110,7 +109,7 @@ public class PriceRecordServiceTest {
     }
 
     @Transactional
-    @Rollback
+    @Ignore // @Rollback
     @Test
     public final void getPriceRecordBySpecificLookupcodeTest() {
         // record already in database, get its id
@@ -298,7 +297,6 @@ public class PriceRecordServiceTest {
         assertEquals(numberOfRecordsBeforeDeletion, numberOfRecordsAfterDeletion + 2);
     }
 
-    @Transactional
     @Ignore // @Rollback
     @Test
     public final void deleteAllPriceRecordsTest() {
