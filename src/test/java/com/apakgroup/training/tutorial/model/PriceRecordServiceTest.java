@@ -262,6 +262,16 @@ public class PriceRecordServiceTest {
         assertEquals(numberOfRecordsBeforeDeletion, numberOfRecordsAfterDeletion + 1);
     }
 
+    // testPriceRecordLookup
+    //@Transactional
+    @Test
+    public final void deletePriceRecordByIDTest1() {
+        //Remove the priceBand to the record
+        long id = 490848;
+        priceRecordService.deletePriceRecordByID(id);
+        assert (true);
+    }
+
     @Transactional
     @Rollback
     @Test
