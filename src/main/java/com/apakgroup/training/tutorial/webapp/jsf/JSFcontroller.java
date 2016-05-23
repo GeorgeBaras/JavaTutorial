@@ -68,6 +68,13 @@ public class JSFcontroller {
         return true;
     }
 
+    /**
+     * returns a list of mileage autocomplete recommendations based on the input given.
+     * 
+     * @param prefix
+     *            what the user has typed in the textbox
+     * @return list of the autocomplete recommendations
+     */
     public ArrayList<String> autocomplete(String prefix) {
         ArrayList<String> miles = new ArrayList<>();
 
@@ -94,6 +101,11 @@ public class JSFcontroller {
         }
     }
 
+    /**
+     * returns a list of all vehicles
+     * 
+     * @return araylist of vehicle objects
+     */
     @Transactional
     public ArrayList<Vehicle> getVehicles() {
         ArrayList<Vehicle> vehicles = new ArrayList<Vehicle>();
@@ -101,6 +113,12 @@ public class JSFcontroller {
         return vehicles;
     }
 
+    /**
+     * gets and return the vehicle with the lookupcode that the user has selected from the dropdown
+     * list
+     * 
+     * @return Vehicle object
+     */
     @Transactional
     public Vehicle getVehicleByLookupCode() {
         if (this.selectedLookUpCode == null || this.selectedLookUpCode.equals("")) {
@@ -110,6 +128,11 @@ public class JSFcontroller {
 
     }
 
+    /**
+     * gets and returns the priceBands of the priceRecord with the lookupcode selected by the user
+     * 
+     * @return arraylist of priceBands
+     */
     @Transactional
     public ArrayList<PriceBand> getPriceBands() {
         ArrayList<PriceBand> priceBands = new ArrayList<PriceBand>();
@@ -123,6 +146,12 @@ public class JSFcontroller {
         return priceBands;
     }
 
+    /**
+     * uses the capValuationCalculator to return a price based on the PriceRecord selected and the
+     * mileage input
+     * 
+     * @return string representation of the vehicle's valuation
+     */
     @Transactional
     public String calculateValuation() {
         if (!this.mileageInput.equals("")) {

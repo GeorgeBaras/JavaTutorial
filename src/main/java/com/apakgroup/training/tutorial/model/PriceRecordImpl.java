@@ -63,6 +63,7 @@ public class PriceRecordImpl implements PriceRecord {
         this.lookupCode = lookUpCode;
     }
 
+    // fetch = FetchType.EAGER, 
     @Override
     @OneToMany(targetEntity = PriceBandImpl.class, cascade = CascadeType.ALL)
     @XmlElementWrapper(name = "priceBands")

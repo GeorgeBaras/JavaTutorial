@@ -36,7 +36,7 @@ public class PriceRecordServiceTest {
     @Resource
     private PriceRecordService priceRecordService;
 
-    // @Ignore //@Rollback(false) //  
+    @Ignore //@Rollback(false) //  
     @Test
     public final void populateDBfromXML() throws JAXBException {
         File file = new File("10kEntriesXML.xml");
@@ -264,10 +264,11 @@ public class PriceRecordServiceTest {
 
     // testPriceRecordLookup
     //@Transactional
+    //@Ignore
     @Test
     public final void deletePriceRecordByIDTest1() {
         //Remove the priceBand to the record
-        long id = 490848;
+        long id = 491671;
         priceRecordService.deletePriceRecordByID(id);
         assert (true);
     }

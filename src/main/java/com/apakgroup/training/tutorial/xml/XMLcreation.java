@@ -69,7 +69,8 @@ public class XMLcreation {
     }
 
     /**
-     * Goes through the
+     * Goes through the nodes of the XML file and get priceBands and PriceRecords which it adds to
+     * PriceRecordList
      * 
      * @param file
      * @return
@@ -115,7 +116,8 @@ public class XMLcreation {
 
     /**
      * goes through opening and closing tags in the xml file that it gets as a parameter and
-     * recreates the PriceRecordList
+     * recreates the PriceRecordList. When it finds an opening tag it keeps the next event in an
+     * appropriate variable and once the end tag comes up it stores it in PriceRecordList
      * 
      * @param file
      * @return

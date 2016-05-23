@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.apakgroup.training</groupId>
   <artifactId>tutorial-George-Baras</artifactId>
-  <version>10-SNAPSHOT</version>
+  <version>12-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>Tutorial George Baras</name>
   <description>Training tutorial project covering standard skills and libraries used by WFS</description>
@@ -282,10 +282,67 @@
     <version>2.2.0.RELEASE</version>
 </dependency>
 
+<!-- form online tutorial ***12 -->
+<dependency> 
+<groupId>org.springframework</groupId> 
+<artifactId>spring-webmvc</artifactId> 
+</dependency> 
+
+<dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-core</artifactId>
+    <version>2.6.3</version>
+</dependency>
+
+<dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-annotations</artifactId>
+    <version>2.6.3</version>
+</dependency>
+
+<dependency>
+   <groupId>com.fasterxml.jackson.core</groupId>
+   <artifactId>jackson-databind</artifactId>
+   <version>2.6.3</version>
+</dependency>
+
+<!-- JSON path *** -->
+<dependency>
+	<groupId>com.jayway.jsonpath</groupId>
+	<artifactId>json-path</artifactId>
+	<version>0.8.1</version>
+	<scope>test</scope>
+</dependency>
+
+<dependency>
+	<groupId>com.jayway.jsonpath</groupId>
+	<artifactId>json-path-assert</artifactId>
+	<version>0.8.1</version>
+	<scope>test</scope>
+</dependency>
+
+	<dependency>
+ <groupId>javax.servlet</groupId>
+ <artifactId>javax.servlet-api</artifactId>
+ <version>3.1.0</version>
+</dependency>
+
+<!-- Mock MVC for the RESTful webservice -->
+
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-test</artifactId>
+    <!-- Deliberately override managed version, Spring 4.X requires servlet-api 3.X, but we're using 2.5 -->
+    <version>3.2.14.RELEASE</version>
+    <!-- The scope should remain as "test" -->
+    <scope>test</scope>
+</dependency>
+
 </dependencies>
 	
 	<properties>
 		<junit.version>4.11</junit.version>
 		<sonar.plugin.version>4.5</sonar.plugin.version>
 	</properties>
+	
 </project>

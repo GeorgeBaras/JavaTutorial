@@ -53,13 +53,28 @@ public class PriceRecordService {
     }
 
     @Transactional
+    public PriceRecord getPriceRecordByLookupcodeEAGER(String lookupcode) {
+        return this.getPriceRecordDAO().getPriceRecordByLookupcodeEAGER(lookupcode);
+    }
+
+    @Transactional
     public PriceRecord getPriceRecordByID(long ID) {
         return this.getPriceRecordDAO().getPriceRecordByID(ID);
     }
 
     @Transactional
+    public PriceRecord getPriceRecordByIDEAGER(long ID) {
+        return this.getPriceRecordDAO().getPriceRecordByIDEAGER(ID);
+    }
+
+    @Transactional
     public List<PriceRecordImpl> getAllPriceRecords() {
         return this.getPriceRecordDAO().getAllPriceRecords();
+    }
+
+    @Transactional
+    public List<PriceRecordImpl> getAllPriceRecordsEAGER() {
+        return this.getPriceRecordDAO().getAllPriceRecordsEAGER();
     }
 
     @Transactional
@@ -115,6 +130,11 @@ public class PriceRecordService {
     @Transactional
     public void deleteAllPriceRecords() {
         this.getPriceRecordDAO().deleteAllPriceRecords();
+    }
+
+    @Transactional
+    public boolean lookUpCodeIsInDB(String lookupcode) {
+        return this.getPriceRecordDAO().lookUpCodeIsInDB(lookupcode);
     }
 
 }

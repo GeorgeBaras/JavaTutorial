@@ -82,6 +82,16 @@ public class PriceRecordDAO {
         return (PriceRecord) priceRecordsFromDB.get(0);
     }
 
+    // get priceRecord by lookupcode EAGERLY
+    public PriceRecord getPriceRecordByLookupcodeEAGER(String lookupcode) {
+        List priceRecordsFromDB = sessionFactory.getCurrentSession().createCriteria(PriceRecordImpl.class)
+                .add(Restrictions.like("lookupCode", lookupcode)).list();
+        //LOGGER.info("PriceRecord retrieved from the database");
+        PriceRecord priceRecord = (PriceRecord) priceRecordsFromDB.get(0);
+        priceRecord.getPriceBands().size();
+        return priceRecord;
+    }
+
     // get priceRecord by id
     public PriceRecord getPriceRecordByID(long ID) {
         List priceRecordsFromDB = sessionFactory.getCurrentSession().createCriteria(PriceRecordImpl.class)
@@ -90,11 +100,33 @@ public class PriceRecordDAO {
         return (PriceRecord) priceRecordsFromDB.get(0);
     }
 
+    // get priceRecord by id EAGERLY
+    public PriceRecord getPriceRecordByIDEAGER(long ID) {
+        List priceRecordsFromDB = sessionFactory.getCurrentSession().createCriteria(PriceRecordImpl.class)
+                .add(Restrictions.like("id", ID)).list();
+        //LOGGER.info("PriceRecord retrieved from the database");
+        PriceRecord priceRecord = (PriceRecord) priceRecordsFromDB.get(0);
+        priceRecord.getPriceBands().size();
+        return priceRecord;
+    }
+
     // get all priceRecords
     public List<PriceRecordImpl> getAllPriceRecords() {
         List priceRecordsFromDB = sessionFactory.getCurrentSession().createCriteria(PriceRecordImpl.class).list();
         //LOGGER.info("PriceRecords retrieved from the database");
         return priceRecordsFromDB;
+    }
+
+    // get all priceRecords
+    public List<PriceRecordImpl> getAllPriceRecordsEAGER() {
+        List priceRecordsFromDB = sessionFactory.getCurrentSession().createCriteria(PriceRecordImpl.class).list();
+        List priceRecords = new ArrayList<PriceRecordImpl>();
+        for (Object priceRecord : priceRecordsFromDB) {
+            PriceRecordImpl pr = (PriceRecordImpl) priceRecord;
+            pr.getPriceBands();
+            priceRecords.add(pr);
+        }
+        return priceRecords;
     }
 
     public long getIDbyLookupcode(String lookupcode) {
@@ -186,6 +218,16 @@ public class PriceRecordDAO {
             deletePriceRecordByLookupcode(priceRecord.getLookupCode());
         }
 
+    }
+
+    public boolean lookUpCodeIsInDB(String lookupcode) {
+        boolean isInDB = false;
+        for (PriceRecord priceRecord : getAllPriceRecords()) {
+            if (lookupcode.equals(priceRecord.getLookupCode())) {
+                isInDB = true;
+            }
+        }
+        return isInDB;
     }
 
 }
