@@ -1,0 +1,33 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/mvc
+                           http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+<context:component-scan base-package="com.apakgroup.training.tutorial.rest"/>
+<mvc:annotation-driven/>
+ 
+<!-- JSON Support -->
+    <bean name="viewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
+    
+    
+    <bean name="jsonTemplate" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+        <property name="prettyPrint" value="true"/>
+    </bean>
+
+	<bean id="vehicleRestController" class="com.apakgroup.training.tutorial.rest.VehicleRestController">
+	<property name="priceRecordService" ref="priceRecordService" />
+	<property name="capValuationCalculator" ref="CAPValuationCalculator" />	
+	</bean>
+	
+		
+	<bean id="priceRecordRestController" class="com.apakgroup.training.tutorial.rest.PriceRecordRestController">
+	<property name="priceRecordService" ref="priceRecordService" />	
+	</bean>
+
+
+</beans>

@@ -55,7 +55,7 @@ id="WebApp_ID" version="2.5">
     <url-pattern>*.xhtml</url-pattern>
   </servlet-mapping>
    
-   <!-- added servlet and servlet-mapping ** --> 
+   <!-- Spring WS servlet and servlet-mapping --> 
     
    <servlet>
 		<servlet-name>spring-ws</servlet-name>
@@ -70,6 +70,25 @@ id="WebApp_ID" version="2.5">
 		<servlet-name>spring-ws</servlet-name>
 		<url-pattern>/webservice/*</url-pattern>
 	</servlet-mapping>
+	
+	<!-- Spring WS servlet and servlet-mapping ***--> 
+	
+	<servlet>
+    	<servlet-name>REST</servlet-name>
+    	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    	<load-on-startup>3</load-on-startup>
+    <init-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:/spring/restContext.xml</param-value>
+    </init-param>
+	</servlet>
+ 
+	<servlet-mapping>
+    	<servlet-name>REST</servlet-name>
+    	<url-pattern>/rest/*</url-pattern>
+	</servlet-mapping>
+	
+	
  
    
 </web-app>

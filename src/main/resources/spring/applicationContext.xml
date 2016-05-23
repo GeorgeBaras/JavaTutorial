@@ -159,8 +159,11 @@ xmlns="http://www.springframework.org/schema/beans">
 	
 	<!-- Import the hibernateContext -->
 	<import resource="hibernateContext.xml" />
-	<!-- Import for the spring-ws-servlet ** -->
+	<!-- Import for the spring-ws-servlet  -->
 	<import resource="spring-ws-servlet.xml" />
+	<!-- Import for the restContext  -->
+	<import resource="restContext.xml" />
+	
 	
 	
 </beans>
