@@ -163,6 +163,8 @@ xmlns="http://www.springframework.org/schema/beans">
 	<import resource="spring-ws-servlet.xml" />
 	<!-- Import for the restContext  -->
 	<import resource="restContext.xml" />
+	<!-- Import for the batchContext  -->
+	<import resource="batchContext.xml"/>
 	
 	
 	

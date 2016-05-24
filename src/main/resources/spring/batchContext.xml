@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:batch="http://www.springframework.org/schema/batch"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+ http://www.springframework.org/schema/batch 
+ http://www.springframework.org/schema/batch/spring-batch-3.0.xsd">
+
+
+
+	<bean id="priceRecordFieldSetMapper" class="com.apakgroup.training.tutorial.batch.PriceRecordFieldSetMapper"></bean>
+
+	<bean id="jobRepository"
+		class="org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean">
+		<property name="transactionManager" ref="transactionManager" />
+	</bean>
+
+	<bean id="jobLauncher"
+		class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
+		<property name="jobRepository" ref="jobRepository" />
+	</bean>
+
+
+	<!-- ItemReader reads a complete line one by one from input file -->
+	<bean id="priceRecordItemReader" class="org.springframework.batch.item.file.FlatFileItemReader"
+		scope="step">
+		<property name="resource" value="file:./DATA/FlatFileLoadingData.txt" />
+		<property name="encoding" value="UTF-8" />
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<property name="fieldSetMapper">
+					<bean
+						class="com.apakgroup.training.tutorial.batch.PriceRecordFieldSetMapper" />
+				</property>
+				<property name="lineTokenizer">
+					<bean id="fixedLengthLineTokenizer"
+						class="org.springframework.batch.item.file.transform.FixedLengthTokenizer">
+						<property name="names"
+							value="LookupCode, BlankSpaces, MN03468, MileageA, PriceA, MileageB, PriceB, DOF, MileageC, PriceC, MileageD, PriceD, MNLOL, MileageE, PriceE, Zeroes, MNBees" />
+						<property name="columns"
+							value="1-10, 11-20, 21-25, 26-33, 34-41, 42-49, 50-57, 58-65, 66-73, 74-81, 82-89, 90-97, 98-100, 101-108, 109-116, 117-122, 123-134" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="priceRecordItemWriter"
+		class="org.springframework.batch.item.database.HibernateItemWriter">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean id="priceRecordItemProcessor"
+		class="com.apakgroup.training.tutorial.batch.PriceRecordProcessor" />
+
+<!-- Step will need a transaction manager -->
+    <bean id="transactionManager" class="org.springframework.batch.support.transaction.ResourcelessTransactionManager" />
+
+
+	<batch:job id="flatFilePriceRecordJob">
+		<batch:step id="readFile">
+			<batch:tasklet transaction-manager="transactionManager">
+				<batch:chunk reader="priceRecordItemReader" writer="priceRecordItemWriter"
+					processor="priceRecordItemProcessor" commit-interval="10" />
+			</batch:tasklet>
+		</batch:step>
+	</batch:job>
+
+</beans>
