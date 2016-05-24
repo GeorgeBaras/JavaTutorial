@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.apakgroup.training</groupId>
   <artifactId>tutorial-George-Baras</artifactId>
-  <version>12-SNAPSHOT</version>
+  <version>13-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>Tutorial George Baras</name>
   <description>Training tutorial project covering standard skills and libraries used by WFS</description>
@@ -337,6 +337,25 @@
     <!-- The scope should remain as "test" -->
     <scope>test</scope>
 </dependency>
+
+<!-- Spring Batch Dependency -->
+<dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-oxm</artifactId>
+            <version>3.0.4.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.batch</groupId>
+            <artifactId>spring-batch-core</artifactId>
+            <version>3.0.4.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.batch</groupId>
+            <artifactId>spring-batch-infrastructure</artifactId>
+            <version>3.0.4.RELEASE</version>
+        </dependency>
+
+
 
 </dependencies>
 	
