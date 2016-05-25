@@ -62,7 +62,7 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 		<batch:step id="readFile">
 			<batch:tasklet transaction-manager="transactionManager">
 				<batch:chunk reader="priceRecordItemReader" writer="priceRecordItemWriter"
-					processor="priceRecordItemProcessor" commit-interval="10" />
+					processor="priceRecordItemProcessor" commit-interval="1" />
 			</batch:tasklet>
 		</batch:step>
 	</batch:job>

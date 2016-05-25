@@ -14,6 +14,7 @@ public class PriceRecordFieldSetMapper implements FieldSetMapper<PriceRecord> {
 
     @Override
     public PriceRecord mapFieldSet(FieldSet fieldSet) throws BindException {
+        //System.out.println("Got in the FieldSetMapper, fieldSet: " + fieldSet.toString());
         PriceRecordImpl priceRecord = new PriceRecordImpl();
         if (fieldSet.getFieldCount() == 0) {
             return priceRecord;
@@ -31,37 +32,42 @@ public class PriceRecordFieldSetMapper implements FieldSetMapper<PriceRecord> {
             String MileageE = fieldSet.readString("MileageE");
             String PriceE = fieldSet.readString("PriceE");
             if (!priceBandIsBlank(MileageA)) {
+                // System.out.println("priceBandAisNotBlank..");
                 PriceBandImpl priceBand = new PriceBandImpl(convertToMileage(MileageA), convertToValuation(PriceA));
                 priceRecord.addPriceBand(priceBand);
             } else {
                 priceRecord.addPriceBand(null);
             }
             if (!priceBandIsBlank(MileageB)) {
+                //  System.out.println("priceBandBisNotBlank..");
                 PriceBandImpl priceBand = new PriceBandImpl(convertToMileage(MileageB), convertToValuation(PriceB));
                 priceRecord.addPriceBand(priceBand);
             } else {
                 priceRecord.addPriceBand(null);
             }
             if (!priceBandIsBlank(MileageC)) {
+                //  System.out.println("priceBandCisNotBlank..");
                 PriceBandImpl priceBand = new PriceBandImpl(convertToMileage(MileageC), convertToValuation(PriceC));
                 priceRecord.addPriceBand(priceBand);
             } else {
                 priceRecord.addPriceBand(null);
             }
             if (!priceBandIsBlank(MileageD)) {
+                //  System.out.println("priceBandDisNotBlank..");
                 PriceBandImpl priceBand = new PriceBandImpl(convertToMileage(MileageD), convertToValuation(PriceD));
                 priceRecord.addPriceBand(priceBand);
             } else {
                 priceRecord.addPriceBand(null);
             }
             if (!priceBandIsBlank(MileageE)) {
+                //  System.out.println("priceBandEisNotBlank..");
                 PriceBandImpl priceBand = new PriceBandImpl(convertToMileage(MileageE), convertToValuation(PriceE));
                 priceRecord.addPriceBand(priceBand);
             } else {
                 priceRecord.addPriceBand(null);
             }
         }
-        return null;
+        return priceRecord;
     }
 
     public boolean rowIsValid(FieldSet fieldSet) {
