@@ -10,6 +10,7 @@ package com.apakgroup.training.tutorial.webservice;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -24,7 +25,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="confirmation" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="priceRecords" type="{http://localhost:8080/webservice/}PriceRecordListWire"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,27 +36,36 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "confirmation"
+    "priceRecords"
 })
-@XmlRootElement(name = "deletePriceRecordByIDResponse")
-public class DeletePriceRecordByIDResponse {
+@XmlRootElement(name = "addPriceRecordListRequest")
+public class AddPriceRecordListRequest {
 
-    protected boolean confirmation;
+    @XmlElement(required = true)
+    protected PriceRecordListWire priceRecords;
 
     /**
-     * Gets the value of the confirmation property.
+     * Gets the value of the priceRecords property.
      * 
+     * @return
+     *     possible object is
+     *     {@link PriceRecordListWire }
+     *     
      */
-    public boolean isConfirmation() {
-        return confirmation;
+    public PriceRecordListWire getPriceRecords() {
+        return priceRecords;
     }
 
     /**
-     * Sets the value of the confirmation property.
+     * Sets the value of the priceRecords property.
      * 
+     * @param value
+     *     allowed object is
+     *     {@link PriceRecordListWire }
+     *     
      */
-    public void setConfirmation(boolean value) {
-        this.confirmation = value;
+    public void setPriceRecords(PriceRecordListWire value) {
+        this.priceRecords = value;
     }
 
 }

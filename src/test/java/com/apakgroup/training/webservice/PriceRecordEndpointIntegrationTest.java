@@ -24,10 +24,13 @@ import org.springframework.xml.transform.StringSource;
 
 import com.apakgroup.training.tutorial.model.PriceBandImpl;
 import com.apakgroup.training.tutorial.model.PriceRecordImpl;
+import com.apakgroup.training.tutorial.model.PriceRecordList;
 import com.apakgroup.training.tutorial.model.PriceRecordService;
 import com.apakgroup.training.tutorial.pricing.PriceBand;
 import com.apakgroup.training.tutorial.webservice.AddPriceBandRequest;
 import com.apakgroup.training.tutorial.webservice.AddPriceBandResponse;
+import com.apakgroup.training.tutorial.webservice.AddPriceRecordListRequest;
+import com.apakgroup.training.tutorial.webservice.AddPriceRecordListResponse;
 import com.apakgroup.training.tutorial.webservice.AddPriceRecordRequest;
 import com.apakgroup.training.tutorial.webservice.AddPriceRecordResponse;
 import com.apakgroup.training.tutorial.webservice.DeletePriceBandByIDRequest;
@@ -68,8 +71,6 @@ public class PriceRecordEndpointIntegrationTest {
     private PriceRecordImpl testPriceRecord;
 
     private long testPriceRecordID;
-
-    private long testID;
 
     @Resource
     private PriceRecordEndpoint priceRecordEndpoint;
@@ -133,6 +134,36 @@ public class PriceRecordEndpointIntegrationTest {
 
         } finally {
             this.priceRecordService.deletePriceRecordByLookupcode("addedRecord");
+        }
+    }
+
+    @Test
+    public final void testHandleaddPriceRecordListRequest() throws JAXBException {
+        try {
+            // create a priceRecordList
+            PriceRecordImpl priceRecord1 = (PriceRecordImpl) PriceRecordsGenerators.priceRecordGenerator(1);
+            priceRecord1.setLookupCode("addedRecord1");
+            PriceRecordImpl priceRecord2 = (PriceRecordImpl) PriceRecordsGenerators.priceRecordGenerator(1);
+            priceRecord2.setLookupCode("addedRecord2");
+
+            PriceRecordList priceRecordList = new PriceRecordList();
+            priceRecordList.addPriceRecordToList(priceRecord1);
+            priceRecordList.addPriceRecordToList(priceRecord2);
+
+            AddPriceRecordListRequest request = new AddPriceRecordListRequest();
+            // pass the PRList to the request as a PriceRecordListWire
+            request.setPriceRecords(this.priceRecordEndpoint.priceRecordListToWire(priceRecordList));
+
+            AddPriceRecordListResponse expectedResponse = new AddPriceRecordListResponse();
+            expectedResponse.setConfirmation(true);
+
+            this.mockWebServiceClient
+                    .sendRequest(org.springframework.ws.test.server.RequestCreators.withPayload((marshal(request))))
+                    .andExpect(org.springframework.ws.test.server.ResponseMatchers.payload(marshal(expectedResponse)));
+
+        } finally {
+            this.priceRecordService.deletePriceRecordByLookupcode("addedRecord1");
+            this.priceRecordService.deletePriceRecordByLookupcode("addedRecord2");
         }
     }
 

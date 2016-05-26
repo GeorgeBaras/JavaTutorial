@@ -37,8 +37,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
     "confirmation"
 })
-@XmlRootElement(name = "deletePriceRecordByIDResponse")
-public class DeletePriceRecordByIDResponse {
+@XmlRootElement(name = "addPriceRecordListResponse")
+public class AddPriceRecordListResponse {
 
     protected boolean confirmation;
 

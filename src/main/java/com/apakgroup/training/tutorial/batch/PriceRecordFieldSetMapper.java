@@ -87,6 +87,7 @@ public class PriceRecordFieldSetMapper implements FieldSetMapper<PriceRecord> {
         return isValid;
     }
 
+    // The following processing methods should be part of the PriceRecordProcessor
     public String convertToLookUpCode(String field) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < field.length() - 1; i++) {

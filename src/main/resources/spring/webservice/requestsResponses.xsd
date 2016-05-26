@@ -124,6 +124,22 @@ elementFormDefault="qualified">
 	</xs:complexType>
 </xs:element>
 
+<xs:element name="addPriceRecordListRequest">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="priceRecords" type="tns:PriceRecordListWire" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="addPriceRecordListResponse">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="confirmation" type="xs:boolean" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
 <!-- Deleting price records -->
 
 <xs:element name="deletePriceRecordByIDRequest">

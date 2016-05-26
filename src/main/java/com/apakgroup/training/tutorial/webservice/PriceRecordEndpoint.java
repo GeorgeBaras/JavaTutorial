@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.apakgroup.training.tutorial.model.PriceBandImpl;
 import com.apakgroup.training.tutorial.model.PriceRecordImpl;
+import com.apakgroup.training.tutorial.model.PriceRecordList;
 import com.apakgroup.training.tutorial.model.PriceRecordService;
 import com.apakgroup.training.tutorial.pricing.PriceBand;
 import com.apakgroup.training.tutorial.pricing.PriceRecord;
@@ -65,6 +66,22 @@ public class PriceRecordEndpoint {
         return priceRecordWire;
     }
 
+    public PriceRecordListWire priceRecordListToWire(PriceRecordList priceRecordList) {
+        PriceRecordListWire priceRecordListWire = new PriceRecordListWire();
+        for (PriceRecord priceRecord : priceRecordList.getListOfPriceRecords()) {
+            priceRecordListWire.getPriceRecords().add(priceRecordToWire(priceRecord));
+        }
+        return priceRecordListWire;
+    }
+
+    public PriceRecordList wireToPriceRecordList(PriceRecordListWire priceRecordListWire) {
+        PriceRecordList priceRecordList = new PriceRecordList();
+        for (PriceRecordWire priceRecordWire : priceRecordListWire.getPriceRecords()) {
+            priceRecordList.addPriceRecordToList(wireToPriceRecord(priceRecordWire));
+        }
+        return priceRecordList;
+    }
+
     // Add PriceBand
     public AddPriceBandResponse handleaddPriceBandRequest(AddPriceBandRequest request) {
         AddPriceBandResponse result = new AddPriceBandResponse();
@@ -82,6 +99,22 @@ public class PriceRecordEndpoint {
         PriceRecordImpl priceRecord = this.wireToPriceRecord(request.getPriceRecord());
         /* Add the priceRecord to the database */
         result.setId(this.priceRecordService.addPriceRecord(priceRecord));
+        return result;
+    }
+
+    // Add PriceRecordList
+    public AddPriceRecordListResponse handleaddPriceRecordListRequest(AddPriceRecordListRequest request) {
+        AddPriceRecordListResponse result = new AddPriceRecordListResponse();
+        // create a priceRecordList out of the request
+
+        PriceRecordList priceRecordList = this.wireToPriceRecordList(request.getPriceRecords());
+        /* Add the priceRecord to the database */
+        boolean recordsAddedSuccessfully = true;
+        this.priceRecordService.addPriceRecordList(priceRecordList);
+        if (priceRecordList.getListOfPriceRecords().isEmpty()) {
+            recordsAddedSuccessfully = false;
+        }
+        result.setConfirmation(recordsAddedSuccessfully);
         return result;
     }
 
