@@ -52,7 +52,9 @@ public class ModelWireConversion {
         // get the priceBands from the priceBand List of the priceRecord
         List<PriceBandWire> priceBands = new ArrayList<PriceBandWire>();
         for (PriceBand priceBand : priceRecord.getPriceBands()) {
-            priceBands.add(this.priceBandToWire(priceBand));
+            if (priceBand != null) {
+                priceBands.add(this.priceBandToWire(priceBand));
+            }
         }
         // add the priceBands to the priceRecord
         //priceRecordWire.getPriceBands() = 

@@ -165,6 +165,8 @@ xmlns="http://www.springframework.org/schema/beans">
 	<import resource="restContext.xml" />
 	<!-- Import for the batchContext  -->
 	<import resource="batchContext.xml"/>
+	<!-- Import for the camelContext  -->
+	<import resource="camelContext.xml"/>
 	
 	
 	

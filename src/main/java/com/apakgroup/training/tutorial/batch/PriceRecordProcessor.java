@@ -16,5 +16,4 @@ public class PriceRecordProcessor implements ItemProcessor<PriceRecord, PriceRec
         LOGGER.info("PriceRecord {} is being processed", priceRecord.getLookupCode());
         return priceRecord;
     }
-
 }
