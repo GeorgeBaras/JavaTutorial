@@ -8,7 +8,6 @@ import java.math.BigDecimal;
 
 import javax.annotation.Resource;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.batch.core.BatchStatus;
@@ -32,7 +31,7 @@ public class BatchTest {
     @Resource
     Job flatFilePriceRecordJob;
 
-    @Ignore
+    //@Ignore
     @Test
     public final void testBatchJob() {
         try {
