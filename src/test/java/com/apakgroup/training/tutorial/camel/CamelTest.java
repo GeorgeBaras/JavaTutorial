@@ -11,6 +11,7 @@ import java.nio.file.Path;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.xml.bind.JAXBException;
 
 import org.apache.camel.CamelContext;
 import org.junit.Ignore;
@@ -43,20 +44,29 @@ public class CamelTest {
     private Job flatFileToSoapRequestJob;
 
     @Resource
+    private CamelProcessor camelProcessor;
+
+    @Resource
     private BatchPriceRecordToSoapXMLRequest batchPriceRecordToSoapXMLRequest;
 
-    @Resource(name = "camel")
-    CamelContext context;
+    @Resource(name = "camelXML")
+    private CamelContext contextXML;
+
+    @Resource(name = "camelDB")
+    private CamelContext contextDB;
 
     @Test
     public void runTest() throws Exception {
-        context.start();
-        Thread.sleep(20000);
-        context.stop();
+        contextXML.start();
+        Thread.sleep(15000);
+        contextXML.stop();
     }
 
-    public void setContext(CamelContext context) {
-        this.context = context;
+    @Ignore
+    @Test
+    public final void testUnmarshalFromFile() throws JAXBException {
+        String firstLookup = this.camelProcessor.unmarshalFromFile().getListOfPriceRecords().get(0).getLookupCode();
+        assertEquals(firstLookup, "OBB7B7");
     }
 
     @Ignore
@@ -84,5 +94,33 @@ public class CamelTest {
         Path path = FileSystems.getDefault().getPath("REQUEST", "1.xml");
         assertTrue(Files.exists(path, new LinkOption[] { LinkOption.NOFOLLOW_LINKS }));
     }
+
+    //  @EndpointInject(uri = "spring-batch:flatFileToSoapRequestJob")
+    //  private MockEndpoint resultEndpoint;
+    //
+    //  @Produce(uri = "file://DATA/?noop=true")
+    //  private ProducerTemplate template;
+    //
+    //  @Ignore
+    //  @Test
+    //  public void testSendMatchingMessage() throws Exception {
+    //      String expectedBody = "<matched/>";
+    //
+    //      resultEndpoint.expectedBodiesReceived(expectedBody);
+    //
+    //      template.sendBodyAndHeader(expectedBody, "foo", "bar");
+    //
+    //      resultEndpoint.assertIsSatisfied();
+    //  }
+    //
+    //  @Ignore
+    //  @Test
+    //  public void testSendNotMatchingMessage() throws Exception {
+    //      resultEndpoint.expectedMessageCount(0);
+    //
+    //      template.sendBodyAndHeader("<notMatched/>", "foo", "notMatchedHeaderValue");
+    //
+    //      resultEndpoint.assertIsSatisfied();
+    //  }
 
 }

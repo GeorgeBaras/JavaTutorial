@@ -76,7 +76,11 @@ public class BatchPriceRecordToSoapXMLRequest implements ItemWriter<PriceRecordI
         // Use a PriceRecordListRequest
         AddPriceRecordListRequest listRequest = new AddPriceRecordListRequest();
         listRequest.setPriceRecords(converter.priceRecordListToWire(priceRecordList));
-        stringSource = marshal(listRequest);
+        // Create an XML file from the priceRecordList instead of doing it for the AddPriceRecordListRequest
+        // stringSource = marshal(listRequest);
+        // this.createXML("REQUEST", "listRequest", stringSource.toString());
+
+        stringSource = marshal(priceRecordList);
         this.createXML("REQUEST", "listRequest", stringSource.toString());
 
     }

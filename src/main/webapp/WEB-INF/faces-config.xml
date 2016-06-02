@@ -10,6 +10,10 @@
         <el-resolver>
             org.springframework.web.jsf.el.SpringBeanFacesELResolver
         </el-resolver>    
+        
+        <el-resolver>
+    		com.apakgroup.training.resolvers.ELMessageResolver
+		</el-resolver>
     </application>
     
 

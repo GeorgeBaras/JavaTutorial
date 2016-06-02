@@ -393,6 +393,17 @@
 		
 <!-- Translations -->
 
+<dependency>
+    <groupId>com.apakgroup</groupId>
+    <artifactId>wfs-translations-ui</artifactId>
+    <version>3.0.3</version>
+</dependency>
+<dependency>
+    <groupId>javax.el</groupId>
+    <artifactId>javax.el-api</artifactId>
+    <version>3.0.0</version>
+</dependency>
+
 </dependencies>
 	
 	<properties>
