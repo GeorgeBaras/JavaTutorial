@@ -12,7 +12,7 @@
 
 <composite:implementation>
 
-<div class="label">Please select your model:</div>
+<div class="label">#{sysxmessage.Please_select_your_model}:</div>
   <h:selectOneMenu id="vehicleDropDownList" value="#{jSFcontroller.selectedLookUpCode}">
     <f:selectItems value="#{jSFcontroller.getVehicles()}" var="vehicle" 
         itemLabel="#{vehicle.getMake()} - #{vehicle.getModel()} " itemValue="#{vehicle.getLookupCode()}" />

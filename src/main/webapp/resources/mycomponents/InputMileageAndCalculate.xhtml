@@ -14,7 +14,7 @@
 </composite:interface>
 
 <composite:implementation>
-<div class="label">Enter your vehicle's miles:</div>
+<div class="label">#{sysxmessage.Enter_your_vehicle_miles}:</div>
 <!-- rich autocomplete instead of classic inputText -->
 <rich:autocomplete id="mileageFromUser" mode="client" minChars="1" autocompleteMethod="#{jSFcontroller.autocomplete}"  value="#{jSFcontroller.mileageInput}" 
          label="miles">

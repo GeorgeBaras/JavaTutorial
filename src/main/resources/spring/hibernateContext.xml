@@ -28,6 +28,7 @@
                 <value>com.apakgroup.training.tutorial.model</value>
                 <value>com.apakgroup.training.tutorial.pricing</value>
                 <value>com.apakgroup.training.tutorial.pricing.cap</value>
+                <value>com.apakgroup.wfs.model.translations</value>
             </list>
         </property>
          <property name="hibernateProperties">
@@ -38,11 +39,48 @@
             </props>
         </property>
     </bean>
-     
+    
     <!-- This enables the use of the @Transactional annotation, which will be relevant for reusable testing and in later tutorials -->
     <tx:annotation-driven transaction-manager="txManager"/>
      
     <bean id = "txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
+    
+    <!-- Translations beans -->
+    
+    <bean id="messageManager" class="com.apakgroup.training.resolvers.TranslationManagerImpl">
+    <property name="messageSource" ref="translationMessageSource" />
+    <property name="translationContextHandler" ref="translationContextHandler" />
+	</bean>
+	<bean id="translationMessageSource" init-method="initialise"
+    class="com.apakgroup.wfs.translations.messagesource.TranslationMessageSource">
+    <property name="translationService" ref="translationService" />
+	</bean>
+	<bean id="transactionalTranslationService"
+    class="com.apakgroup.wfs.translations.controllers.TransactionalTranslationService">
+    <property name="translationDAO" ref="translationDAO" />
+    <property name="extendedTranslationDAO" ref="translationDAO" />
+	</bean>
+	<bean id="translationService"
+    class="com.apakgroup.wfs.translations.controllers.TranslationService">
+    <property name="transactionalTranslationService" ref="transactionalTranslationService" />
+	</bean>
+	<bean id="translationLoader" class="com.apakgroup.wfs.translations.controllers.TranslationLoaderImpl">
+	<property name="translationService" ref="translationService" />
+    <property name="translationMessageSource" ref="translationMessageSource" />
+	</bean>
+	<bean id="translationDAO" class="com.apakgroup.wfs.translations.dao.TranslationDAOImpl">
+    <property name="sessionFactory">
+        <ref bean="sessionFactory" />
+    </property>
+	</bean>
+	<bean id="translationContextHandler"
+    class="com.apakgroup.wfs.translations.controllers.TranslationContextHandlerImpl"
+    init-method="initialise">
+    <property name="translationService" ref="translationService" />
+	</bean>
+
+   <!-- Translations beans -->
+    
 </beans>

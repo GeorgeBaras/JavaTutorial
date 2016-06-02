@@ -17,8 +17,6 @@ import org.springframework.xml.transform.StringSource;
 
 import com.apakgroup.training.tutorial.model.PriceRecordImpl;
 import com.apakgroup.training.tutorial.model.PriceRecordList;
-import com.apakgroup.training.tutorial.webservice.AddPriceRecordListRequest;
-import com.apakgroup.training.tutorial.webservice.ModelWireConversion;
 
 public class BatchPriceRecordToSoapXMLRequest implements ItemWriter<PriceRecordImpl> {
 
@@ -61,9 +59,7 @@ public class BatchPriceRecordToSoapXMLRequest implements ItemWriter<PriceRecordI
             priceRecordList.addPriceRecordToList(priceRecord);
         }
 
-        ModelWireConversion converter = new ModelWireConversion();
-        StringSource stringSource;
-
+        // ModelWireConversion converter = new ModelWireConversion();
         // Create AddPriceRecordRequest for each 
         /*
          * AddPriceRecordRequest request = new AddPriceRecordRequest(); int i = 1; for
@@ -72,14 +68,13 @@ public class BatchPriceRecordToSoapXMLRequest implements ItemWriter<PriceRecordI
          * stringSource = marshal(request); this.createXML("REQUEST", "request" +
          * Integer.toString(i), stringSource.toString()); i++; }
          */
-
         // Use a PriceRecordListRequest
-        AddPriceRecordListRequest listRequest = new AddPriceRecordListRequest();
-        listRequest.setPriceRecords(converter.priceRecordListToWire(priceRecordList));
+        // AddPriceRecordListRequest listRequest = new AddPriceRecordListRequest();
+        // listRequest.setPriceRecords(converter.priceRecordListToWire(priceRecordList));
         // Create an XML file from the priceRecordList instead of doing it for the AddPriceRecordListRequest
         // stringSource = marshal(listRequest);
         // this.createXML("REQUEST", "listRequest", stringSource.toString());
-
+        StringSource stringSource;
         stringSource = marshal(priceRecordList);
         this.createXML("REQUEST", "listRequest", stringSource.toString());
 
