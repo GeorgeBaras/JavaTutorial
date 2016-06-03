@@ -3,11 +3,13 @@ package com.apakgroup.training.tutorial.webapp.jsf;
 import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.apakgroup.training.resolvers.TranslationManagerImpl;
 import com.apakgroup.training.tutorial.model.PriceRecordService;
 import com.apakgroup.training.tutorial.model.Vehicle;
 import com.apakgroup.training.tutorial.model.VehicleService;
@@ -30,6 +32,24 @@ public class JSFcontroller {
     private String selectedLookUpCode;
 
     private String mileageInput;
+
+    // Translation ////
+
+    private TranslationManagerImpl translationManagerImpl;
+
+    public TranslationManagerImpl getTranslationManagerImpl() {
+        return translationManagerImpl;
+    }
+
+    public void setTranslationManagerImpl(TranslationManagerImpl translationManagerImpl) {
+        this.translationManagerImpl = translationManagerImpl;
+    }
+
+    public String translate() {
+        return this.translationManagerImpl.getMessage("Vehicle_Valuation", Locale.FRANCE, null);
+    }
+
+    // Translation ////
 
     //Constructor
     public JSFcontroller() {

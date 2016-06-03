@@ -86,4 +86,13 @@ public class TranslationDAOTest {
                 new Translation("Enter_your_vehicle_miles", "GR", "Greece", "Plhktologhste ta milia tou oxhmatos sas"));
     }
 
+    @Ignore
+    @Test
+    @Transactional
+    @Rollback(false)
+    public final void addTranslation() {
+        // French Translation
+        this.translationDAO.saveOrUpdate(new Translation("Vehicle_Valuation", "fr", null, "Evaluation du Vehicule"));
+    }
+
 }

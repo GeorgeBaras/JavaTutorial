@@ -36,7 +36,7 @@
 </batch:job> 
 
 <camelContext id="camelXML" xmlns="http://camel.apache.org/schema/spring">
-<route>
+<route autoStartup="false">
 	<from uri="file://DATA/?noop=true" />
 	<to uri="spring-batch:flatFileToSoapRequestJob"/>
 	<process ref="camelProcessor" />

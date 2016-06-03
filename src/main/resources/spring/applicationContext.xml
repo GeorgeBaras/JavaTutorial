@@ -119,6 +119,7 @@ xmlns="http://www.springframework.org/schema/beans">
 	<property name="capValuationCalculator" ref="CAPValuationCalculator" />	
 	<property name="selectedLookUpCode" ref="selectedLookUpCode" />
 	<property name="mileageInput" ref="mileageInput" />	
+	<property name="translationManagerImpl" ref="messageManager" />	
 	</bean>
 	
 	<bean id="numberInput" class="java.lang.String"/>
