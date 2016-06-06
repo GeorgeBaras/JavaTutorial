@@ -45,7 +45,8 @@
 			</plugin>
 	
 	
-	<plugin>
+
+<plugin>
     <groupId>org.codehaus.mojo</groupId>
     <artifactId>jaxb2-maven-plugin</artifactId>
     <version>1.6</version>
@@ -58,12 +59,12 @@
         </execution>
     </executions>
     <configuration>
-	<schemaDirectory>${project.basedir}/src/main/resources/spring/webservice</schemaDirectory>
-        <packageName>com.apakgroup.training.tutorial.webservice</packageName>
+<schemaDirectory>${project.basedir}/src/main/webapp/resources/</schemaDirectory>
+        <packageName>com.apakgroup.training.webapp.generated</packageName>
         <outputDirectory>${project.basedir}/src/main/java/</outputDirectory>
         <clearOutputDir>false</clearOutputDir>
     </configuration>
-	</plugin>
+</plugin>
 
 	
 	

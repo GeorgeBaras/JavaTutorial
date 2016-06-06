@@ -49,22 +49,30 @@ public class PriceRecordService {
 
     @Transactional
     public PriceRecord getPriceRecordByLookupcode(String lookupcode) {
-        return this.getPriceRecordDAO().getPriceRecordByLookupcode(lookupcode);
+        PriceRecord pr = this.getPriceRecordDAO().getPriceRecordByLookupcode(lookupcode);
+        pr.getPriceBands();
+        return pr;
     }
 
     @Transactional
     public PriceRecord getPriceRecordByLookupcodeEAGER(String lookupcode) {
-        return this.getPriceRecordDAO().getPriceRecordByLookupcodeEAGER(lookupcode);
+        PriceRecord pr = this.getPriceRecordDAO().getPriceRecordByLookupcodeEAGER(lookupcode);
+        pr.getPriceBands();
+        return pr;
     }
 
     @Transactional
     public PriceRecord getPriceRecordByID(long ID) {
-        return this.getPriceRecordDAO().getPriceRecordByID(ID);
+        PriceRecord pr = this.getPriceRecordDAO().getPriceRecordByID(ID);
+        pr.getPriceBands();
+        return pr;
     }
 
     @Transactional
     public PriceRecord getPriceRecordByIDEAGER(long ID) {
-        return this.getPriceRecordDAO().getPriceRecordByIDEAGER(ID);
+        PriceRecord pr = this.getPriceRecordDAO().getPriceRecordByIDEAGER(ID);
+        pr.getPriceBands();
+        return pr;
     }
 
     @Transactional
@@ -74,7 +82,11 @@ public class PriceRecordService {
 
     @Transactional
     public List<PriceRecordImpl> getAllPriceRecordsEAGER() {
-        return this.getPriceRecordDAO().getAllPriceRecordsEAGER();
+        List<PriceRecordImpl> prl = this.getPriceRecordDAO().getAllPriceRecordsEAGER();
+        for (PriceRecordImpl pr : prl) {
+            pr.getPriceBands();
+        }
+        return prl;
     }
 
     @Transactional

@@ -2,10 +2,13 @@ package com.apakgroup.training.tutorial.webservice;
 
 import java.math.BigDecimal;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.apakgroup.training.tutorial.model.PriceRecordService;
 import com.apakgroup.training.tutorial.pricing.PriceRecord;
 import com.apakgroup.training.tutorial.pricing.cap.CAPValuationCalculator;
 
+@Transactional
 public class VehicleEndpoint {
 
     private CAPValuationCalculator capValuationCalculator;

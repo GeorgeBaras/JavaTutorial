@@ -1,15 +1,18 @@
 package com.apakgroup.training.tutorial.camel;
 
 import java.io.File;
+import java.io.StringWriter;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.xml.transform.StringSource;
 
 import com.apakgroup.training.tutorial.model.PriceRecordList;
 import com.apakgroup.training.tutorial.webservice.AddPriceRecordListRequest;
@@ -28,16 +31,25 @@ public class CamelProcessor implements Processor {
         return priceRecordList;
     }
 
+    public StringSource marshal(Object objectToConvert) throws JAXBException {
+        StringWriter xml = new StringWriter();
+        JAXBContext context = JAXBContext.newInstance(objectToConvert.getClass());
+        Marshaller marshaller = context.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        marshaller.marshal(objectToConvert, xml);
+        System.out.println(xml.toString());
+        return new StringSource(xml.toString());
+    }
+
     @Override
     public void process(Exchange exchange) throws Exception {
-        System.out.println("Got into the CamelProcessor...");
         // create a PriceRecordListWire
         PriceRecordListWire priceRecordListWire = new ModelWireConversion().priceRecordListToWire(unmarshalFromFile());
         AddPriceRecordListRequest request = new AddPriceRecordListRequest();
         request.setPriceRecords(priceRecordListWire);
         System.out.println(request.getPriceRecords().getPriceRecords().size());
-        //set body with the request
-        exchange.getOut().setBody(request);
+        //set body with the marshalled request
+        exchange.getOut().setBody(marshal(request));
 
     }
 }

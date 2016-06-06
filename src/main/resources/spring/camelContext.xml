@@ -48,7 +48,7 @@
 <route>
 	<from uri="file://REQUEST/?noop=true" />
 	<process ref="camelProcessor" />
-	<to uri="spring-ws:http://localhost:8080/tutorial-george-baras/soap/" />
+	<to uri="spring-ws:http://localhost:8080/tutorial/webservice/" />
 </route>
 </camelContext>
 

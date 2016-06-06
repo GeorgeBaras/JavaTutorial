@@ -226,7 +226,7 @@ public class PriceRecordEndpointIntegrationTest {
                 .andExpect(org.springframework.ws.test.server.ResponseMatchers.payload(marshal(expectedResponse)));
     }
 
-    @Ignore //Sometimes can only get 1204 entries and then throws indexOutOfBoundsException
+    //@Ignore //Sometimes can only get 1204 entries and then throws indexOutOfBoundsException
     @Transactional
     @Test
     public final void testHandlegetAllPriceRecordsRequest() throws JAXBException {
@@ -234,7 +234,8 @@ public class PriceRecordEndpointIntegrationTest {
         GetAllPriceRecordsResponse expectedResponse = new GetAllPriceRecordsResponse();
 
         List<PriceRecordWire> priceRecords = new ArrayList<PriceRecordWire>();
-        for (PriceRecordImpl priceRecord : this.priceRecordService.getAllPriceRecords()) {
+        for (PriceRecordImpl priceRecord : this.priceRecordService.getAllPriceRecordsEAGER()) {
+            // priceRecord.getPriceBands();
             expectedResponse.getPriceRecord().add(this.priceRecordEndpoint.priceRecordToWire(priceRecord));
         }
         this.mockWebServiceClient
@@ -250,7 +251,7 @@ public class PriceRecordEndpointIntegrationTest {
 
         GetPriceBandsByIDResponse expectedResponse = new GetPriceBandsByIDResponse();
         List<PriceBandWire> priceBands = new ArrayList<PriceBandWire>();
-        for (PriceBand priceBand : this.priceRecordService.getPriceRecordByID(testPriceRecordID).getPriceBands()) {
+        for (PriceBand priceBand : this.priceRecordService.getPriceRecordByIDEAGER(testPriceRecordID).getPriceBands()) {
             expectedResponse.getPriceBands().add(this.priceRecordEndpoint.priceBandToWire(priceBand));
         }
 

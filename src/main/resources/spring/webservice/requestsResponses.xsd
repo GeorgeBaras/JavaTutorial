@@ -5,9 +5,46 @@ xmlns:tns="http://localhost:8080/webservice/"
 elementFormDefault="qualified">
   
   
+  <!--  -->
+  
+<xs:complexType name="PriceBandWire">
+   <xs:sequence>
+    	<xs:element name="id" type="xs:long"/>
+    	<xs:element name="mileage" type="xs:int"/>
+    	<xs:element name="valuation" type="xs:decimal"/>
+    </xs:sequence>
+  </xs:complexType> 
+  
+  <xs:complexType name="PriceRecordWire">
+    <xs:sequence>
+    <xs:element name="id" type="xs:long"/>
+      <xs:element name="lookUpCode" type="xs:string" minOccurs="0"/>
+          <xs:sequence>
+            <xs:element name="priceBands" type="tns:PriceBandWire" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+    </xs:sequence>
+  </xs:complexType>
+  
 
-<xs:include schemaLocation="priceRecordListWire.xsd" />
-<xs:include schemaLocation="vehicleWire.xsd" />
+ <xs:complexType name="PriceRecordListWire">
+    <xs:sequence>
+      <xs:element name="priceRecords" type="tns:PriceRecordWire" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <!--  -->
+  
+   <xs:complexType name="VehicleWire">
+    <xs:sequence>
+      <xs:element name="id" type="xs:long"/>
+      <xs:element name="make" type="xs:string" minOccurs="0"/>
+      <xs:element name="model" type="xs:string" minOccurs="0"/>
+      <xs:element name="derivative" type="xs:string" minOccurs="0"/>
+      <xs:element name="lookupCode" type="xs:string" minOccurs="0"/>
+      <xs:element name="mileage" type="xs:integer" minOccurs="0"/>
+      <xs:element name="value" type="xs:decimal" minOccurs="0"/>    
+    </xs:sequence>
+  </xs:complexType> 
 
 <!-- Valuing a vehicle based on lookupCode and mileage -->
 
