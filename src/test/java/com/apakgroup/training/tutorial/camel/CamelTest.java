@@ -55,10 +55,11 @@ public class CamelTest {
     @Resource(name = "camelDB")
     private CamelContext contextDB;
 
+    //@Ignore
     @Test
     public void runTest() throws Exception {
         contextXML.start();
-        Thread.sleep(15000);
+        Thread.sleep(20000);
         contextXML.stop();
     }
 

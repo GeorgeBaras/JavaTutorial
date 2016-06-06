@@ -40,12 +40,12 @@
 	<from uri="file://DATA/?noop=true" />
 	<to uri="spring-batch:flatFileToSoapRequestJob"/>
 	<process ref="camelProcessor" />
-	<to uri="spring-ws:http://localhost:8080/webservice" />
+	<to uri="spring-ws:http://localhost:8080/tutorial/webservice/" />
 </route>
 </camelContext>
 
 <camelContext id="camelDB" xmlns="http://camel.apache.org/schema/spring">
-<route>
+<route autoStartup="false">
 	<from uri="file://REQUEST/?noop=true" />
 	<process ref="camelProcessor" />
 	<to uri="spring-ws:http://localhost:8080/tutorial/webservice/" />
