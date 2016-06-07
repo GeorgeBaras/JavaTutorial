@@ -308,7 +308,7 @@ public class PriceRecordServiceTest {
         assertEquals(numberOfRecordsBeforeDeletion, numberOfRecordsAfterDeletion + 2);
     }
 
-    //@Ignore // 
+    @Ignore // 
     @Rollback(false)
     @Test
     public final void deleteAllPriceRecordsTest() {

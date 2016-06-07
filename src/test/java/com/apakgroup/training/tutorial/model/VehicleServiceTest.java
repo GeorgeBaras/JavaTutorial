@@ -14,6 +14,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.annotation.Rollback;
@@ -36,6 +37,7 @@ public class VehicleServiceTest {
     public void setUp() throws Exception {
     }
 
+    @Ignore
     @Transactional
     @Rollback(false) // 
     @Test

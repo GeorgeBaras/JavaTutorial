@@ -83,9 +83,6 @@ public class PriceRecordService {
     @Transactional
     public List<PriceRecordImpl> getAllPriceRecordsEAGER() {
         List<PriceRecordImpl> prl = this.getPriceRecordDAO().getAllPriceRecordsEAGER();
-        for (PriceRecordImpl pr : prl) {
-            pr.getPriceBands();
-        }
         return prl;
     }
 
