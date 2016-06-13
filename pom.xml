@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.apakgroup.training</groupId>
   <artifactId>tutorial-George-Baras</artifactId>
-  <version>14-SNAPSHOT</version>
+  <version>17-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>Tutorial George Baras</name>
   <description>Training tutorial project covering standard skills and libraries used by WFS</description>
@@ -405,9 +405,33 @@
     <version>3.0.0</version>
 </dependency>
 
+<!-- Spring  S E C U R I T Y -->
+<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${spring-security.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${spring-security.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security.oauth</groupId>
+			<artifactId>spring-security-oauth2</artifactId>
+			<version>${spring-security-oauth}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.ws</groupId>
+			<artifactId>spring-ws-security</artifactId>
+			<version>2.2.3.RELEASE</version>
+		</dependency>
+
 </dependencies>
 	
 	<properties>
+		<spring-security.version>3.1.0.RELEASE</spring-security.version>
+		<spring-security-oauth>2.0.8.RELEASE</spring-security-oauth>
 		<junit.version>4.11</junit.version>
 		<sonar.plugin.version>4.5</sonar.plugin.version>
 		<camel.version>2.17.0</camel.version>

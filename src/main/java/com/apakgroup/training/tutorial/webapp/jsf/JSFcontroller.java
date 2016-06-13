@@ -35,6 +35,8 @@ public class JSFcontroller {
 
     // Translation ////
 
+    private String showTranslation;
+
     private TranslationManagerImpl translationManagerImpl;
 
     public TranslationManagerImpl getTranslationManagerImpl() {
@@ -47,6 +49,30 @@ public class JSFcontroller {
 
     public String translate() {
         return this.translationManagerImpl.getMessage("Vehicle_Valuation", Locale.FRANCE, null);
+
+    }
+
+    public void setTranslator() {
+        this.showTranslation = "French";
+    }
+
+    public boolean renderTranslation() {
+        if (this.showTranslation == null || this.showTranslation.equals("")) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean renderUntranslated() {
+        return !this.renderTranslation();
+    }
+
+    public String getShowTranslation() {
+        return showTranslation;
+    }
+
+    public void setShowTranslation(String showTranslation) {
+        this.showTranslation = showTranslation;
     }
 
     // Translation ////
@@ -55,6 +81,7 @@ public class JSFcontroller {
     public JSFcontroller() {
         this.selectedLookUpCode = null;
         this.mileageInput = null;
+        // this.showTranslation = null;
     }
 
     public boolean renderDropDownList() {

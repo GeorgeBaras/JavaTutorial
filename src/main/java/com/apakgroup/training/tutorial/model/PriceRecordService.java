@@ -57,7 +57,7 @@ public class PriceRecordService {
     @Transactional
     public PriceRecord getPriceRecordByLookupcodeEAGER(String lookupcode) {
         PriceRecord pr = this.getPriceRecordDAO().getPriceRecordByLookupcodeEAGER(lookupcode);
-        pr.getPriceBands();
+        pr.getPriceBands().size();
         return pr;
     }
 

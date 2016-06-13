@@ -99,7 +99,7 @@ public class XMLcreationTest {
     }
 
     // Problems for Dom4j for >10000 entries and problems for StAX for >10^6 entries
-    @Ignore
+    //@Ignore
     @Test
     public final void benchmarkUnMarshallingTest()
             throws JAXBException, IOException, DocumentException, XMLStreamException {

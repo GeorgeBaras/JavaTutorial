@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:my="http://java.sun.com/jsf/composite/mycomponents"
+      >
+      
+<head></head>
+<!-- CSS -->
+<h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>
+
+<h:body>
+   <h1>Login</h1>
+   <form name='f' action="login" method='POST'>
+      <table>
+         <tr>
+            <td>User:</td>
+            <td><input type='text' name='username' value=''/></td>
+         </tr>
+         <tr>
+            <td>Password:</td>
+            <td><input type='password' name='password' /></td>
+         </tr>
+         <tr>
+            <td><input name="submit" type="submit" value="submit" /></td>
+         </tr>
+      </table>
+  </form>
+</h:body>
+</html>

@@ -13,17 +13,29 @@
 
 <h:body>
 
-<h2 id="pageTitle">#{sysxmessage.Vehicle_Valuation}</h2>
+<h2 id="pageTitle">#{sysxmessage.Translations}</h2>
 
 <!-- CSS -->
 <h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>
 
-
-
 <div id="example">
-The following should read "Vehicle Valuation" in french:<br/>
-#{jSFcontroller.translate()}
+Press the button to translate the following phrase:<br/>
 </div>
+
+<h:form class="form" id="translateButton">
+<h:commandButton value="Translate in French" action="#{jSFcontroller.setTranslator()}" />
+</h:form>
+<br/>
+<br/>
+<br/>
+<h:form class="form" id="untranslatedText" rendered="#{jSFcontroller.renderUntranslated()}">
+Vehicle Valuation
+</h:form>
+<h:form class="form" id="translatedText" rendered="#{jSFcontroller.renderTranslation()}">
+<my:ShowTranslation></my:ShowTranslation>
+</h:form>
+
+
 
 </h:body>
 </html>

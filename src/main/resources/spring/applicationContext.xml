@@ -109,7 +109,8 @@ xmlns="http://www.springframework.org/schema/beans">
 	
 	<!-- JSFcontroller backing bean and validator -->
 	<bean id="selectedLookUpCode" class="java.lang.String"/>
-	<bean id="mileageInput" class="java.lang.String"/>
+	<bean id="mileageInput" class="java.lang.String"/>	
+	<bean id="showTranslation" class="java.lang.String"/>
 	
 	
 	
@@ -119,6 +120,7 @@ xmlns="http://www.springframework.org/schema/beans">
 	<property name="capValuationCalculator" ref="CAPValuationCalculator" />	
 	<property name="selectedLookUpCode" ref="selectedLookUpCode" />
 	<property name="mileageInput" ref="mileageInput" />	
+	<property name="showTranslation" ref="showTranslation" />	
 	<property name="translationManagerImpl" ref="messageManager" />	
 	</bean>
 	
@@ -168,6 +170,8 @@ xmlns="http://www.springframework.org/schema/beans">
 	<import resource="batchContext.xml"/>
 	<!-- Import for the camelContext --> 
 	<import resource="camelContext.xml"/>
+	<!-- Import for the camelContext -->
+	<import resource="spring-security.xml"/>   
 	
 	
 	

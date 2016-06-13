@@ -21,7 +21,6 @@ public class VehicleRestController {
     private CAPValuationCalculator capValuationCalculator;
 
     public VehicleRestController() {
-
     }
 
     @RequestMapping(value = "/valueVehicle/{mileage}/{lookupCode}", method = RequestMethod.GET, produces = "application/json")
