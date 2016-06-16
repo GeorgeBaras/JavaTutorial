@@ -167,11 +167,13 @@ xmlns="http://www.springframework.org/schema/beans">
 	<!-- Import for the restContext  -->
 	<import resource="restContext.xml" />
 	<!-- Import for the batchContext  -->
-	<import resource="batchContext.xml"/>
-	<!-- Import for the camelContext --> 
-	<import resource="camelContext.xml"/>
+	<import resource="batchContext.xml"/> 
 	<!-- Import for the camelContext -->
-	<import resource="spring-security.xml"/>   
+	<import resource="camelContext.xml"/>  
+	<!-- Import for the spring-security -->
+	<import resource="spring-security.xml"/> 
+	<!-- Import for the client-spring-ws-servlet.xml -->
+	<import resource="client-spring-ws-servlet.xml"/>  
 	
 	
 	

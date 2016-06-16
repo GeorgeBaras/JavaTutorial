@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:sws="http://www.springframework.org/schema/web-services"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+                                    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+                                    http://www.springframework.org/schema/web-services  
+                                    http://www.springframework.org/schema/web-services/web-services-2.0.xsd  
+                                     http://www.springframework.org/schema/context  
+                                     http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<bean id="webServiceTemplate" class="org.springframework.ws.client.core.WebServiceTemplate">
+		<property name="defaultUri" value="http://localhost:8080/tutorial/webservice/" />
+		<property name="interceptors" ref="clientWSSecurityInterceptor" />
+		<property name="marshaller" ref="clientjaxb2Marshaller" />
+		<property name="unmarshaller" ref="clientjaxb2Marshaller" />
+	</bean>
+
+
+	<bean id="clientWSSecurityInterceptor"
+		class="org.springframework.ws.soap.security.xwss.XwsSecurityInterceptor">
+		<property name="policyConfiguration" value="classpath:spring/clientSecurityPolicy.xml" />
+		<property name="callbackHandlers">
+			<list />
+		</property>
+	</bean>
+	
+		<bean
+		class="org.springframework.ws.server.endpoint.adapter.MarshallingMethodEndpointAdapter">
+		<description>Enables the MessageDispatchServlet to invoke methods
+			requiring OXM marshalling.
+		</description>
+		<constructor-arg ref="clientjaxb2Marshaller" />
+	</bean>
+
+	<bean id="clientjaxb2Marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller"
+		p:contextPath="com.apakgroup.training.tutorial.webservice" />
+
+</beans>

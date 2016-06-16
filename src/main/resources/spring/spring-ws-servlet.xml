@@ -9,6 +9,8 @@
                                      http://www.springframework.org/schema/context  
                                      http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
+	<!-- PayloadLoggingInterceptor in your spring-ws context will by default log all request and response payloads -->
+	
 	<sws:interceptors>
 		<bean
 			class="org.springframework.ws.server.endpoint.interceptor.PayloadLoggingInterceptor" />
@@ -42,5 +44,27 @@
 
 	<!-- Security -->
 
+	<sws:interceptors>
+		<bean id="wsSecurityInterceptor"
+			class="org.springframework.ws.soap.security.xwss.XwsSecurityInterceptor">
+			<property name="policyConfiguration" value="classpath:spring/securityPolicy.xml" />
+			<property name="callbackHandlers">
+				<list>
+					<ref bean="simplePasswordValidationCallbackHandler" />
+				</list>
+			</property>
+		</bean>
+
+	</sws:interceptors>
+
+	<bean id="simplePasswordValidationCallbackHandler"
+		class="org.springframework.ws.soap.security.xwss.callback.SimplePasswordValidationCallbackHandler">
+		<property name="users">
+			<props>
+				<prop key="user">pass</prop>
+			</props>
+		</property>
+	</bean>
+	
 
 </beans>

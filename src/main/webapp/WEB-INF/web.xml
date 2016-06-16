@@ -34,9 +34,21 @@ id="WebApp_ID" version="2.5">
   <!-- ** -->
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>WEB-INF/classes/spring/applicationContext.xml
-    </param-value>
+    <param-value>WEB-INF/classes/spring/applicationContext.xml </param-value>
+<!--     <param-value>WEB-INF/classes/spring/spring-security.xml </param-value> -->
   </context-param>
+  
+  <!-- MVC configuration -->
+	<servlet>
+		<servlet-name>mvc-dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>mvc-dispatcher</servlet-name>
+		<url-pattern>/oauth/token</url-pattern>
+	</servlet-mapping>
+  
   
   <!-- JSF Mapping -->
   <servlet>
@@ -54,7 +66,8 @@ id="WebApp_ID" version="2.5">
     <servlet-name>Faces Servlet</servlet-name>
     <url-pattern>*.xhtml</url-pattern>
   </servlet-mapping>
-   
+  
+
    <!-- Spring WS servlet and servlet-mapping --> 
     
    <servlet>
@@ -100,7 +113,5 @@ id="WebApp_ID" version="2.5">
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
-	
- 
-   
+
 </web-app>

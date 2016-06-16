@@ -1,9 +1,12 @@
 package com.apakgroup.training.tutorial.webapp.jsf;
 
+import java.io.IOException;
 import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Locale;
+
+import javax.faces.context.FacesContext;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -76,6 +79,14 @@ public class JSFcontroller {
     }
 
     // Translation ////
+
+    // Logout Redirect //
+    public void logout() throws IOException {
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/login.xhtml");
+        System.out.println("Accessed the controller for logout");
+    }
+
+    // Logout Redirect //
 
     //Constructor
     public JSFcontroller() {

@@ -13,7 +13,12 @@
 
 <h:body>
 
-<h2 id="pageTitle">#{sysxmessage.Translations}</h2>
+<h2 id="pageTitle">#{sysxmessage.Translations}  </h2>
+<h:outputLink value="${pageContext.request.contextPath}/login">Logout</h:outputLink>
+
+<h:form class="form" id="LogoutButton">
+<h:commandButton value="Logout" action="#{jSFcontroller.logout()}" />
+</h:form>
 
 <!-- CSS -->
 <h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>

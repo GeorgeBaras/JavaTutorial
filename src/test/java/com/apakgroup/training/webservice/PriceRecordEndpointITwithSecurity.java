@@ -1,14 +1,9 @@
 package com.apakgroup.training.webservice;
 
-import java.io.StringWriter;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.annotation.Resource;
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 
 import org.junit.After;
 import org.junit.Before;
@@ -19,10 +14,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ws.client.core.WebServiceTemplate;
 import org.springframework.ws.test.server.MockWebServiceClient;
-import org.springframework.xml.transform.StringSource;
 
-import com.apakgroup.training.tutorial.model.PriceBandImpl;
 import com.apakgroup.training.tutorial.model.PriceRecordImpl;
 import com.apakgroup.training.tutorial.model.PriceRecordList;
 import com.apakgroup.training.tutorial.model.PriceRecordService;
@@ -56,10 +50,9 @@ import com.apakgroup.training.tutorial.webservice.PriceRecordEndpoint;
 import com.apakgroup.training.tutorial.webservice.PriceRecordWire;
 import com.apakgroup.training.tutorial.xml.PriceRecordsGenerators;
 
-@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath*:spring/applicationContext.xml" })
-public class PriceRecordEndpointIntegrationTest {
+public class PriceRecordEndpointITwithSecurity {
 
     @Resource
     private ApplicationContext applicationContext;
@@ -73,6 +66,10 @@ public class PriceRecordEndpointIntegrationTest {
 
     private long testPriceRecordID;
 
+    // add WebServiceTemplate for Security2
+    @Resource
+    private WebServiceTemplate webServiceTemplate;
+
     @Resource
     private PriceRecordEndpoint priceRecordEndpoint;
 
@@ -84,16 +81,6 @@ public class PriceRecordEndpointIntegrationTest {
         testPriceRecord.setLookupCode("testPriceRecordLookup");
         testPriceRecordID = this.priceRecordService.addPriceRecord(testPriceRecord);
 
-    }
-
-    public StringSource marshal(Object objectToConvert) throws JAXBException {
-        StringWriter xml = new StringWriter();
-        JAXBContext context = JAXBContext.newInstance(objectToConvert.getClass());
-        Marshaller marshaller = context.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        marshaller.marshal(objectToConvert, xml);
-        System.out.println(xml.toString());
-        return new StringSource(xml.toString());
     }
 
     @Test
@@ -110,9 +97,8 @@ public class PriceRecordEndpointIntegrationTest {
         AddPriceBandResponse expectedResponse = new AddPriceBandResponse();
         expectedResponse.setConfirmation(true);
 
-        this.mockWebServiceClient
-                .sendRequest(org.springframework.ws.test.server.RequestCreators.withPayload((marshal(request))))
-                .andExpect(org.springframework.ws.test.server.ResponseMatchers.payload(marshal(expectedResponse)));
+        this.webServiceTemplate.marshalSendAndReceive(request);
+
     }
 
     @Ignore // works but do not know the expected id from Oracle SQL
@@ -129,9 +115,7 @@ public class PriceRecordEndpointIntegrationTest {
             AddPriceRecordResponse expectedResponse = new AddPriceRecordResponse();
             expectedResponse.setId(490848);
 
-            this.mockWebServiceClient
-                    .sendRequest(org.springframework.ws.test.server.RequestCreators.withPayload((marshal(request))))
-                    .andExpect(org.springframework.ws.test.server.ResponseMatchers.payload(marshal(expectedResponse)));
+            this.webServiceTemplate.marshalSendAndReceive(request);
 
         } finally {
             this.priceRecordService.deletePriceRecordByLookupcode("addedRecord");
@@ -158,9 +142,7 @@ public class PriceRecordEndpointIntegrationTest {
             AddPriceRecordListResponse expectedResponse = new AddPriceRecordListResponse();
             expectedResponse.setConfirmation(true);
 
-            this.mockWebServiceClient
-                    .sendRequest(org.springframework.ws.test.server.RequestCreators.withPayload((marshal(request))))
-                    .andExpect(org.springframework.ws.test.server.ResponseMatchers.payload(marshal(expectedResponse)));
+            this.webServiceTemplate.marshalSendAndReceive(request);
 
         } finally {
             this.priceRecordService.deletePriceRecordByLookupcode("addedRecord1");
@@ -175,9 +157,7 @@ public class PriceRecordEndpointIntegrationTest {
         DeletePriceBandByIDResponse expectedResponse = new DeletePriceBandByIDResponse();
         expectedResponse.setConfirmation(true);
 
-        this.mockWebServiceClient
-                .sendRequest(org.springframework.ws.test.server.RequestCreators.withPayload((marshal(request))))
-                .andExpect(org.springframework.ws.test.server.ResponseMatchers.payload(marshal(expectedResponse)));
+        this.webServiceTemplate.marshalSendAndReceive(request);
     }
 
     @Test
@@ -187,9 +167,7 @@ public class PriceRecordEndpointIntegrationTest {
         DeletePriceBandByLookUpCodeResponse expectedResponse = new DeletePriceBandByLookUpCodeResponse();
         expectedResponse.setConfirmation(true);
 
-        this.mockWebServiceClient
-                .sendRequest(org.springframework.ws.test.server.RequestCreators.withPayload((marshal(request))))
-                .andExpect(org.springframework.ws.test.server.ResponseMatchers.payload(marshal(expectedResponse)));
+        this.webServiceTemplate.marshalSendAndReceive(request);
     }
 
     @Test
@@ -204,9 +182,7 @@ public class PriceRecordEndpointIntegrationTest {
         DeletePriceRecordByIDResponse expectedResponse = new DeletePriceRecordByIDResponse();
         expectedResponse.setConfirmation(true);
 
-        this.mockWebServiceClient
-                .sendRequest(org.springframework.ws.test.server.RequestCreators.withPayload((marshal(request))))
-                .andExpect(org.springframework.ws.test.server.ResponseMatchers.payload(marshal(expectedResponse)));
+        this.webServiceTemplate.marshalSendAndReceive(request);
     }
 
     @Test
@@ -222,26 +198,21 @@ public class PriceRecordEndpointIntegrationTest {
         DeletePriceRecordByLookUpCodeResponse expectedResponse = new DeletePriceRecordByLookUpCodeResponse();
         expectedResponse.setConfirmation(true);
 
-        this.mockWebServiceClient
-                .sendRequest(org.springframework.ws.test.server.RequestCreators.withPayload((marshal(request))))
-                .andExpect(org.springframework.ws.test.server.ResponseMatchers.payload(marshal(expectedResponse)));
+        this.webServiceTemplate.marshalSendAndReceive(request);
     }
 
-    @Ignore //Sometimes can only get 1204 entries and then throws indexOutOfBoundsException
+    @Ignore //Sometimes can only get some entries and then throws indexOutOfBoundsException
     @Transactional
     @Test
     public final void testHandlegetAllPriceRecordsRequest() throws JAXBException {
         GetAllPriceRecordsRequest request = new GetAllPriceRecordsRequest();
         GetAllPriceRecordsResponse expectedResponse = new GetAllPriceRecordsResponse();
 
-        List<PriceRecordWire> priceRecords = new ArrayList<PriceRecordWire>();
         for (PriceRecordImpl priceRecord : this.priceRecordService.getAllPriceRecordsEAGER()) {
             // priceRecord.getPriceBands();
             expectedResponse.getPriceRecord().add(this.priceRecordEndpoint.priceRecordToWire(priceRecord));
         }
-        this.mockWebServiceClient
-                .sendRequest(org.springframework.ws.test.server.RequestCreators.withPayload((marshal(request))))
-                .andExpect(org.springframework.ws.test.server.ResponseMatchers.payload(marshal(expectedResponse)));
+        this.webServiceTemplate.marshalSendAndReceive(request);
     }
 
     @Transactional
@@ -251,14 +222,11 @@ public class PriceRecordEndpointIntegrationTest {
         request.setId(testPriceRecordID);
 
         GetPriceBandsByIDResponse expectedResponse = new GetPriceBandsByIDResponse();
-        List<PriceBandWire> priceBands = new ArrayList<PriceBandWire>();
         for (PriceBand priceBand : this.priceRecordService.getPriceRecordByIDEAGER(testPriceRecordID).getPriceBands()) {
             expectedResponse.getPriceBands().add(this.priceRecordEndpoint.priceBandToWire(priceBand));
         }
 
-        this.mockWebServiceClient
-                .sendRequest(org.springframework.ws.test.server.RequestCreators.withPayload((marshal(request))))
-                .andExpect(org.springframework.ws.test.server.ResponseMatchers.payload(marshal(expectedResponse)));
+        this.webServiceTemplate.marshalSendAndReceive(request);
     }
 
     //@Transactional
@@ -268,15 +236,12 @@ public class PriceRecordEndpointIntegrationTest {
         request.setLookupCode(this.testPriceRecord.getLookupCode());
 
         GetPriceBandsByLookUpCodeResponse expectedResponse = new GetPriceBandsByLookUpCodeResponse();
-        List<PriceBandWire> priceBands = new ArrayList<PriceBandWire>();
         for (PriceBand priceBand : this.priceRecordService
                 .getPriceRecordByLookupcode(this.testPriceRecord.getLookupCode()).getPriceBands()) {
             expectedResponse.getPriceBands().add(this.priceRecordEndpoint.priceBandToWire(priceBand));
         }
 
-        this.mockWebServiceClient
-                .sendRequest(org.springframework.ws.test.server.RequestCreators.withPayload((marshal(request))))
-                .andExpect(org.springframework.ws.test.server.ResponseMatchers.payload(marshal(expectedResponse)));
+        this.webServiceTemplate.marshalSendAndReceive(request);
     }
 
     @Transactional
@@ -288,9 +253,7 @@ public class PriceRecordEndpointIntegrationTest {
         GetPriceRecordByIDResponse expectedResponse = new GetPriceRecordByIDResponse();
         expectedResponse.setPriceRecord(this.priceRecordEndpoint.priceRecordToWire(this.testPriceRecord));
 
-        this.mockWebServiceClient
-                .sendRequest(org.springframework.ws.test.server.RequestCreators.withPayload((marshal(request))))
-                .andExpect(org.springframework.ws.test.server.ResponseMatchers.payload(marshal(expectedResponse)));
+        this.webServiceTemplate.marshalSendAndReceive(request);
     }
 
     @Transactional
@@ -302,81 +265,7 @@ public class PriceRecordEndpointIntegrationTest {
         GetPriceRecordByLookupCodeResponse expectedResponse = new GetPriceRecordByLookupCodeResponse();
         expectedResponse.setPriceRecord(this.priceRecordEndpoint.priceRecordToWire(testPriceRecord));
 
-        this.mockWebServiceClient
-                .sendRequest(org.springframework.ws.test.server.RequestCreators.withPayload((marshal(request))))
-                .andExpect(org.springframework.ws.test.server.ResponseMatchers.payload(marshal(expectedResponse)));
-    }
-
-    @Test
-    public final void testWireToPriceBand() {
-        PriceBandWire priceBandWire = new PriceBandWire();
-        priceBandWire.setMileage(10);
-        priceBandWire.setValuation(new BigDecimal("100"));
-
-        PriceBandImpl priceBand = new PriceBandImpl();
-        priceBand.setMileage(10);
-        priceBand.setValuation(new BigDecimal("100"));
-
-        assert (priceBand.compare(this.priceRecordEndpoint.wireToPriceBand(priceBandWire)));
-    }
-
-    @Test
-    public final void testPriceBandToWire() {
-        PriceBandWire priceBandWire1 = new PriceBandWire();
-        priceBandWire1.setMileage(10);
-        priceBandWire1.setValuation(new BigDecimal("100"));
-
-        PriceBandImpl priceBand = new PriceBandImpl();
-        priceBand.setMileage(10);
-        priceBand.setValuation(new BigDecimal("100"));
-
-        PriceBandWire priceBandWire2 = this.priceRecordEndpoint.priceBandToWire(priceBand);
-        assert (this.priceBandWireCompare(priceBandWire1, priceBandWire2));
-
-    }
-
-    //@Ignore
-    @Test
-    public final void testWireToPriceRecord() {
-        PriceBandImpl priceBand1 = new PriceBandImpl();
-        priceBand1.setMileage(10);
-        priceBand1.setValuation(new BigDecimal("100"));
-
-        PriceRecordImpl priceRecord = new PriceRecordImpl();
-        priceRecord.addPriceBand(priceBand1);
-        priceRecord.setLookupCode("alpha");
-
-        PriceRecordWire priceRecordWire = new PriceRecordWire();
-        priceRecordWire.setLookUpCode(priceRecord.getLookupCode());
-
-        for (PriceBand priceBand : priceRecord.getPriceBands()) {
-            priceRecordWire.getPriceBands().add(this.priceRecordEndpoint.priceBandToWire(priceBand1));
-        }
-
-        assert (priceRecord.compare(this.priceRecordEndpoint.wireToPriceRecord(priceRecordWire)));
-    }
-
-    @Test
-    public final void testPriceRecordToWire() {
-        PriceBandImpl priceBand1 = new PriceBandImpl();
-        priceBand1.setMileage(10);
-        priceBand1.setValuation(new BigDecimal("100"));
-
-        PriceRecordImpl priceRecord = new PriceRecordImpl();
-        priceRecord.addPriceBand(priceBand1);
-        priceRecord.setLookupCode("alpha");
-
-        PriceRecordWire priceRecordWire1 = new PriceRecordWire();
-        priceRecordWire1.setLookUpCode(priceRecord.getLookupCode());
-
-        for (PriceBand priceBand : priceRecord.getPriceBands()) {
-            priceRecordWire1.getPriceBands().add(this.priceRecordEndpoint.priceBandToWire(priceBand1));
-        }
-
-        PriceRecordWire priceRecordWire2 = this.priceRecordEndpoint.priceRecordToWire(priceRecord);
-
-        assert (this.priceRecordWireCompare(priceRecordWire1, priceRecordWire2));
-
+        this.webServiceTemplate.marshalSendAndReceive(request);
     }
 
     // helper methods

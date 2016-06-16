@@ -1,24 +1,20 @@
 package com.apakgroup.training.webservice;
 
-import java.io.StringWriter;
 import java.math.BigInteger;
 
 import javax.annotation.Resource;
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ws.client.core.WebServiceTemplate;
 import org.springframework.ws.test.server.MockWebServiceClient;
-import org.springframework.xml.transform.StringSource;
 
 import com.apakgroup.training.tutorial.model.PriceRecordImpl;
 import com.apakgroup.training.tutorial.model.PriceRecordService;
@@ -27,10 +23,9 @@ import com.apakgroup.training.tutorial.webservice.ValueVehicleResponse;
 import com.apakgroup.training.tutorial.webservice.VehicleEndpoint;
 import com.apakgroup.training.tutorial.xml.PriceRecordsGenerators;
 
-@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath*:spring/applicationContext.xml" })
-public class VehicleEndpointIntegrationTest {
+public class VehicleEndpointITwithSecurity {
 
     @Resource
     private ApplicationContext applicationContext;
@@ -42,6 +37,10 @@ public class VehicleEndpointIntegrationTest {
 
     @Resource
     private PriceRecordService priceRecordService;
+
+    // add WebServiceTemplate for Security2
+    @Resource
+    private WebServiceTemplate webServiceTemplate;
 
     private long PRid;
 
@@ -56,19 +55,9 @@ public class VehicleEndpointIntegrationTest {
         PRid = this.priceRecordService.addPriceRecord(priceRecord);
     }
 
-    public StringSource marshal(Object objectToConvert) throws JAXBException {
-        StringWriter xml = new StringWriter();
-        JAXBContext context = JAXBContext.newInstance(objectToConvert.getClass());
-        Marshaller marshaller = context.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        marshaller.marshal(objectToConvert, xml);
-        System.out.println(xml.toString());
-        return new StringSource(xml.toString());
-    }
-
     @Transactional
     @Test
-    public final void testHandlevalueVehicleRequest() throws JAXBException {
+    public final void testHandleSecuredValueVehicleRequest() throws JAXBException {
         // Create the request
         ValueVehicleRequest request = new ValueVehicleRequest();
         request.setLookupCode(this.priceRecord.getLookupCode()); //already in the database
@@ -79,9 +68,8 @@ public class VehicleEndpointIntegrationTest {
         ValueVehicleResponse expectedResponse = new ValueVehicleResponse();
         expectedResponse.setValue(this.priceRecord.getPriceBands().get(0).getValuation());
 
-        this.mockWebServiceClient
-                .sendRequest(org.springframework.ws.test.server.RequestCreators.withPayload((marshal(request))))
-                .andExpect(org.springframework.ws.test.server.ResponseMatchers.payload(marshal(expectedResponse)));
+        Object object = this.webServiceTemplate.marshalSendAndReceive(request);
+        // request and responses are printed in the console
     }
 
     @After
