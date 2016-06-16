@@ -43,6 +43,8 @@
 <http auto-config='true'  > 
 	<intercept-url pattern="/index*" access="hasRole('ROLE_USER')" />
 	<intercept-url pattern="/testTr*" access="hasRole('ROLE_USER')" />
+	<form-login login-page='/login.xhtml'/>
+	<logout logout-success-url="/login?logout" />
 	<csrf disabled="true"/> 
   </http>
 
