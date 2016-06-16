@@ -82,8 +82,9 @@ public class JSFcontroller {
 
     // Logout Redirect //
     public void logout() throws IOException {
-        FacesContext.getCurrentInstance().getExternalContext().redirect("http://localhost:8080/tutorial/login.xhtml");
-        System.out.println("Accessed the controller for logout");
+        FacesContext.getCurrentInstance().getExternalContext()
+                .redirect("http://localhost:8080/tutorial/login.xhtml?logout");
+        //System.out.println("Accessed the controller for logout");
     }
 
     // Logout Redirect //

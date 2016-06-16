@@ -47,6 +47,7 @@
 </h:form>
 <br/><br/><br/><br/>
 <h:form class="form" id="LogoutButton">
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 <h:commandButton value="Logout" action="#{jSFcontroller.logout()}" />
 </h:form>
 
