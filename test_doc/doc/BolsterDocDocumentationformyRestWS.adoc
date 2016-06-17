@@ -1,0 +1,19 @@
+BolsterDoc Documentation for my Rest WS
+=======================================
+:toc:
+:toc-placement: preamble
+
+This section contains the following documents:
+
+== Integration Test for the PriceRecordRestController.
+
+The following sections will provide an overview of the testing of the REST priceRecord url path requests.
+
+link:com.apakgroup.training.tutorial.rest.PriceRecordRestControllerIntegrationTest/IntegrationTestforthePriceRecordRestController..html[View this section]
+
+== Integration Test for the VehicleRestController.
+
+The following sections will provide an overview of the testing of the REST valueVehicle url path.
+
+link:com.apakgroup.training.tutorial.rest.VehicleRestControllerIntegrationTest/IntegrationTestfortheVehicleRestController..html[View this section]
+

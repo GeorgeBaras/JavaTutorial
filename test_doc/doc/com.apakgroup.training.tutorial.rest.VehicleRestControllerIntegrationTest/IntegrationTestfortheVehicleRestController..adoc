@@ -1,0 +1,38 @@
+Integration Test for the VehicleRestController.
+===============================================
+
+
+The following sections will provide an overview of the testing of the REST valueVehicle url path.
+
+[[IntegrationTestfortheVehicleRestController..TestingtheResult]]
+== Testing the Result
+
+=== Create a valueVehicle url-path get request for a priceRecord which is already in the Database
+
+/valueVehicle/1/lookUpCode0
+
+Expected result: the value of the vehicle as it has been calculated
+
+[[IntegrationTestfortheVehicleRestController..TestingthereturnedStatusCodes]]
+== Testing the returned Status Codes
+
+=== Create valueVehicle url-path get requests
+
+==== Expect status OK if the request is valid
+
+/valueVehicle/1/lookUpCode0
+
+Expected status: OK
+
+==== Expect status Bad Request if the given miles is an invalid input, eg. a negative number
+
+/valueVehicle/-1/lookUpCode0
+
+Expected status: BAD REQUEST
+
+==== Expect status Not Found if the given lookupCode is not in the Database
+
+/valueVehicle/1/luc
+
+Expected status: NOT FOUND
+

@@ -1,0 +1,50 @@
+Integration Test for the PriceRecordRestController.
+===================================================
+
+
+The following sections will provide an overview of the testing of the REST priceRecord url path requests.
+
+[[IntegrationTestforthePriceRecordRestController..TestingthedeletePriceBandByLookUpCode]]
+== Testing the deletePriceBandByLookUpCode
+
+=== deletePriceBand delete request
+
+Expected status OK for a valid request
+
+/deletePriceBand/testPriceRecordLookup
+
+Expected Result: deletes the last priceBand for the priceRecord with lookupCode: testPriceRecordLookup 
+
+[[IntegrationTestforthePriceRecordRestController..TestingthedeletePriceRecordByLookUpCode]]
+== Testing the deletePriceRecordByLookUpCode
+
+=== DeletePriceRecordByLookUpCode delete request
+
+Expected status OK for a valid request
+
+/deletePriceRecord/RecordToDELETE
+
+Expected Result: deletes the the priceRecord with lookupCode: RecordToDELETE 
+
+[[IntegrationTestforthePriceRecordRestController..TestingthegetPriceRecordByLookUpCode]]
+== Testing the getPriceRecordByLookUpCode
+
+=== GetPriceRecordByLookUpCode get request
+
+Expected status OK for a valid request
+
+/getPriceRecord/testPriceRecordLookup
+
+Expected Result: gets the the priceRecord with lookupCode: testPriceRecordLookup 
+
+[[IntegrationTestforthePriceRecordRestController..TestingthegetPriceBandByLookUpCode]]
+== Testing the getPriceBandByLookUpCode
+
+=== GetPriceBandByLookUpCode get request
+
+Expected status OK for a valid request
+
+/getPriceBand/testPriceRecordLookup
+
+Expected Result: gets the the priceBands of the priceRecord with lookupCode: testPriceRecordLookup 
+

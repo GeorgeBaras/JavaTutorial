@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<testsuite name="com.apakgroup.training.tutorial.rest.PriceRecordRestControllerIntegrationTest">
+  <testcase classname="com.apakgroup.training.tutorial.rest.PriceRecordRestControllerIntegrationTest" name="testGetPriceRecordByLookUpCodeResult" line="143" preamble="false" timestamp="1466172353601">
+    <data classname="java.lang.String">
+      <value><![CDATA[=== GetPriceRecordByLookUpCode get request]]></value>
+      <renderers>
+        <renderer writer="com.apakgroup.bolsterdoc.writer.HTMLWriter" renderer="com.apakgroup.bolsterdoc.renderer.asciidoc.impl.StringRenderer"/>
+      </renderers>
+    </data>
+    <data classname="java.lang.String">
+      <value><![CDATA[Expected status OK for a valid request]]></value>
+      <renderers>
+        <renderer writer="com.apakgroup.bolsterdoc.writer.HTMLWriter" renderer="com.apakgroup.bolsterdoc.renderer.asciidoc.impl.StringRenderer"/>
+      </renderers>
+    </data>
+    <data classname="java.lang.String">
+      <value><![CDATA[/getPriceRecord/testPriceRecordLookup]]></value>
+      <renderers>
+        <renderer writer="com.apakgroup.bolsterdoc.writer.HTMLWriter" renderer="com.apakgroup.bolsterdoc.renderer.asciidoc.impl.StringRenderer"/>
+      </renderers>
+    </data>
+    <data classname="java.lang.String">
+      <value><![CDATA[Expected Result: gets the the priceRecord with lookupCode: testPriceRecordLookup ]]></value>
+      <renderers>
+        <renderer writer="com.apakgroup.bolsterdoc.writer.HTMLWriter" renderer="com.apakgroup.bolsterdoc.renderer.asciidoc.impl.StringRenderer"/>
+      </renderers>
+    </data>
+  </testcase>
+  <testcase classname="com.apakgroup.training.tutorial.rest.PriceRecordRestControllerIntegrationTest" name="testGetPriceBandByLookUpCodeResult" line="164" preamble="false" timestamp="1466172354872">
+    <data classname="java.lang.String">
+      <value><![CDATA[=== GetPriceBandByLookUpCode get request]]></value>
+      <renderers>
+        <renderer writer="com.apakgroup.bolsterdoc.writer.HTMLWriter" renderer="com.apakgroup.bolsterdoc.renderer.asciidoc.impl.StringRenderer"/>
+      </renderers>
+    </data>
+    <data classname="java.lang.String">
+      <value><![CDATA[Expected status OK for a valid request]]></value>
+      <renderers>
+        <renderer writer="com.apakgroup.bolsterdoc.writer.HTMLWriter" renderer="com.apakgroup.bolsterdoc.renderer.asciidoc.impl.StringRenderer"/>
+      </renderers>
+    </data>
+    <data classname="java.lang.String">
+      <value><![CDATA[/getPriceBand/testPriceRecordLookup]]></value>
+      <renderers>
+        <renderer writer="com.apakgroup.bolsterdoc.writer.HTMLWriter" renderer="com.apakgroup.bolsterdoc.renderer.asciidoc.impl.StringRenderer"/>
+      </renderers>
+    </data>
+    <data classname="java.lang.String">
+      <value><![CDATA[Expected Result: gets the the priceBands of the priceRecord with lookupCode: testPriceRecordLookup ]]></value>
+      <renderers>
+        <renderer writer="com.apakgroup.bolsterdoc.writer.HTMLWriter" renderer="com.apakgroup.bolsterdoc.renderer.asciidoc.impl.StringRenderer"/>
+      </renderers>
+    </data>
+  </testcase>
+  <testcase classname="com.apakgroup.training.tutorial.rest.PriceRecordRestControllerIntegrationTest" name="testDeletePriceBandByLookUpCodeResult" line="91" preamble="false" timestamp="1466172356331">
+    <data classname="java.lang.String">
+      <value><![CDATA[=== deletePriceBand delete request]]></value>
+      <renderers>
+        <renderer writer="com.apakgroup.bolsterdoc.writer.HTMLWriter" renderer="com.apakgroup.bolsterdoc.renderer.asciidoc.impl.StringRenderer"/>
+      </renderers>
+    </data>
+    <data classname="java.lang.String">
+      <value><![CDATA[Expected status OK for a valid request]]></value>
+      <renderers>
+        <renderer writer="com.apakgroup.bolsterdoc.writer.HTMLWriter" renderer="com.apakgroup.bolsterdoc.renderer.asciidoc.impl.StringRenderer"/>
+      </renderers>
+    </data>
+    <data classname="java.lang.String">
+      <value><![CDATA[/deletePriceBand/testPriceRecordLookup]]></value>
+      <renderers>
+        <renderer writer="com.apakgroup.bolsterdoc.writer.HTMLWriter" renderer="com.apakgroup.bolsterdoc.renderer.asciidoc.impl.StringRenderer"/>
+      </renderers>
+    </data>
+    <data classname="java.lang.String">
+      <value><![CDATA[Expected Result: deletes the last priceBand for the priceRecord with lookupCode: testPriceRecordLookup ]]></value>
+      <renderers>
+        <renderer writer="com.apakgroup.bolsterdoc.writer.HTMLWriter" renderer="com.apakgroup.bolsterdoc.renderer.asciidoc.impl.StringRenderer"/>
+      </renderers>
+    </data>
+  </testcase>
+  <testcase classname="com.apakgroup.training.tutorial.rest.PriceRecordRestControllerIntegrationTest" name="testDeletePriceRecordByLookUpCodeResult" line="109" preamble="false" timestamp="1466172348265">
+    <data classname="java.lang.String">
+      <value><![CDATA[=== DeletePriceRecordByLookUpCode delete request]]></value>
+      <renderers>
+        <renderer writer="com.apakgroup.bolsterdoc.writer.HTMLWriter" renderer="com.apakgroup.bolsterdoc.renderer.asciidoc.impl.StringRenderer"/>
+      </renderers>
+    </data>
+    <data classname="java.lang.String">
+      <value><![CDATA[Expected status OK for a valid request]]></value>
+      <renderers>
+        <renderer writer="com.apakgroup.bolsterdoc.writer.HTMLWriter" renderer="com.apakgroup.bolsterdoc.renderer.asciidoc.impl.StringRenderer"/>
+      </renderers>
+    </data>
+    <data classname="java.lang.String">
+      <value><![CDATA[/deletePriceRecord/RecordToDELETE]]></value>
+      <renderers>
+        <renderer writer="com.apakgroup.bolsterdoc.writer.HTMLWriter" renderer="com.apakgroup.bolsterdoc.renderer.asciidoc.impl.StringRenderer"/>
+      </renderers>
+    </data>
+    <data classname="java.lang.String">
+      <value><![CDATA[Expected Result: deletes the the priceRecord with lookupCode: RecordToDELETE ]]></value>
+      <renderers>
+        <renderer writer="com.apakgroup.bolsterdoc.writer.HTMLWriter" renderer="com.apakgroup.bolsterdoc.renderer.asciidoc.impl.StringRenderer"/>
+      </renderers>
+    </data>
+  </testcase>
+  <testcase classname="com.apakgroup.training.tutorial.rest.PriceRecordRestControllerIntegrationTest" name="preamble" line="64" preamble="true" timestamp="1466172337219">
+    <data classname="java.lang.String">
+      <value><![CDATA[The following sections will provide an overview of the testing of the REST priceRecord url path requests.]]></value>
+      <renderers>
+        <renderer writer="com.apakgroup.bolsterdoc.writer.HTMLWriter" renderer="com.apakgroup.bolsterdoc.renderer.asciidoc.impl.StringRenderer"/>
+      </renderers>
+    </data>
+  </testcase>
+</testsuite>

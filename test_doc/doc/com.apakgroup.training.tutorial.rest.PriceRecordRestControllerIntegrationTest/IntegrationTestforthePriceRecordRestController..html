@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.0">
+<title>Integration Test for the PriceRecordRestController.</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic|Noto+Serif:400,400italic,700,700italic|Droid+Sans+Mono:400">
+<link rel="stylesheet" href="./asciidoctor.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="./coderay-asciidoctor.css">
+</head>
+<body class="article toc2 toc-right">
+<div id="header">
+<h1>Integration Test for the PriceRecordRestController.</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#IntegrationTestforthePriceRecordRestController..TestingthedeletePriceBandByLookUpCode">1. Testing the deletePriceBandByLookUpCode</a>
+<ul class="sectlevel2">
+<li><a href="#_deletepriceband_delete_request">1.1. deletePriceBand delete request</a></li>
+</ul>
+</li>
+<li><a href="#IntegrationTestforthePriceRecordRestController..TestingthedeletePriceRecordByLookUpCode">2. Testing the deletePriceRecordByLookUpCode</a>
+<ul class="sectlevel2">
+<li><a href="#_deletepricerecordbylookupcode_delete_request">2.1. DeletePriceRecordByLookUpCode delete request</a></li>
+</ul>
+</li>
+<li><a href="#IntegrationTestforthePriceRecordRestController..TestingthegetPriceRecordByLookUpCode">3. Testing the getPriceRecordByLookUpCode</a>
+<ul class="sectlevel2">
+<li><a href="#_getpricerecordbylookupcode_get_request">3.1. GetPriceRecordByLookUpCode get request</a></li>
+</ul>
+</li>
+<li><a href="#IntegrationTestforthePriceRecordRestController..TestingthegetPriceBandByLookUpCode">4. Testing the getPriceBandByLookUpCode</a>
+<ul class="sectlevel2">
+<li><a href="#_getpricebandbylookupcode_get_request">4.1. GetPriceBandByLookUpCode get request</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following sections will provide an overview of the testing of the REST priceRecord url path requests.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="IntegrationTestforthePriceRecordRestController..TestingthedeletePriceBandByLookUpCode"><a class="anchor" href="#IntegrationTestforthePriceRecordRestController..TestingthedeletePriceBandByLookUpCode"></a>1. Testing the deletePriceBandByLookUpCode</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_deletepriceband_delete_request"><a class="anchor" href="#_deletepriceband_delete_request"></a>1.1. deletePriceBand delete request</h3>
+<div class="paragraph">
+<p>Expected status OK for a valid request</p>
+</div>
+<div class="paragraph">
+<p>/deletePriceBand/testPriceRecordLookup</p>
+</div>
+<div class="paragraph">
+<p>Expected Result: deletes the last priceBand for the priceRecord with lookupCode: testPriceRecordLookup</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="IntegrationTestforthePriceRecordRestController..TestingthedeletePriceRecordByLookUpCode"><a class="anchor" href="#IntegrationTestforthePriceRecordRestController..TestingthedeletePriceRecordByLookUpCode"></a>2. Testing the deletePriceRecordByLookUpCode</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_deletepricerecordbylookupcode_delete_request"><a class="anchor" href="#_deletepricerecordbylookupcode_delete_request"></a>2.1. DeletePriceRecordByLookUpCode delete request</h3>
+<div class="paragraph">
+<p>Expected status OK for a valid request</p>
+</div>
+<div class="paragraph">
+<p>/deletePriceRecord/RecordToDELETE</p>
+</div>
+<div class="paragraph">
+<p>Expected Result: deletes the the priceRecord with lookupCode: RecordToDELETE</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="IntegrationTestforthePriceRecordRestController..TestingthegetPriceRecordByLookUpCode"><a class="anchor" href="#IntegrationTestforthePriceRecordRestController..TestingthegetPriceRecordByLookUpCode"></a>3. Testing the getPriceRecordByLookUpCode</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_getpricerecordbylookupcode_get_request"><a class="anchor" href="#_getpricerecordbylookupcode_get_request"></a>3.1. GetPriceRecordByLookUpCode get request</h3>
+<div class="paragraph">
+<p>Expected status OK for a valid request</p>
+</div>
+<div class="paragraph">
+<p>/getPriceRecord/testPriceRecordLookup</p>
+</div>
+<div class="paragraph">
+<p>Expected Result: gets the the priceRecord with lookupCode: testPriceRecordLookup</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="IntegrationTestforthePriceRecordRestController..TestingthegetPriceBandByLookUpCode"><a class="anchor" href="#IntegrationTestforthePriceRecordRestController..TestingthegetPriceBandByLookUpCode"></a>4. Testing the getPriceBandByLookUpCode</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_getpricebandbylookupcode_get_request"><a class="anchor" href="#_getpricebandbylookupcode_get_request"></a>4.1. GetPriceBandByLookUpCode get request</h3>
+<div class="paragraph">
+<p>Expected status OK for a valid request</p>
+</div>
+<div class="paragraph">
+<p>/getPriceBand/testPriceRecordLookup</p>
+</div>
+<div class="paragraph">
+<p>Expected Result: gets the the priceBands of the priceRecord with lookupCode: testPriceRecordLookup</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2016-06-17 15:06:01 BST
+</div>
+</div>
+</body>
+</html>

@@ -1,4 +1,4 @@
-package com.apakgrroup.training.tutorial.rest;
+package com.apakgroup.training.tutorial.rest;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -12,6 +12,7 @@ import javax.annotation.Resource;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,9 +27,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import com.apakgroup.bolsterdoc.BD;
+import com.apakgroup.bolsterdoc.annotation.TestDocTitle;
 import com.apakgroup.training.tutorial.model.PriceRecordImpl;
 import com.apakgroup.training.tutorial.model.PriceRecordService;
-import com.apakgroup.training.tutorial.rest.PriceRecordRestController;
 import com.apakgroup.training.tutorial.xml.PriceRecordsGenerators;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -37,6 +39,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath*:spring/applicationContext.xml" })
 @WebAppConfiguration
+@TestDocTitle("Integration Test for the PriceRecordRestController.") // added for BolsterDoc
 public class PriceRecordRestControllerIntegrationTest {
 
     @Resource
@@ -55,6 +58,11 @@ public class PriceRecordRestControllerIntegrationTest {
     private long testPriceRecordID;
 
     private long testID;
+
+    @BeforeClass // added for BolsterDoc
+    public static void preamble() {
+        BD.doc("The following sections will provide an overview of the testing of the REST priceRecord url path requests.");
+    }
 
     @Before
     public void beforeMethod() {
@@ -78,13 +86,17 @@ public class PriceRecordRestControllerIntegrationTest {
     }
 
     @Test
+    @TestDocTitle("Testing the deletePriceBandByLookUpCode") // added for BolsterDoc
     public final void testDeletePriceBandByLookUpCodeResult() throws Exception {
+        BD.doc("=== deletePriceBand delete request");
+        BD.doc("Expected status OK for a valid request");
+        BD.doc("/deletePriceBand/testPriceRecordLookup");
+        BD.doc("Expected Result: deletes the last priceBand for the priceRecord with lookupCode: testPriceRecordLookup ");
+
         mockMvc.perform(delete("/deletePriceBand/testPriceRecordLookup")).andExpect(status().isCreated());
         int priceBands = this.priceRecordService.getPriceRecordByIDEAGER(testPriceRecordID).getPriceBands().size();
         assertEquals(priceBands, 5);
     }
-
-    // deletePriceRecordByLookUpCode
 
     @Test
     public final void testDeletePriceRecordByLookUpCodeStatusCodes() throws Exception {
@@ -92,7 +104,13 @@ public class PriceRecordRestControllerIntegrationTest {
     }
 
     @Test
+    @TestDocTitle("Testing the deletePriceRecordByLookUpCode") // added for BolsterDoc
     public final void testDeletePriceRecordByLookUpCodeResult() throws Exception {
+        BD.doc("=== DeletePriceRecordByLookUpCode delete request");
+        BD.doc("Expected status OK for a valid request");
+        BD.doc("/deletePriceRecord/RecordToDELETE");
+        BD.doc("Expected Result: deletes the the priceRecord with lookupCode: RecordToDELETE ");
+
         PriceRecordImpl testPriceRecord1 = new PriceRecordImpl();
         testPriceRecord1.setPriceBands(PriceRecordsGenerators.priceRecordGenerator(6).getPriceBands());
         testPriceRecord1.setLookupCode("RecordToDELETE");
@@ -120,7 +138,13 @@ public class PriceRecordRestControllerIntegrationTest {
     }
 
     @Test
+    @TestDocTitle("Testing the getPriceRecordByLookUpCode") // added for BolsterDoc
     public final void testGetPriceRecordByLookUpCodeResult() throws Exception {
+        BD.doc("=== GetPriceRecordByLookUpCode get request");
+        BD.doc("Expected status OK for a valid request");
+        BD.doc("/getPriceRecord/testPriceRecordLookup");
+        BD.doc("Expected Result: gets the the priceRecord with lookupCode: testPriceRecordLookup ");
+
         MvcResult result = mockMvc.perform(get("/getPriceRecord/testPriceRecordLookup")).andReturn();
         String priceRecordJSON = result.getResponse().getContentAsString();
         assertTrue(isJSONValid(priceRecordJSON));
@@ -135,7 +159,13 @@ public class PriceRecordRestControllerIntegrationTest {
     }
 
     @Test
+    @TestDocTitle("Testing the getPriceBandByLookUpCode") // added for BolsterDoc
     public final void testGetPriceBandByLookUpCodeResult() throws Exception {
+        BD.doc("=== GetPriceBandByLookUpCode get request");
+        BD.doc("Expected status OK for a valid request");
+        BD.doc("/getPriceBand/testPriceRecordLookup");
+        BD.doc("Expected Result: gets the the priceBands of the priceRecord with lookupCode: testPriceRecordLookup ");
+
         MvcResult result = mockMvc.perform(get("/getPriceBand/testPriceRecordLookup")).andReturn();
         String priceBandJSON = result.getResponse().getContentAsString();
         System.out.println(priceBandJSON);

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<testsuite name="com.apakgroup.training.tutorial.rest.VehicleRestControllerIntegrationTest">
+  <testcase classname="com.apakgroup.training.tutorial.rest.VehicleRestControllerIntegrationTest" name="testValueVehicleResult" line="51" preamble="false" timestamp="1466172364554">
+    <data classname="java.lang.String">
+      <value><![CDATA[=== Create a valueVehicle url-path get request for a priceRecord which is already in the Database]]></value>
+      <renderers>
+        <renderer writer="com.apakgroup.bolsterdoc.writer.HTMLWriter" renderer="com.apakgroup.bolsterdoc.renderer.asciidoc.impl.StringRenderer"/>
+      </renderers>
+    </data>
+    <data classname="java.lang.String">
+      <value><![CDATA[/valueVehicle/1/lookUpCode0]]></value>
+      <renderers>
+        <renderer writer="com.apakgroup.bolsterdoc.writer.HTMLWriter" renderer="com.apakgroup.bolsterdoc.renderer.asciidoc.impl.StringRenderer"/>
+      </renderers>
+    </data>
+    <data classname="java.lang.String">
+      <value><![CDATA[Expected result: the value of the vehicle as it has been calculated]]></value>
+      <renderers>
+        <renderer writer="com.apakgroup.bolsterdoc.writer.HTMLWriter" renderer="com.apakgroup.bolsterdoc.renderer.asciidoc.impl.StringRenderer"/>
+      </renderers>
+    </data>
+  </testcase>
+  <testcase classname="com.apakgroup.training.tutorial.rest.VehicleRestControllerIntegrationTest" name="testValueVehicleStatusCodes" line="63" preamble="false" timestamp="1466172366037">
+    <data classname="java.lang.String">
+      <value><![CDATA[=== Create valueVehicle url-path get requests]]></value>
+      <renderers>
+        <renderer writer="com.apakgroup.bolsterdoc.writer.HTMLWriter" renderer="com.apakgroup.bolsterdoc.renderer.asciidoc.impl.StringRenderer"/>
+      </renderers>
+    </data>
+    <data classname="java.lang.String">
+      <value><![CDATA[==== Expect status OK if the request is valid]]></value>
+      <renderers>
+        <renderer writer="com.apakgroup.bolsterdoc.writer.HTMLWriter" renderer="com.apakgroup.bolsterdoc.renderer.asciidoc.impl.StringRenderer"/>
+      </renderers>
+    </data>
+    <data classname="java.lang.String">
+      <value><![CDATA[/valueVehicle/1/lookUpCode0]]></value>
+      <renderers>
+        <renderer writer="com.apakgroup.bolsterdoc.writer.HTMLWriter" renderer="com.apakgroup.bolsterdoc.renderer.asciidoc.impl.StringRenderer"/>
+      </renderers>
+    </data>
+    <data classname="java.lang.String">
+      <value><![CDATA[Expected status: OK]]></value>
+      <renderers>
+        <renderer writer="com.apakgroup.bolsterdoc.writer.HTMLWriter" renderer="com.apakgroup.bolsterdoc.renderer.asciidoc.impl.StringRenderer"/>
+      </renderers>
+    </data>
+    <data classname="java.lang.String">
+      <value><![CDATA[==== Expect status Bad Request if the given miles is an invalid input, eg. a negative number]]></value>
+      <renderers>
+        <renderer writer="com.apakgroup.bolsterdoc.writer.HTMLWriter" renderer="com.apakgroup.bolsterdoc.renderer.asciidoc.impl.StringRenderer"/>
+      </renderers>
+    </data>
+    <data classname="java.lang.String">
+      <value><![CDATA[/valueVehicle/-1/lookUpCode0]]></value>
+      <renderers>
+        <renderer writer="com.apakgroup.bolsterdoc.writer.HTMLWriter" renderer="com.apakgroup.bolsterdoc.renderer.asciidoc.impl.StringRenderer"/>
+      </renderers>
+    </data>
+    <data classname="java.lang.String">
+      <value><![CDATA[Expected status: BAD REQUEST]]></value>
+      <renderers>
+        <renderer writer="com.apakgroup.bolsterdoc.writer.HTMLWriter" renderer="com.apakgroup.bolsterdoc.renderer.asciidoc.impl.StringRenderer"/>
+      </renderers>
+    </data>
+    <data classname="java.lang.String">
+      <value><![CDATA[==== Expect status Not Found if the given lookupCode is not in the Database]]></value>
+      <renderers>
+        <renderer writer="com.apakgroup.bolsterdoc.writer.HTMLWriter" renderer="com.apakgroup.bolsterdoc.renderer.asciidoc.impl.StringRenderer"/>
+      </renderers>
+    </data>
+    <data classname="java.lang.String">
+      <value><![CDATA[/valueVehicle/1/luc]]></value>
+      <renderers>
+        <renderer writer="com.apakgroup.bolsterdoc.writer.HTMLWriter" renderer="com.apakgroup.bolsterdoc.renderer.asciidoc.impl.StringRenderer"/>
+      </renderers>
+    </data>
+    <data classname="java.lang.String">
+      <value><![CDATA[Expected status: NOT FOUND]]></value>
+      <renderers>
+        <renderer writer="com.apakgroup.bolsterdoc.writer.HTMLWriter" renderer="com.apakgroup.bolsterdoc.renderer.asciidoc.impl.StringRenderer"/>
+      </renderers>
+    </data>
+  </testcase>
+  <testcase classname="com.apakgroup.training.tutorial.rest.VehicleRestControllerIntegrationTest" name="preamble" line="40" preamble="true" timestamp="1466172364523">
+    <data classname="java.lang.String">
+      <value><![CDATA[The following sections will provide an overview of the testing of the REST valueVehicle url path.]]></value>
+      <renderers>
+        <renderer writer="com.apakgroup.bolsterdoc.writer.HTMLWriter" renderer="com.apakgroup.bolsterdoc.renderer.asciidoc.impl.StringRenderer"/>
+      </renderers>
+    </data>
+  </testcase>
+</testsuite>
